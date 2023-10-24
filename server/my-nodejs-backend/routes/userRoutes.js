@@ -55,12 +55,12 @@ passport.deserializeUser((userObj, done) => {
 });
 const Access_Public_Secret_Key = process.env.Access_Public_Secret_Key;
 const Access_Private_Secret_Key = process.env.Access_Private_Secret_Key;
-function generate_Public_Token(user) {
-  return jwt.sign(user, Access_Public_Secret_Key, { expiresIn: 3600 }); // expiresIn : 1H
+function generate_Public_Token(user, temp) {
+  return jwt.sign(user, Access_Public_Secret_Key, { expiresIn: temp }); // expiresIn : 1H
 }
 
-function generate_Private_Token(user) {
-  return jwt.sign(user, Access_Private_Secret_Key, { expiresIn: 86400 }); // expiresIn : 1 day
+function generate_Private_Token(user, temp) {
+  return jwt.sign(user, Access_Private_Secret_Key, { expiresIn: temp }); // expiresIn : 1 day
 }
 module.exports = {
   register,

@@ -32,15 +32,15 @@ const users = new Schema({
   },
   creation_date: {
     type: Date,
-    default: Date.now()
+    default: Date.now,
   },
   last_login: {
     type: Date,
-    default: Date.now()
+    default: Date.now,
   },
   last_update: {
     type: Date,
-    default: Date.now()
+    default: Date.now,
   },
   active: {
     type: Boolean,
@@ -48,6 +48,7 @@ const users = new Schema({
   refreshToken: {
     type: String,
     default: ""
+
   },
 });
 const User = mongoose.model("User", users);
