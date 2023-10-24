@@ -12,17 +12,19 @@ const User = require("../models/User");
 // our API
 
 router.post("/register", async (req, res) => {
-    // const { lastName, firstName, userName, password, email } = req.body;
-
-    console.log("req.body " + req.body);
+    const { firstName, lastName, email, userName, password } = req.body;
+    // console.log('Last Name:', lastName);
+    // console.log('First Name:', firstName);
+    // console.log('User Name:', userName);
+    // console.log('Password:', password);
+    // console.log('Email:', email);
     const newUser = await register(
-        lastName,
         firstName,
+        lastName,
+        email,
         userName,
-        password,
-        email
+        password
     );
-
     if (newUser) {
         res.status(200).json({ message: "Registration successful" });
     } else {
