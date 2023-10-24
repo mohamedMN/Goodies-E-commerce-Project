@@ -31,22 +31,23 @@ const users = new Schema({
     required: true,
   },
   creation_date: {
-    type: Number,
-    default: Date.now,
+    type: Date,
+    default: Date.now()
   },
   last_login: {
-    type: Number,
-    default: Date.now,
+    type: Date,
+    default: Date.now()
   },
   last_update: {
-    type: Number,
-    default: Date.now,
+    type: Date,
+    default: Date.now()
   },
   active: {
     type: Boolean,
   },
   refreshToken: {
     type: String,
+    default: ""
   },
 });
 const User = mongoose.model("User", users);

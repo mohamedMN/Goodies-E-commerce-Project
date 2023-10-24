@@ -5,7 +5,7 @@ const passport = require("passport");
 const { v4 } = require("uuid"); // Import the uuid package and generate a v4 UUID
 require("dotenv").config();
 
-const register = async (lastName, firstName, userName, password, email) => {
+const register = async (firstName, lastName, email, userName, password) => {
   try {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
