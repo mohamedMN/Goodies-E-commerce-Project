@@ -23,7 +23,7 @@ middleware
   .use(cookieParser("secret3"));
 
 // only ADMIN account can use this route
-const checkUserRole = (req, res, next) => {
+const checkUserRoleAdmin = (req, res, next) => {
   console.log(
     // "req.session.user " +
     //   req.session.user +
@@ -37,4 +37,16 @@ const checkUserRole = (req, res, next) => {
     });
   }
 };
-module.exports = { middleware, checkUserRole };
+const checkUserRole = (req, res, next) => {
+  const userRole = req.session.user.role;
+
+  if (userRole === "Admin" || userRole === "Manager") {
+    next();
+  } else {
+    res.status(403).json({
+      message: "Role privilege limitation",
+    });
+  }
+};
+
+module.exports = { middleware, checkUserRole, checkUserRoleAdmin };

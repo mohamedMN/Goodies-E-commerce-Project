@@ -70,9 +70,51 @@ function generate_Public_Token(user, temp) {
 function generate_Private_Token(user, temp) {
   return jwt.sign(user, Access_Private_Secret_Key, { expiresIn: temp }); // expiresIn : 1 day
 }
+
+async function verifyRefreshToken(req, res, next) {
+  try {
+    const refreshToken = req.signedCookies.refreshToken;
+    if (!refreshToken) {
+      return res.status(401).json({ message: "No refresh token provided" });
+    }
+    // const id = req.session.user._id;
+    const username = req.session.user.username;
+    console.log("verifyRefreshToken has been called !!!! : ");
+    const refreshTokenDoc = await User.findOne({ username: username });
+    if (!refreshTokenDoc || refreshTokenDoc.refreshToken !== refreshToken) {
+      return res
+        .status(403)
+        .json({ message: "Forbidden: Invalid refresh token" });
+    }
+    next();
+  } catch (error) {
+    console.error("Error in verifyRefreshToken:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+const verifyAccessToken = async (req, res, next) => {
+  token = req.headers["authorization"];
+  console.log(" verifyAccessToken has ben caled: ");
+  if (!token) {
+    return res.status(401).json({ message: "AccessToken  is missing" });
+  }
+  jwt.verify(token.split(" ")[1], Access_Public_Secret_Key, (err) => {
+    if (err) {
+      return res.status(402).json({ message: "Invalid token" });
+    }
+    next();
+  });
+};
+function generateToken(user, temps) {
+  return jwt.sign(user, Access_Secret_Key, { expiresIn: temps }); // expiresIn : 1H
+}
+
 module.exports = {
   register,
   authUser,
   generate_Private_Token,
   generate_Public_Token,
+  verifyAccessToken,
+  verifyRefreshToken,
 };

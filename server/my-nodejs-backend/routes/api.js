@@ -7,12 +7,17 @@ const {
   authUser,
   generate_Public_Token,
   generate_Private_Token,
+  verifyRefreshToken,
+  verifyAccessToken,
 } = require("./userRoutes");
 const User = require("../models/User");
-const { checkUserRole } = require("../middleware/authMiddleware");
+const {
+  checkUserRoleAdmin,
+  checkUserRole,
+} = require("../middleware/authMiddleware");
 // our API
 
-router.post("/register", checkUserRole, async (req, res) => {
+router.post("/register", checkUserRoleAdmin, async (req, res) => {
   const { firstName, lastName, email, userName, password, role } = req.body;
   // console.log("Last Name:", lastName);
   // console.log("First Name:", firstName);
@@ -98,5 +103,32 @@ router.post("/authentication", async (req, res) => {
     res.status(401).json({ message: "invalid credentials" });
   }
 });
+//to get new access Token
+router.post("/refresh", (req, res) => {
+  const _id = req.session.user._id;
+  // console.log("id : " + _id);
+  const accessToken = generate_Public_Token({ _id }, 3600); //expired: 1H
+  res
+    .status(200)
+    .json({ accessToken, message: "the refresh token is created" });
+});
 
+router.get("/users", checkUserRole, async (req, res) => {
+  try {
+    // const username = req.session.user.username;
+    const users = await User.find();
+    // res.status(200).json({ users, username });
+    res.status(200).json({ users });
+  } catch (error) {
+    res.status(500).json({ message: "error to get all users" });
+  }
+});
+app.get("/api/users/:id", async (req, res) => {
+  const userId = parseInt(req.params.id);
+  const user = await User.find(userId);
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+  res.json({ user });
+});
 module.exports = router;
