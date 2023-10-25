@@ -5,7 +5,14 @@ const passport = require("passport");
 const { v4 } = require("uuid"); // Import the uuid package and generate a v4 UUID
 require("dotenv").config();
 
-const register = async (firstName, lastName, email, userName, password) => {
+const register = async (
+  firstName,
+  lastName,
+  email,
+  userName,
+  password,
+  role
+) => {
   try {
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -13,11 +20,11 @@ const register = async (firstName, lastName, email, userName, password) => {
 
     // Create a new user
     const newUser = new User({
-      id: uniqueId,
+      _id: uniqueId,
       first_name: firstName,
       last_name: lastName,
       email: email,
-      role: "Manager",
+      role: role,
       user_name: userName,
       password: hashedPassword,
       active: true,
@@ -30,7 +37,8 @@ const register = async (firstName, lastName, email, userName, password) => {
   }
 };
 const authUser = async (username, password, done) => {
-  const data = await User.findOne({ username: username });
+  // console.log("username " + username + " passwotrd " + password);
+  const data = await User.findOne({ user_name: username });
   if (!data)
     return done(null, false, {
       message: "Cannot find user with that username",

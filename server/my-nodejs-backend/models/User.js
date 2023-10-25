@@ -1,10 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const users = new Schema({
-  id: {
+  _id: {
     type: String,
-    unique: true,
-    index: true,
   },
   first_name: {
     type: String,
@@ -47,8 +45,7 @@ const users = new Schema({
   },
   refreshToken: {
     type: String,
-    default: ""
-
+    default: "",
   },
 });
 const User = mongoose.model("User", users);
