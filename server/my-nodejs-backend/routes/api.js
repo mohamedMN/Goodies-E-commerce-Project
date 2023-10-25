@@ -9,9 +9,10 @@ const {
   generate_Private_Token,
 } = require("./userRoutes");
 const User = require("../models/User");
+const { checkUserRole } = require("../middleware/authMiddleware");
 // our API
 
-router.post("/register", async (req, res) => {
+router.post("/register", checkUserRole, async (req, res) => {
   const { firstName, lastName, email, userName, password, role } = req.body;
   // console.log("Last Name:", lastName);
   // console.log("First Name:", firstName);

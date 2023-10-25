@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const router = require("./routes/api");
-const middleware = require("./middleware/authMiddleware");
+const { middleware } = require("./middleware/authMiddleware");
 
 // Define and use routes
 app.get("/", (req, res) => {

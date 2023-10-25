@@ -12,6 +12,7 @@ middleware
       secret: "secret",
       resave: false,
       saveUninitialized: true,
+      // cookie: { secure: true, maxAge: 3600000 },
     })
   )
   .use(passport.initialize())
@@ -21,4 +22,19 @@ middleware
   .use(bodyParser.urlencoded({ extended: true }))
   .use(cookieParser("secret3"));
 
-module.exports = middleware;
+// only ADMIN account can use this route
+const checkUserRole = (req, res, next) => {
+  console.log(
+    // "req.session.user " +
+    //   req.session.user +
+    " req.session.user.role " + req.session.user.role
+  );
+  if (req.session.user.role === "Admin") {
+    next();
+  } else {
+    res.status(403).json({
+      message: "you don't have enough privilege .",
+    });
+  }
+};
+module.exports = { middleware, checkUserRole };
