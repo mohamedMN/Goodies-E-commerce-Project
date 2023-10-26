@@ -34,7 +34,7 @@
         @apply flex flex-col px-3 bg-gray-200/80 h-screen 
     }
     .nav-Op{
-        @apply flex w-32 gap-10 py-4;
+        @apply flex w-36 gap-10 py-4;
     }
     .nav-Header{
         @apply flex w-48 gap-10 py-4 pt-24
@@ -48,12 +48,23 @@
     .dashboard{
         @apply flex
     }
+    .navops-List{
+        @apply flex flex-col
+    }
+    .nav-Op-Container{
+        @apply cursor-pointer rounded-sm pl-4
+    }
 }
 
 .nav-Op-Container{
     transition: all 300ms ease-in-out;
-    cursor: pointer;
 }
 .nav-Op-Container:hover{
-    color: rgb(150, 150, 50);
+    color: whitesmoke;
+}
+.nav-Op-Container:focus{
+    background-color: lightgray;
+}
+.nav-Op-Container:active{
+    background-color: lightslategray;
 }

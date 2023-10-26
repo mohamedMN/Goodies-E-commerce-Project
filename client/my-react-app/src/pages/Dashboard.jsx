@@ -8,16 +8,20 @@ import {BsChatDots} from "react-icons/bs"
  function Dashboard() {
 
   const navOptions = [
-    { icon: <AiOutlineHome size={22}/>, name: 'Home' },
-    { icon: <BiUser size={22}/>, name: 'Profile' },
+    { icon: <AiOutlineHome size={22}/>, name: 'Dashboard' },
+    { icon: <BiUser size={22}/>, name: 'My Profile' },
     { icon: <AiOutlineShoppingCart size={22}/>, name: 'Cart' },
     { icon: <BsChatDots size={22}/> ,name: "Chat"},
     { icon: <BiLogOut size={22}/> ,name: "Logout"}
   ]
+  
 
   return (
     <div className='dashboard'>
     <Navbar navOptions={navOptions} />
+    <div>
+
+    </div>
     </div>
   )
 }

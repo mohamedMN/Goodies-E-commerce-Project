@@ -3,31 +3,30 @@ import { useSignIn } from "react-auth-kit"
 import axios from "axios"
 function LoginForm() {
   const [Info, setInfo] = useState({
-    Username: "",
-    Password: "",
+    username: "",
+    password: "",
   });
-  const signIn = useSignIn
+  const signIn = useSignIn;
   const handleChange = (e) => {
     const { name, value } = e.target;
     setInfo((prev) => ({ ...prev, [name]: value }));
   };
   const handleSubmit = async(e) => {
     e.preventDefault();
+    console.log(Info)
     try{
         const res = await axios.post(
             "http://localhost:3125/authentication",
-             Info
-        )
-        signIn({
-            token: res.data.token,
-            expiresIn: 3600,
-            tokenType: "Bearer",
-            authState: {'email': e.target.name}
-        })
-    }
-    catch(err){
-        console.log(err)
-    }   
+             JSON.stringify(Info))
+          if (res.status === 200) {
+              console.log("Request was successful");
+              console.log(res.data); 
+            } else {
+              console.log(`Request failed with status ${res.status}`);
+            }
+          } catch (error) {
+            console.error("An error occurred:", error);
+          }  
 };
   return (
     <form className="login-Form" method="post" onSubmit={handleSubmit}>
@@ -40,7 +39,7 @@ function LoginForm() {
           <input
             onChange={handleChange}
             className="input-Login-Form"
-            name="Username"
+            name="username"
             type="text"
             placeholder=""
             required
@@ -48,7 +47,7 @@ function LoginForm() {
           <input
             onChange={handleChange}
             className="input-Login-Form"
-            name="Password"
+            name="password"
             type="password"
             placeholder=""
             required
