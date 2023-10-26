@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .login-Form{
+        @apply flex flex-col w-fit border gap-3;
+    }
+    .form-Container{
+        @apply flex gap-6 ;
+    }
+    .label-Container{
+        @apply flex flex-col gap-2;
+    }
+    .input-Container{
+        @apply flex flex-col gap-2;
+    }
+    input{
+        @apply border-black border-[1px] rounded-2xl;
+    }
+    .button-Container{
+     @apply flex flex-col items-end;
+    }
+    .submit-Button{
+        @apply bg-yellow-400 p-1 px-3 rounded-lg text-white font-medium mr-3;
+    }
+}
