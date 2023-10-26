@@ -132,6 +132,7 @@ router.get("/users/:id", checkUserRole, async (req, res) => {
   }
   res.status(200).json({ data: user });
 });
+//Only the users with admin and manager role can get ALL users.
 router.get("/api/users", checkUserRole, (req, res) => {
   const query = req.query.query;
   const results = User.filter({ user_name: query });
