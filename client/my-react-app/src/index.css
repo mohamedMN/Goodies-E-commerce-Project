@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer components{
+    body{
+        background-color: #f5f8fa;
+        font-family:'Nunito', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
     .login-Form{
         @apply flex flex-col w-fit border gap-3;
     }
@@ -24,4 +30,30 @@
     .submit-Button{
         @apply bg-yellow-400 p-1 px-3 rounded-lg text-white font-medium mr-3;
     }
+    .navbar-Main{
+        @apply flex flex-col px-3 bg-gray-200/80 h-screen 
+    }
+    .nav-Op{
+        @apply flex w-32 gap-10 py-4;
+    }
+    .nav-Header{
+        @apply flex w-48 gap-10 py-4 pt-24
+    }
+    .nav-Op-Label{
+        @apply  tracking-wide ;
+    }
+    .nav-Header-Label{
+        @apply font-semibold tracking-wide ;
+    }
+    .dashboard{
+        @apply flex
+    }
+}
+
+.nav-Op-Container{
+    transition: all 300ms ease-in-out;
+    cursor: pointer;
+}
+.nav-Op-Container:hover{
+    color: rgb(150, 150, 50);
 }
