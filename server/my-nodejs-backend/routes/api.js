@@ -112,7 +112,7 @@ router.post("/refresh", (req, res) => {
     .status(200)
     .json({ accessToken, message: "the refresh token is created" });
 });
-//Only the users with admin and manager role can get the users data.
+//Only the users with admin and manager role can get the users data.  checkUserRole
 router.get("/users", checkUserRole, async (req, res) => {
   try {
     // const username = req.session.user.username;
@@ -123,19 +123,23 @@ router.get("/users", checkUserRole, async (req, res) => {
     res.status(500).json({ message: "error to get all users" });
   }
 });
-//Only the users with admin and manager role can get the users data.
+//Only the users with admin and manager role can get the users data. checkUserRole
 router.get("/users/:id", checkUserRole, async (req, res) => {
-  const userId = parseInt(req.params.id);
+  const userId = req.params['id'];
+  // console.log('userId ' + userId)
   const user = await User.find({ _id: userId });
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
   res.status(200).json({ data: user });
 });
-//Only the users with admin and manager role can get ALL users.
-router.get("/api/users", checkUserRole, (req, res) => {
+//Only the users with admin and manager role can get ALL users. checkUserRole
+// API : you can search for users whose user_name matches
+// Exemple : GET /api/users?query=john_doe
+
+router.get("/api/users", checkUserRole, async (req, res) => {
   const query = req.query.query;
-  const results = User.filter({ user_name: query });
+  const results = await User.findOne({ user_name: query });
   if (results.length === 0) {
     return res
       .status(404)
@@ -143,10 +147,14 @@ router.get("/api/users", checkUserRole, (req, res) => {
   }
   res.status(200).json({ data: results });
 });
-// Only the users with admin role can update the user's data.
+
+
+// Only the users with admin role can update the user's data. checkUserRoleAdmin
 router.put("/users/:id", checkUserRoleAdmin, async (req, res) => {
-  const userId = req.params.id;
+  const userId = req.params['id'];
+  // console.log('userId ' + userId)
   const updatedUserData = req.body;
+  // console.log('updatedUserData ' + updatedUserData)
   try {
     const user = await User.findOne({ _id: userId });
     if (!user) {
@@ -159,9 +167,9 @@ router.put("/users/:id", checkUserRoleAdmin, async (req, res) => {
     res.status(400).json({ message: "the field xxx should be of type xxx" });
   }
 });
-// Only the users with admin role can DELETE the user's.
+// Only the users with admin role can DELETE the user's. checkUserRoleAdmin
 router.delete("/users/:id", checkUserRoleAdmin, async (req, res) => {
-  const userId = req.params.id;
+  const userId = req.params['id'];
   try {
     const user = await User.findOne({ _id: userId });
     if (!user) {
