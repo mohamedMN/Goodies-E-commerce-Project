@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    body{
+        background-color: #f5f8fa;
+        font-family:'Nunito', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .login-Form{
+        @apply flex flex-col w-fit border gap-3;
+    }
+    .form-Container{
+        @apply flex gap-6 ;
+    }
+    .label-Container{
+        @apply flex flex-col gap-2;
+    }
+    .input-Container{
+        @apply flex flex-col gap-2;
+    }
+    input{
+        @apply border-black border-[1px] rounded-2xl;
+    }
+    .button-Container{
+     @apply flex flex-col items-end;
+    }
+    .submit-Button{
+        @apply bg-yellow-400 p-1 px-3 rounded-lg text-white font-medium mr-3;
+    }
+    .navbar-Main{
+        @apply flex flex-col px-3 bg-gray-200/80 h-screen 
+    }
+    .nav-Op{
+        @apply flex w-36 gap-10 py-4;
+    }
+    .nav-Header{
+        @apply flex w-48 gap-10 py-4 pt-24
+    }
+    .nav-Op-Label{
+        @apply  tracking-wide ;
+    }
+    .nav-Header-Label{
+        @apply font-semibold tracking-wide ;
+    }
+    .dashboard{
+        @apply flex
+    }
+    .navops-List{
+        @apply flex flex-col
+    }
+    .nav-Op-Container{
+        @apply cursor-pointer rounded-sm pl-4
+    }
+}
+
+.nav-Op-Container{
+    transition: all 300ms ease-in-out;
+}
+.nav-Op-Container:hover{
+    color: whitesmoke;
+}
+.nav-Op-Container:focus{
+    background-color: lightgray;
+}
+.nav-Op-Container:active{
+    background-color: lightslategray;
+}
