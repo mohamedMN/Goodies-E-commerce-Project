@@ -16,14 +16,14 @@ const {
   checkUserRole,
 } = require("../middleware/authMiddleware");
 // our API
-
-router.post("/register", checkUserRoleAdmin, async (req, res) => {
+//checkUserRoleAdmin
+router.post("/register", async (req, res) => {
   const { firstName, lastName, email, userName, password, role } = req.body;
-  // console.log("Last Name:", lastName);
-  // console.log("First Name:", firstName);
-  // console.log("User Name:", userName);
-  // console.log("Password:", password);
-  // console.log("Email:", email);
+  console.log("Last Name:", lastName);
+  console.log("First Name:", firstName);
+  console.log("User Name:", userName);
+  console.log("Password:", password);
+  console.log("Email:", email);
   const newUser = await register(
     firstName,
     lastName,
@@ -113,7 +113,7 @@ router.post("/refresh", (req, res) => {
     .json({ accessToken, message: "the refresh token is created" });
 });
 //Only the users with admin and manager role can get the users data.  checkUserRole
-router.get("/users", checkUserRole, async (req, res) => {
+router.get("/users", async (req, res) => {
   try {
     // const username = req.session.user.username;
     const users = await User.find();
@@ -125,7 +125,7 @@ router.get("/users", checkUserRole, async (req, res) => {
 });
 //Only the users with admin and manager role can get the users data. checkUserRole
 router.get("/users/:id", checkUserRole, async (req, res) => {
-  const userId = req.params['id'];
+  const userId = req.params["id"];
   // console.log('userId ' + userId)
   const user = await User.find({ _id: userId });
   if (!user) {
@@ -148,10 +148,9 @@ router.get("/api/users", checkUserRole, async (req, res) => {
   res.status(200).json({ data: results });
 });
 
-
 // Only the users with admin role can update the user's data. checkUserRoleAdmin
 router.put("/users/:id", checkUserRoleAdmin, async (req, res) => {
-  const userId = req.params['id'];
+  const userId = req.params["id"];
   // console.log('userId ' + userId)
   const updatedUserData = req.body;
   // console.log('updatedUserData ' + updatedUserData)
@@ -169,7 +168,7 @@ router.put("/users/:id", checkUserRoleAdmin, async (req, res) => {
 });
 // Only the users with admin role can DELETE the user's. checkUserRoleAdmin
 router.delete("/users/:id", checkUserRoleAdmin, async (req, res) => {
-  const userId = req.params['id'];
+  const userId = req.params["id"];
   try {
     const user = await User.findOne({ _id: userId });
     if (!user) {
