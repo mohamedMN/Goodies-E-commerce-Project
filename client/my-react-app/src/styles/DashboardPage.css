@@ -1,0 +1,31 @@
+.manager-Container{
+    color: white;
+    background-color: #5C5470;
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    padding: 5px;
+    border-radius: 8px;
+    border: solid;
+    border-color: #FAF0E6;
+    border-width: 1px;
+}
+.manager-Info{
+    width: 60%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.dashboard{
+    width: 90%;
+    border-radius: 40px;
+    display:flex;
+    justify-content: space-around;
+    height: 80%;
+    flex-direction: column;
+    align-items: center;
+    background-color: #352F44;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

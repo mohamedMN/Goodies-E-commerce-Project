@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Main Css  */
 @layer components{
     body{
         background-color: #f5f8fa;
@@ -9,6 +11,12 @@
         margin: 0;
         padding: 0;
     }
+<<<<<<< Updated upstream
+=======
+    .home{
+        @apply h-screen
+    }
+>>>>>>> Stashed changes
     .login-Form{
         @apply flex flex-col w-fit border gap-3;
     }
@@ -31,11 +39,21 @@
         @apply bg-yellow-400 p-1 px-3 rounded-lg text-white font-medium mr-3;
     }
     .navbar-Main{
+<<<<<<< Updated upstream
         @apply flex flex-col px-3 bg-gray-200/80 h-screen 
+=======
+        @apply flex flex-col bg-gray-200/80 h-screen 
+>>>>>>> Stashed changes
     }
     .nav-Op{
         @apply flex w-36 gap-10 py-4;
     }
+<<<<<<< Updated upstream
+=======
+    .LoginErrorMessage{
+        @apply p-3 bg-rose-400 border-red-600 border-4 
+    }
+>>>>>>> Stashed changes
     .nav-Header{
         @apply flex w-48 gap-10 py-4 pt-24
     }
@@ -45,13 +63,19 @@
     .nav-Header-Label{
         @apply font-semibold tracking-wide ;
     }
+<<<<<<< Updated upstream
     .dashboard{
         @apply flex
+=======
+    .home{
+        @apply flex bg-gray-800
+>>>>>>> Stashed changes
     }
     .navops-List{
         @apply flex flex-col
     }
     .nav-Op-Container{
+<<<<<<< Updated upstream
         @apply cursor-pointer rounded-sm pl-4
     }
 }
@@ -67,4 +91,42 @@
 }
 .nav-Op-Container:active{
     background-color: lightslategray;
+=======
+        @apply cursor-pointer rounded-sm pl-8 w-fit pr-4
+    }
+}
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.App{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100vh;
+}
+
+.page{
+	flex-basis: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: margin-left 0.5s;
+}
+
+.page-with-navbar{
+	margin-left: 18%;
+}
+
+@media only screen and (max-width: 768px){
+	.page-with-navbar{
+		width: 100%;
+		margin-left: 0;
+	}
+
+>>>>>>> Stashed changes
 }
