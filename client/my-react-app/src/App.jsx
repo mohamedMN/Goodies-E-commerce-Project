@@ -1,24 +1,16 @@
-<<<<<<< Updated upstream
 import React from 'react';
 import "./index.css"
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
 import RoutesComponent from './components/RoutesComponent';
-import { AuthProvider } from 'react-auth-kit'
-
-export default function App() {
-return(
-        <RoutesComponent />
-=======
-import React, {useState} from 'react';
+import  {useState} from 'react';
 import Navbar from "./containers/Navbar";
-import LoginPage from "./pages/LoginPage"
 import { BrowserRouter, Routes, Route,Navigate } from "react-router-dom";
 import {RxDashboard} from "react-icons/rx"
 import {IoAnalytics,IoPricetagOutline,IoCartOutline} from "react-icons/io5"
 import "./index.css";
 import {FiUsers} from 'react-icons/fi'
-import Dashboard from "./pages/Dashboard"
+import { AuthProvider } from 'react-auth-kit'
 
 function App() {
 	const [navVisible, showNavbar] = useState(false);
@@ -66,7 +58,6 @@ function App() {
 				</Routes>
 			</div>
 		</BrowserRouter>
->>>>>>> Stashed changes
   );
 }
 

@@ -11,12 +11,9 @@
         margin: 0;
         padding: 0;
     }
-<<<<<<< Updated upstream
-=======
     .home{
         @apply h-screen
     }
->>>>>>> Stashed changes
     .login-Form{
         @apply flex flex-col w-fit border gap-3;
     }
@@ -39,21 +36,14 @@
         @apply bg-yellow-400 p-1 px-3 rounded-lg text-white font-medium mr-3;
     }
     .navbar-Main{
-<<<<<<< Updated upstream
-        @apply flex flex-col px-3 bg-gray-200/80 h-screen 
-=======
         @apply flex flex-col bg-gray-200/80 h-screen 
->>>>>>> Stashed changes
     }
     .nav-Op{
         @apply flex w-36 gap-10 py-4;
     }
-<<<<<<< Updated upstream
-=======
     .LoginErrorMessage{
         @apply p-3 bg-rose-400 border-red-600 border-4 
     }
->>>>>>> Stashed changes
     .nav-Header{
         @apply flex w-48 gap-10 py-4 pt-24
     }
@@ -63,35 +53,13 @@
     .nav-Header-Label{
         @apply font-semibold tracking-wide ;
     }
-<<<<<<< Updated upstream
-    .dashboard{
-        @apply flex
-=======
     .home{
         @apply flex bg-gray-800
->>>>>>> Stashed changes
     }
     .navops-List{
         @apply flex flex-col
     }
     .nav-Op-Container{
-<<<<<<< Updated upstream
-        @apply cursor-pointer rounded-sm pl-4
-    }
-}
-
-.nav-Op-Container{
-    transition: all 300ms ease-in-out;
-}
-.nav-Op-Container:hover{
-    color: whitesmoke;
-}
-.nav-Op-Container:focus{
-    background-color: lightgray;
-}
-.nav-Op-Container:active{
-    background-color: lightslategray;
-=======
         @apply cursor-pointer rounded-sm pl-8 w-fit pr-4
     }
 }
@@ -109,7 +77,6 @@
 	width: 100%;
 	height: 100vh;
 }
-
 .page{
 	flex-basis: 100%;
 	display: flex;
@@ -128,5 +95,4 @@
 		margin-left: 0;
 	}
 
->>>>>>> Stashed changes
 }

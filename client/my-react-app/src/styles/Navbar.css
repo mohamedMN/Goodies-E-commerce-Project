@@ -26,9 +26,9 @@ nav{
 }
 .nav-btn{
 	position: absolute;
-	transform: translateX(38px);
+	transform: translateX(40px);
 	top: 20px;
-	right: 20px;	
+	right: 0px;	
 	width:40px;
 	height: 60px;
 	border-top-right-radius: 5px;
