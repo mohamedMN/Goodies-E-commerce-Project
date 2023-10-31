@@ -1,0 +1,61 @@
+data {
+    "data": {
+        "message": "login success",
+        "user": {
+            "_id": "d984ee95-45a8-4d3c-a806-1a0d5dd0ce5c",
+            "firstName": "aaaaaaa",
+            "lastName": "zazzzzzz",
+            "email": "mohamed341124884@hotmlail.com",
+            "userName": "niswith",
+            "role": "Manager",
+            "creationDate": "2023-10-31T22:09:42.021Z",
+            "lastLogin": "2023-10-31T22:09:42.021Z",
+            "lastUpdate": "2023-10-31T22:09:42.021Z",
+            "active": true
+        },
+        "token": {
+            "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJkOTg0ZWU5NS00NWE4LTRkM2MtYTgwNi0xYTBkNWRkMGNlNWMiLCJpYXQiOjE2OTg3OTAxODEsImV4cCI6MTY5ODc5Mzc4MX0.y_D1j_Ozh0Ui2WUeu57vhLlcEdfkJLJnPGh38UECC68",
+            "token_type": " JWT, algorithm : HMAC SHA-256",
+            "expires_in": "in 1H",
+            "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJkOTg0ZWU5NS00NWE4LTRkM2MtYTgwNi0xYTBkNWRkMGNlNWMiLCJpYXQiOjE2OTg3OTAxODEsImV4cCI6MTY5ODg3NjU4MX0.gG6iBJdxOXoge7f0UgYlo5rChyLANvnpDUngzTLd5Dk"
+        }
+    },
+    "status": 200,
+    "statusText": "OK",
+    "headers": {
+        "content-length": "828",
+        "content-type": "application/json; charset=utf-8"
+    },
+    "config": {
+        "transitional": {
+            "silentJSONParsing": true,
+            "forcedJSONParsing": true,
+            "clarifyTimeoutError": false
+        },
+        "adapter": [
+            "xhr",
+            "http"
+        ],
+        "transformRequest": [
+            null
+        ],
+        "transformResponse": [
+            null
+        ],
+        "timeout": 0,
+        "xsrfCookieName": "XSRF-TOKEN",
+        "xsrfHeaderName": "X-XSRF-TOKEN",
+        "maxContentLength": -1,
+        "maxBodyLength": -1,
+        "env": {},
+        "headers": {
+            "Accept": "application/json, text/plain, */*",
+            "Content-Type": "application/json"
+        },
+        "baseURL": "http://localhost:3125",
+        "method": "post",
+        "url": "/authentication",
+        "data": "{\"username\":\"niswith\",\"password\":\"aaa\"}"
+    },
+    "request": {}
+}

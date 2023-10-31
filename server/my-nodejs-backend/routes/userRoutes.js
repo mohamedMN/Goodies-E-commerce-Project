@@ -37,7 +37,7 @@ const register = async (
   }
 };
 const authUser = async (username, password, done) => {
-  // console.log("username " + username + " passwotrd " + password);
+  console.log("username " + username + " passwotrd " + password);
   const data = await User.findOne({ user_name: username });
   if (!data)
     return done(null, false, {

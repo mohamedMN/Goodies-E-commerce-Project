@@ -1,11 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux"
 import { LogIn } from "../actions/AuthAction";
 
 function LoginForm() {
-  const navigate = useNavigate();
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -25,6 +23,7 @@ function LoginForm() {
     };
     console.log("data " + data.username + " password " + data.password);
     dispatch(LogIn(data))
+
   };
   return (
     <form className="login-Form" method="post" onSubmit={handleSubmit}>
