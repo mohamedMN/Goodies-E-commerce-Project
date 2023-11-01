@@ -1,26 +1,24 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { LogIn } from "../actions/AuthAction";
 
 function LoginForm() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const userRef = useRef();
+  const [message, errorMessage] = useState("");
   const dispatch = useDispatch();
+  const userRef = useRef();
 
-  // useEFFECT to focus on input
   useEffect(() => {
     userRef.current.focus();
   }, []);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
       username: username,
       password: password,
     };
-    // console.log("data " + data.username + " password " + data.password);
+    console.log("data " + data.username + " password " + data.password);
     dispatch(LogIn(data));
   };
   return (
@@ -56,6 +54,10 @@ function LoginForm() {
         <button className="submit-Button" type="submit">
           Submit
         </button>
+      </div>
+
+      <div className={errorMessage ? "LoginErrorMessage" : "hidden"}>
+        {errorMessage}
       </div>
     </form>
   );

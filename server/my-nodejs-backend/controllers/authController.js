@@ -31,8 +31,8 @@ const login = async (req, res) => {
       };
       const accessToken = generate_Public_Token({ _id }, 3600); // Expire in 1H
       const refreshToken = generate_Private_Token({ _id }, 86400); // Expire in 1 day
-      console.log("accessToken :" + accessToken);
-      console.log("refreshToken :" + refreshToken);
+      // console.log("accessToken :" + accessToken);
+      // console.log("refreshToken :" + refreshToken);
       res.cookie("refreshToken", refreshToken, options);
       //   Update the user with the refreshToken
       await User.updateOne({ _id }, { $set: { refreshToken } });

@@ -12,7 +12,11 @@ const {
   checkUserRoleAdmin,
   checkUserRole,
 } = require("../middleware/authMiddleware");
-const { login, registerUser } = require("../controllers/authController");
+const {
+  login,
+  registerUser,
+  refresh,
+} = require("../controllers/authController");
 const {
   ListUserController,
   getUserById,
@@ -26,14 +30,7 @@ router.post("/register", registerUser);
 
 router.post("/authentication", login);
 //to get new access Token
-router.post("/refresh", (req, res) => {
-  const _id = req.session.user._id;
-  // console.log("id : " + _id);
-  const accessToken = generate_Public_Token({ _id }, 3600); //expired: 1H
-  res
-    .status(200)
-    .json({ accessToken, message: "the refresh token is created" });
-});
+router.post("/refresh", refresh);
 //Only the users with admin and manager role can get the users data.  checkUserRole
 router.get("/users", ListUserController);
 //Only the users with admin and manager role can get the users data. checkUserRole
