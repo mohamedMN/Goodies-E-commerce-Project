@@ -1,13 +1,11 @@
-import React from 'react'
-import LoginForm from '../containers/LoginForm'
+import LoginForm from "../containers/LoginForm";
 
-
- function LoginPage() {
+function LoginPage() {
   return (
     <div>
-        <LoginForm/>
+      <LoginForm />
     </div>
-  )
+  );
 }
 
-export default LoginPage
+export default LoginPage;
