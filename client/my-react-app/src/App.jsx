@@ -22,7 +22,7 @@ function App() {
   const user = useSelector((state) => state.addUserReducer?.authData?.user);
   const navigate = useNavigate();
 
-  console.log("user " + JSON.stringify(user));
+  // console.log("user " + JSON.stringify(user));
   useEffect(() => {
     if (user) {
       navigate("/");

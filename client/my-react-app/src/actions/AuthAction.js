@@ -24,3 +24,14 @@ export const LogIn = (formData) => async (dispatch) => {
     dispatch({ type: "ADD_USER_Fail" });
   }
 };
+
+export const getUsers = () => async (dispatch) => {
+  try {
+    const data = await AuthApi.getUsers();
+    console.log(("data " + JSON.stringify(data)))
+    dispatch({ type: "Users", data: data.data });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: "Impossible because of YOUR ROLE!" });
+  }
+};
