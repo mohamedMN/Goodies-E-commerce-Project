@@ -102,6 +102,6 @@ const refresh = (req, res) => {
   res
     .status(200)
     .json({ accessToken, message: "the refresh token is created" });
-}
+};
 
 module.exports = { login, registerUser, refresh };

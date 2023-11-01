@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
-import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { LogIn } from "../actions/AuthAction";
 
 function LoginForm() {
@@ -8,7 +8,7 @@ function LoginForm() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const userRef = useRef();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   // useEFFECT to focus on input
   useEffect(() => {
@@ -21,9 +21,8 @@ function LoginForm() {
       username: username,
       password: password,
     };
-    console.log("data " + data.username + " password " + data.password);
-    dispatch(LogIn(data))
-
+    // console.log("data " + data.username + " password " + data.password);
+    dispatch(LogIn(data));
   };
   return (
     <form className="login-Form" method="post" onSubmit={handleSubmit}>

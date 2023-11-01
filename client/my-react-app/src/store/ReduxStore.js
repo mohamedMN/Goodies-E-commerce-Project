@@ -25,11 +25,11 @@ const loadFromLocalStorage = () => {
   }
 };
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const persistedState = loadFromLocalStorage();
+// const persistedState = loadFromLocalStorage();
 const store = createStore(
   reducers,
-  persistedState,
+  // persistedState,
   composeEnhancers(applyMiddleware(thunk))
 );
-store.subscribe(() => saveToLocalStorage(store.getState()));
+store.subscribe(() => store.getState());
 export default store;

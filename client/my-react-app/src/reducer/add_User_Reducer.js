@@ -1,19 +1,17 @@
-const authReducer = (
+const addUserReducer = (
   state = { authData: null, loading: false, error: false },
   action
 ) => {
   switch (action.type) {
-    case "AUTH_START":
+    case "ADD_USER":
       return { ...state, loading: true, error: false };
-    case "AUTH_SUCCESS":
-      // localStorage.setItem("profile", JSON.stringify({ ...action?.data }));
-      // console.log("action.data " + localStorage.getItem("profile"));
+    case "ADD_USER_SUCCESS":
       return { ...state, authData: action.data, loading: false, error: false };
-    case "AUTH_Fail":
+    case "ADD_USER_Fail":
       return { ...state, loading: false, error: true };
     default:
       return state;
   }
 };
 
-export default authReducer;
+export default addUserReducer;
