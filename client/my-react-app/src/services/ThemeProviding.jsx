@@ -2,9 +2,8 @@ import * as React from "react";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-
 export default function ThemeProviding(Props) {
-  const {children} = Props;
+  const { children } = Props;
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
   const theme = React.useMemo(
@@ -17,9 +16,5 @@ export default function ThemeProviding(Props) {
     [prefersDarkMode]
   );
 
-  return (
-    <ThemeProvider theme={theme}>
-      {children}
-    </ThemeProvider>
-  );
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }
