@@ -1,13 +1,19 @@
+import {
+  ADD_USER,
+  ADD_USER_Fail,
+  ADD_USER_SUCCESS,
+} from "../actions/AuthAction";
+
 const addUserReducer = (
   state = { authData: null, loading: false, error: false },
   action
 ) => {
   switch (action.type) {
-    case "ADD_USER":
+    case ADD_USER:
       return { ...state, loading: true, error: false };
-    case "ADD_USER_SUCCESS":
+    case ADD_USER_SUCCESS:
       return { ...state, authData: action.data, loading: false, error: false };
-    case "ADD_USER_Fail":
+    case ADD_USER_Fail:
       return { ...state, loading: false, error: true };
     default:
       return state;

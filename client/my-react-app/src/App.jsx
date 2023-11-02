@@ -5,7 +5,6 @@ import Dashboard from "./pages/Dashboard";
 import { useState, useEffect } from "react";
 import Navbar from "./containers/Navbar";
 import {
-  BrowserRouter,
   Routes,
   Route,
   Navigate,

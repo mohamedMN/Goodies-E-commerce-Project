@@ -7,7 +7,7 @@ nav{
 	justify-content: space-between;
 	width: 18%;
 	min-height: 100vh;
-	background-color: #352F44;
+	background-color: #161618;
 	padding:2rem 1rem 1rem 1rem;
 	transition: transform 0.5s;
 }
@@ -18,7 +18,7 @@ nav{
 
 .nav-link-icon{
 	margin-right: 10px;
-	color: #FAF0E6;
+	color: #fff;
 	height: 1.7rem;
 	width: 1.7rem;
 	display: flex;
@@ -36,13 +36,13 @@ nav{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #352F44;
+	background-color: #161618;
 	outline: none;
 	border: none;
 	font-size: 1rem;
 	padding: 5px 10px;
 	cursor: pointer;
-	color: #FAF0E6;
+	color: #fff;
 }
 
 .logo{
@@ -61,17 +61,18 @@ nav{
 .nav-link{
 	display: flex;
 	align-items: center;
-	color: #FAF0E6;
+	color: #ffff;
 	text-decoration: none;
 	padding: 10px 1rem;
 	border-radius: 5px;
 	margin-bottom: 5px;
 	transition: all 300ms ease;
+	font-weight: 400;
 }
 
 .nav-link:hover{
 	background-color:#B9B4C7;
-	color: #4e4e4e;
+	color: #161618;
 }
 
 .nav-link span{
