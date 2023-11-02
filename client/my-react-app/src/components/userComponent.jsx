@@ -1,9 +1,9 @@
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+
 import { AiOutlineDelete } from "react-icons/ai";
 import { RxUpdate } from "react-icons/rx";
 
-const UserComponent = ({ managersInfo }) => {
+const UserComponent = (Props) => {
+  const { managersInfo } = Props
   return (
     <div className="manager-Container">
       <div className="manager-Info">

@@ -29,6 +29,7 @@ function App() {
       navigate("/login");
     }
   }, [user]);
+
   const navOptions = [
     {
       name: "Dashboard",
@@ -86,6 +87,7 @@ function App() {
       <h1>Product</h1>
     </div>
   );
+
   return (
     <div className="App">
       <Navbar navOptions={navOptions} visible={navVisible} show={showNavbar} />
