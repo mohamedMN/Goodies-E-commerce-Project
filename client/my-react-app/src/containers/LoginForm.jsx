@@ -1,20 +1,13 @@
 import React, { useState } from "react";
-import { useSignIn } from "react-auth-kit"
 import axios from "axios"
-import { useNavigate } from "react-router-dom";
   
   function LoginForm() {
     const [Info, setInfo] = useState({
       username: "",
       password: "",
     });
-    const signIn = useSignIn;
-    const handleChange = (e) => {
-      const { name, value } = e.target;
-      setInfo((prev) => ({ ...prev, [name]: value }));
-  useEffect(() => {
-    userRef.current.focus();
-  }, []);   
+
+  //handling submit
   const handleSubmit = async(e) => {
     e.preventDefault();
     console.log(Info)
@@ -32,7 +25,7 @@ import { useNavigate } from "react-router-dom";
             console.error("An error occurred:", error);
           }  
 };
-  return (
+  return(
     <form className="login-Form" method="post" onSubmit={handleSubmit}>
       <div className="form-Container">
         <div className="label-Container">
@@ -41,7 +34,6 @@ import { useNavigate } from "react-router-dom";
         </div>
         <div className="input-Container">
           <input
-            onChange={handleChange}
             className="input-Login-Form"
             name="username"
             type="text"
@@ -49,7 +41,6 @@ import { useNavigate } from "react-router-dom";
             required
           ></input>
           <input
-            onChange={handleChange}
             className="input-Login-Form"
             name="password"
             type="password"
@@ -61,12 +52,8 @@ import { useNavigate } from "react-router-dom";
       <div className="button-Container">
       <button className="submit-Button" type="submit">Submit</button>
       </div>
-
-      <div className={errorMessage?"LoginErrorMessage":"hidden"}>
-   {errorMessage}
-      </div>
     </form>
   );
-    } }
+    } ;
 
 export default LoginForm;

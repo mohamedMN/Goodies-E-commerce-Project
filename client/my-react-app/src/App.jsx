@@ -1,6 +1,7 @@
 import React from 'react';
 import "./index.css"
 import LoginPage from './pages/LoginPage';
+import LoginForm from './containers/LoginForm'
 import Dashboard from './pages/Dashboard';
 import RoutesComponent from './components/RoutesComponent';
 import  {useState} from 'react';
@@ -29,7 +30,7 @@ function App() {
 				<Navbar navOptions={navOptions} visible={ navVisible } show={ showNavbar } />
 				<Routes>
 					<Route path="/" element={<Navigate to="/dashboard" />} />
-          <Route path="/login" element={<div className={!navVisible ? "page" : "page page-with-navbar"}><LoginPage/></div>} />
+          <Route path="/login" element={<div className={!navVisible ? "page" : "page page-with-navbar"}><LoginForm/></div>} />
 					<Route path='/dashboard' element={
 						<div className={!navVisible ? "page" : "page page-with-navbar"}>
 							<Dashboard/>

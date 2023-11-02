@@ -1,11 +1,12 @@
 import React from 'react'
-import LoginForm from '../containers/LoginForm'
+import LoginForm from './../containers/LoginForm'
 
 
  function LoginPage() {
   return (
-    <div>
+    <div className="Login-Page">
         <LoginForm/>
+
     </div>
   )
 }
