@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LogIn } from "../redux/actions/AuthAction";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function LoginForm() {
   const [username, setUserName] = useState("");
@@ -9,22 +10,30 @@ function LoginForm() {
   const dispatch = useDispatch();
   const userRef = useRef();
   const error = useSelector((state) => state.authReducer?.error);
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/'
+  const user = useSelector((state) => state.authReducer?.authData);
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
+  useEffect(() => {
+    if (!error) {
+      errorMessage('false creadialse')
+    }
+    if (user) {
+      navigate(from, { replace: true })
+    }
+  }, [error, user])
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
       username: username,
       password: password,
     };
-    console.log("data " + data.username + " password " + data.password);
+    // console.log("data " + data.username + " password " + data.password);
     dispatch(LogIn(data));
-
-    if (!error) {
-      errorMessage('false creadialse')
-    }
   };
   return (
     <form className="login-Form" method="post" onSubmit={handleSubmit}>
