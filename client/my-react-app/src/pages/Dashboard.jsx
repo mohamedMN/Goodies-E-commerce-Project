@@ -9,15 +9,14 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(getUsers());
   }, []);
-  const testingInfo = useSelector((state) =>
-    JSON.stringify(state.getAllUsers?.Data?.users)
-  );
+  const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users);
   console.log("testingInfo " + testingInfo);
   return (
     <div className="dashboard">
-      {testingInfo.map((user, index) => {
-        return <UserComponent managersInfo={user} key={index} />;
-      })}
+      {testingInfo &&
+        testingInfo.map((user, index) => {
+          return <UserComponent managersInfo={user} key={index} />;
+        })}
     </div>
   );
 };

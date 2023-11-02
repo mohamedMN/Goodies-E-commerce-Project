@@ -1,61 +1,122 @@
-data {
-    "data": {
-        "message": "login success",
-        "user": {
-            "_id": "d984ee95-45a8-4d3c-a806-1a0d5dd0ce5c",
-            "firstName": "aaaaaaa",
-            "lastName": "zazzzzzz",
-            "email": "mohamed341124884@hotmlail.com",
-            "userName": "niswith",
-            "role": "Manager",
-            "creationDate": "2023-10-31T22:09:42.021Z",
-            "lastLogin": "2023-10-31T22:09:42.021Z",
-            "lastUpdate": "2023-10-31T22:09:42.021Z",
-            "active": true
-        },
-        "token": {
-            "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJkOTg0ZWU5NS00NWE4LTRkM2MtYTgwNi0xYTBkNWRkMGNlNWMiLCJpYXQiOjE2OTg3OTAxODEsImV4cCI6MTY5ODc5Mzc4MX0.y_D1j_Ozh0Ui2WUeu57vhLlcEdfkJLJnPGh38UECC68",
-            "token_type": " JWT, algorithm : HMAC SHA-256",
-            "expires_in": "in 1H",
-            "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJkOTg0ZWU5NS00NWE4LTRkM2MtYTgwNi0xYTBkNWRkMGNlNWMiLCJpYXQiOjE2OTg3OTAxODEsImV4cCI6MTY5ODg3NjU4MX0.gG6iBJdxOXoge7f0UgYlo5rChyLANvnpDUngzTLd5Dk"
-        }
-    },
-    "status": 200,
-    "statusText": "OK",
-    "headers": {
-        "content-length": "828",
-        "content-type": "application/json; charset=utf-8"
-    },
-    "config": {
-        "transitional": {
-            "silentJSONParsing": true,
-            "forcedJSONParsing": true,
-            "clarifyTimeoutError": false
-        },
-        "adapter": [
-            "xhr",
-            "http"
-        ],
-        "transformRequest": [
-            null
-        ],
-        "transformResponse": [
-            null
-        ],
-        "timeout": 0,
-        "xsrfCookieName": "XSRF-TOKEN",
-        "xsrfHeaderName": "X-XSRF-TOKEN",
-        "maxContentLength": -1,
-        "maxBodyLength": -1,
-        "env": {},
-        "headers": {
-            "Accept": "application/json, text/plain, */*",
-            "Content-Type": "application/json"
-        },
-        "baseURL": "http://localhost:3125",
-        "method": "post",
-        "url": "/authentication",
-        "data": "{\"username\":\"niswith\",\"password\":\"aaa\"}"
-    },
-    "request": {}
-}
+[
+  {
+    "_id": "d984ee95-45a8-4d3c-a806-1a0d5dd0ce5c",
+    "first_name": "aaaaaaa",
+    "last_name": "zazzzzzz",
+    "email": "mohamed341124884@hotmlail.com",
+    "role": "Manager",
+    "user_name": "niswith",
+    "password": "$2b$10$5KgQv3ewc1OVS0cAA3CMguwCKmf.TWYE8sEf/QMBvUHkpOEs.79KS",
+    "active": true,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJkOTg0ZWU5NS00NWE4LTRkM2MtYTgwNi0xYTBkNWRkMGNlNWMiLCJpYXQiOjE2OTg5MzA3MjYsImV4cCI6MTY5OTAxNzEyNn0.TOkpD6MerExVRUGfSc5-9jd8tuRY0OTlLyyWPXt2v_g",
+    "creation_date": "2023-10-25T09:05:55.139Z",
+    "last_login": "2023-10-25T09:05:55.139Z",
+    "last_update": "2023-10-25T09:05:55.139Z",
+    "__v": 0
+  },
+  {
+    "_id": "21b24f39-117c-49d1-8226-ea065e75ef86",
+    "first_name": "aaaaaaa",
+    "last_name": "zazzzzzz",
+    "email": "aniuhzianuizn@gmail.com",
+    "role": "Manager",
+    "user_name": "moha",
+    "password": "$2b$10$LujPD2MAe/mQD2YYdJkgtu/feNCZl1FQBj02sKxZ6/20sfW6ApzYq",
+    "active": true,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIyMWIyNGYzOS0xMTdjLTQ5ZDEtODIyNi1lYTA2NWU3NWVmODYiLCJpYXQiOjE2OTg4Mzc4MjgsImV4cCI6MTY5ODkyNDIyOH0.OJIFRNYN5WRlHFzksuBQFbpEHpeDLvp83r-vI2yJi_E",
+    "creation_date": "2023-10-25T09:17:00.011Z",
+    "last_login": "2023-10-25T09:17:00.011Z",
+    "last_update": "2023-10-25T09:17:00.011Z",
+    "__v": 0
+  },
+  {
+    "_id": "23a81d42-829b-4e9d-ab37-157b08f56fb9",
+    "first_name": "aaaaaaa",
+    "last_name": "zazzzzzz",
+    "email": "aniuhzianuizn@gmail.com",
+    "role": "Manager",
+    "user_name": "charaf",
+    "password": "$2b$10$F25L34/c1Sa3bqmANnEt3O5tuUjVFsoATZL3VoRdSVRq5OzbFnCRq",
+    "active": true,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIyM2E4MWQ0Mi04MjliLTRlOWQtYWIzNy0xNTdiMDhmNTZmYjkiLCJpYXQiOjE2OTg5MzA0NzksImV4cCI6MTY5OTAxNjg3OX0.B6K3vG5WJaKXuajPXtvKinYUxaYy9jSmdeyAr1AgtQc",
+    "creation_date": "2023-10-25T09:49:25.661Z",
+    "last_login": "2023-10-25T09:49:25.661Z",
+    "last_update": "2023-10-25T09:49:25.661Z",
+    "__v": 0
+  },
+  {
+    "_id": "2a8926ca-c280-4ee6-9bf4-f065cbe1a97c",
+    "first_name": "aaaaaaa",
+    "last_name": "zazzzzzz",
+    "email": "aniuhzianuizn@gmail.com",
+    "role": "Admin",
+    "user_name": "charafe",
+    "password": "$2b$10$/.t3yy02r7o8OJ87eUg7SePO8xIA1YyBhNwBgYPKGPe4Nc1e8JwMC",
+    "active": true,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIyYTg5MjZjYS1jMjgwLTRlZTYtOWJmNC1mMDY1Y2JlMWE5N2MiLCJpYXQiOjE2OTg0MDAzNTMsImV4cCI6MTY5ODQ4Njc1M30.rIpFtk-EAg8H-0CWf0hlpTtbxME-uFDzTFsY3SOqGmA",
+    "creation_date": "2023-10-25T09:49:35.400Z",
+    "last_login": "2023-10-25T09:49:35.400Z",
+    "last_update": "2023-10-25T09:49:35.400Z",
+    "__v": 0
+  },
+  {
+    "_id": "ae968005-e282-4955-ba39-1cb86bac0e43",
+    "first_name": "Brendan",
+    "last_name": "Farley",
+    "email": "dozywez@mailinator.com",
+    "role": "Manager",
+    "user_name": "mohamed",
+    "password": "$2b$10$VemRYwbFidt3yAVfSkCmVuif2/pLn2mSIaH8ORlU/WtJWJWUIR/Wq",
+    "active": true,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiJhZTk2ODAwNS1lMjgyLTQ5NTUtYmEzOS0xY2I4NmJhYzBlNDMiLCJpYXQiOjE2OTg2NjMzMTEsImV4cCI6MTY5ODc0OTcxMX0.FF-O4K8RrrdlJglpIqHCGLbbF8dfBwM2fcpj4fv9x7E",
+    "creation_date": "2023-10-30T10:43:10.791Z",
+    "last_login": "2023-10-30T10:43:10.791Z",
+    "last_update": "2023-10-30T10:43:10.791Z",
+    "__v": 0
+  },
+  {
+    "_id": "15490cc5-9a77-461d-8191-3eeae95192bd",
+    "first_name": "Shay",
+    "last_name": "Hartman",
+    "email": "caqocumydu@mailinator.com",
+    "role": "Admin",
+    "user_name": "salma",
+    "password": "$2b$10$XpeQSrUscSWH2tcBkG2oP.OoNqK6MxF0jHx7zZnuYDZ3t7FplHQPW",
+    "active": true,
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiIxNTQ5MGNjNS05YTc3LTQ2MWQtODE5MS0zZWVhZTk1MTkyYmQiLCJpYXQiOjE2OTg2NjM0OTcsImV4cCI6MTY5ODc0OTg5N30.9FVOoXW1GkNTnlgJeHkCnhN_O-rQxgfxskmpx38fxvY",
+    "creation_date": "2023-10-30T10:57:05.903Z",
+    "last_login": "2023-10-30T10:57:05.903Z",
+    "last_update": "2023-10-30T10:57:05.903Z",
+    "__v": 0
+  },
+  {
+    "refreshToken": "",
+    "_id": "f86160e7-abb9-4bcd-9663-30eeea688867",
+    "first_name": "eerrfrefree",
+    "last_name": "dcerree",
+    "email": "frrrrrrn@gmail.com",
+    "role": "Admin",
+    "user_name": "kamal",
+    "password": "$2b$10$RbFniRf24e03VgcxZk6/4.LBSvzL7zd9brg4B395wclGtPZHYsxVC",
+    "active": true,
+    "creation_date": "2023-10-31T09:25:15.187Z",
+    "last_login": "2023-10-31T09:25:15.187Z",
+    "last_update": "2023-10-31T09:25:15.187Z",
+    "__v": 0
+  },
+  {
+    "_id": "f6873b2e-9c36-4421-9681-4cbf1a04ad09",
+    "first_name": "eerrfrefree",
+    "last_name": "dcerree",
+    "email": "frrrrrrn@gmail.com",
+    "role": "Admin",
+    "user_name": "hanaaa",
+    "password": "$2b$10$PefUFwNRCUJSsAcSWValKeFMBLryKKhdXyLy/04tETEFPjadNc7oS",
+    "active": true,
+    "refreshToken": "",
+    "creation_date": "2023-10-31T13:19:45.402Z",
+    "last_login": "2023-10-31T13:19:45.402Z",
+    "last_update": "2023-10-31T13:19:45.402Z",
+    "__v": 0
+  }
+]
