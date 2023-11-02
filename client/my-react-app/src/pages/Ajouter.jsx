@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { SignUp } from "../actions/AuthAction";
+import { SignUp } from "../redux/actions/AuthAction";
 
 export default function Ajouter() {
   const [firstName, setFirstName] = useState();

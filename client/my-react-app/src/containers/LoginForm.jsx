@@ -1,13 +1,14 @@
 import { useEffect, useState, useRef } from "react";
-import { useDispatch } from "react-redux";
-import { LogIn } from "../actions/AuthAction";
+import { useDispatch, useSelector } from "react-redux";
+import { LogIn } from "../redux/actions/AuthAction";
 
 function LoginForm() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [message, errorMessage] = useState("");
+  const [message, errorMessage] = useState(true);
   const dispatch = useDispatch();
   const userRef = useRef();
+  const error = useSelector((state) => state.authReducer?.error);
 
   useEffect(() => {
     userRef.current.focus();
@@ -20,6 +21,10 @@ function LoginForm() {
     };
     console.log("data " + data.username + " password " + data.password);
     dispatch(LogIn(data));
+
+    if (!error) {
+      errorMessage('false creadialse')
+    }
   };
   return (
     <form className="login-Form" method="post" onSubmit={handleSubmit}>
@@ -48,7 +53,6 @@ function LoginForm() {
             ref={userRef}
           />
         </div>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
       </div>
       <div className="button-Container">
         <button className="submit-Button" type="submit">
@@ -57,7 +61,7 @@ function LoginForm() {
       </div>
 
       <div className={errorMessage ? "LoginErrorMessage" : "hidden"}>
-        {errorMessage}
+        {message}
       </div>
     </form>
   );

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getUsers } from "../actions/AuthAction";
+import { getUsers } from "../redux/actions/AuthAction";
 import "../styles/DashboardPage.css";
 import { useDispatch, useSelector } from "react-redux";
 import UserComponent from "../components/userComponent";
@@ -10,7 +10,7 @@ const Dashboard = () => {
     dispatch(getUsers());
   }, []);
   const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users);
-  console.log("testingInfo " + testingInfo);
+  // console.log("testingInfo " + testingInfo);
   return (
     <div className="dashboard">
       {testingInfo &&

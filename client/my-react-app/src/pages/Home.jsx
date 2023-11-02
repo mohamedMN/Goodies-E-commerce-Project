@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from '../containers/Navbar';
 import { BiUser, BiLogOut } from 'react-icons/bi';
 import { AiOutlineHome, AiOutlineShoppingCart } from 'react-icons/ai';
 import { BsChatDots } from 'react-icons/bs';
 import axios from 'axios';
-import { BrowserRouter , Route ,Routes , Navigate} from 'react-router-dom';
-import Dashboard from "../containers/Dashboard"
+
 
 
 function Home() {
@@ -26,7 +25,7 @@ function Home() {
     fetchData();
   }, []);
 
- 
+
   const navOptions = [
     { icon: <AiOutlineHome size={22} />, name: 'Dashboard' },
     { icon: <BiUser size={22} />, name: 'My Profile' },
@@ -35,7 +34,7 @@ function Home() {
     { icon: <BiLogOut size={22} />, name: 'Logout' }
   ];
   return (
-    <Navbar navOptions={navOptions}/>
+    <Navbar navOptions={navOptions} />
   );
 }
 

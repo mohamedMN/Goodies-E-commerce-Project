@@ -4,7 +4,7 @@ import ThemeProviding from "./services/ThemeProviding";
 import { Provider } from "react-redux";
 // import { CssBaseline } from "@mui/material";
 
-import store from "./store/ReduxStore";
+import store from "./redux/store/ReduxStore";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 

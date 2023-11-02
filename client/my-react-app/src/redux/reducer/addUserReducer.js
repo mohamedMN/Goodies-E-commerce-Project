@@ -1,5 +1,5 @@
 import {
-  ADD_USER,
+  ADD_USER_LOADING,
   ADD_USER_Fail,
   ADD_USER_SUCCESS,
 } from "../actions/AuthAction";
@@ -9,7 +9,7 @@ const addUserReducer = (
   action
 ) => {
   switch (action.type) {
-    case ADD_USER:
+    case ADD_USER_LOADING:
       return { ...state, loading: true, error: false };
     case ADD_USER_SUCCESS:
       return { ...state, authData: action.data, loading: false, error: false };

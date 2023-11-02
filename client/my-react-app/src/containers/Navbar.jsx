@@ -1,8 +1,7 @@
-import React from 'react';
 import logo from "./../assets/GoodiesLogo.svg"
 import {
 	FaAngleRight,
-	FaAngleLeft, 
+	FaAngleLeft,
 	FaCog,
 	FaSignOutAlt,
 	FaBars
@@ -14,8 +13,8 @@ const ICON_SIZE = 20;
 const BIG_ICON = 30
 const MID_ICON = 25
 
-function Navbar({navOptions,visible, show}) {
-
+function Navbar(Props) {
+	const { navOptions, visible, show } = Props
 	return (
 		<>
 			<div className="mobile-nav">
@@ -23,7 +22,7 @@ function Navbar({navOptions,visible, show}) {
 					className="mobile-nav-btn"
 					onClick={() => show(!visible)}
 				>
-					<FaBars size={MID_ICON}  />
+					<FaBars size={MID_ICON} />
 				</button>
 			</div>
 			<nav className={!visible ? 'navbar' : ''}>
@@ -32,7 +31,7 @@ function Navbar({navOptions,visible, show}) {
 					className="nav-btn"
 					onClick={() => show(!visible)}
 				>
-					{ !visible
+					{!visible
 						? <FaAngleRight size={BIG_ICON} /> : <FaAngleLeft size={BIG_ICON} />}
 				</button>
 				<div>
@@ -40,37 +39,37 @@ function Navbar({navOptions,visible, show}) {
 						className="logo"
 						to="/"
 					>
-							<img
+						<img
 							height={80} width={80}
-              src={logo}
-								alt="logo"
-							/>
+							src={logo}
+							alt="logo"
+						/>
 					</NavLink>
 					<div className="links nav-top">
-					{navOptions.map((option,index)=>{
-						return(
-							<NavLink key={index} className="nav-link" to={`${option.link}`}>
-							{option.icon}
-							<span><p>{option.name}</p></span>
-							</NavLink>
-						)
-					})}
+						{navOptions.map((option, index) => {
+							return (
+								<NavLink key={index} className="nav-link" to={`${option.link}`}>
+									{option.icon}
+									<span><p>{option.name}</p></span>
+								</NavLink>
+							)
+						})}
 					</div>
 				</div>
 
 				<div className="links">
 					<NavLink to="/settings" className="nav-link">
 						<FaCog size={ICON_SIZE} />
-						<span>Settings</span> 
+						<span>Settings</span>
 					</NavLink>
 					<NavLink to="/Sign-out" className="nav-link">
 						<FaSignOutAlt size={ICON_SIZE} />
-						<span>Logout</span> 
+						<span>Logout</span>
 					</NavLink>
 				</div>
 			</nav>
 		</>
-  );
+	);
 }
 
 export default Navbar;
