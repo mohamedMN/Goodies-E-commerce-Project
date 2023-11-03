@@ -1,42 +1,45 @@
-import { useEffect } from "react";
-import PropTypes from "prop-types"; // Import PropTypes
-import { getUsers } from "../redux/actions/AuthAction";
+import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import "../styles/DashboardPage.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import UserComponent from "../components/userComponent";
 
 const Dashboard = ({ navVisible }) => {
-  // Destructure props
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]); // Add dispatch as a dependency
-  // handle Recherche of USER
-  const [searchValue, setSearchValue] = useState("");
   const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users);
 
-  const handleRecherche = (e) => {
-    e.preventDefault();
-  };
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState([]);
+
+  // Use useEffect to update filteredUsers whenever searchValue changes
+  useEffect(() => {
+    // Filter the user list based on the searchValue
+    const result = testingInfo.filter((user) =>
+      user.user_name.includes(searchValue)
+    );
+    setFilteredUsers(result);
+  }, [searchValue, testingInfo]);
 
   return (
     <>
       <div className={navVisible ? "page page-with-navbar" : "page"}>
         <div className="dashboard">
           <div>
-            <form onClick={handleRecherche}>
-              <label style={{ color: "white" }}>Recherche user </label>
+            <form>
+              <label style={{ color: "white" }}>Recherche user</label>
               <input
                 type="text"
+                value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
               />
             </form>
           </div>
-          {testingInfo &&
-            testingInfo.map((user) => (
-              <UserComponent key={user.id} managersInfo={user} /> // Use a unique identifier for the key
-            ))}
+          {filteredUsers.length > 0
+            ? filteredUsers.map((user) => (
+                <UserComponent key={user.id} managersInfo={user} />
+              ))
+            : testingInfo.map((user) => (
+                <UserComponent key={user.id} managersInfo={user} />
+              ))}
         </div>
       </div>
     </>
@@ -44,7 +47,7 @@ const Dashboard = ({ navVisible }) => {
 };
 
 Dashboard.propTypes = {
-  navVisible: PropTypes.bool.isRequired, // Define PropTypes
+  navVisible: PropTypes.bool.isRequired,
 };
 
 export default Dashboard;
