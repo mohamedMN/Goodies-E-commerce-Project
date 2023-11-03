@@ -3,7 +3,7 @@ import "./index.css";
 // import RoutesComponent from "./components/RoutesComponent";
 import { useState, useEffect } from "react";
 import Navbar from "./containers/Navbar";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { IoAnalytics, IoPricetagOutline, IoCartOutline } from "react-icons/io5";
 import "./index.css";
