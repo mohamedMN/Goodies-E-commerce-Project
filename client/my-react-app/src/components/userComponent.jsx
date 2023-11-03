@@ -1,5 +1,8 @@
-import { AiOutlineDelete } from "react-icons/ai";
-import { RxUpdate } from "react-icons/rx";
+import {
+  AiOutlineDelete,
+  AiOutlineEllipsis,
+  AiOutlineUserAdd,
+} from "react-icons/ai";
 
 const UserComponent = (Props) => {
   const { managersInfo } = Props;
@@ -18,8 +21,11 @@ const UserComponent = (Props) => {
         <button onClick={() => {}}>
           <AiOutlineDelete />
         </button>
-        <button>
-          <RxUpdate />
+        <button onClick={() => {}}>
+          <AiOutlineUserAdd />
+        </button>{" "}
+        <button onClick={() => {}}>
+          <AiOutlineEllipsis />
         </button>
       </div>
     </div>
