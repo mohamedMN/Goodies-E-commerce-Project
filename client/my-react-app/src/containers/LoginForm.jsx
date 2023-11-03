@@ -6,26 +6,26 @@ import { useLocation, useNavigate } from "react-router-dom";
 function LoginForm() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const [message, errorMessage] = useState(true);
+  const [message, errorMessage] = useState(false);
   const dispatch = useDispatch();
   const userRef = useRef();
   const error = useSelector((state) => state.authReducer?.error);
-  const navigate = useNavigate()
-  const location = useLocation()
-  const from = location.state?.from?.pathname || '/'
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const user = useSelector((state) => state.authReducer?.authData);
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
   useEffect(() => {
-    if (!error) {
-      errorMessage('false creadialse')
+    if (error) {
+      errorMessage("false creadialse");
     }
     if (user) {
-      navigate(from, { replace: true })
+      navigate(from, { replace: true });
     }
-  }, [error, user])
+  }, [error, user]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -69,9 +69,7 @@ function LoginForm() {
         </button>
       </div>
 
-      <div className={errorMessage ? "LoginErrorMessage" : "hidden"}>
-        {message}
-      </div>
+      <div className={message ? "LoginErrorMessage" : "hidden"}>{message}</div>
     </form>
   );
 }

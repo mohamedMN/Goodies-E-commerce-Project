@@ -1,9 +1,12 @@
 import LoginForm from "./../containers/LoginForm";
 
-function LoginPage() {
+function LoginPage(Props) {
+  const { navVisible } = Props;
   return (
-    <div className="Login-Page">
-      <LoginForm />
+    <div className={!navVisible ? "page" : "page page-with-navbar"}>
+      <div className="Login-Page">
+        <LoginForm />
+      </div>
     </div>
   );
 }
