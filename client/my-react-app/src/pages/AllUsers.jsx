@@ -4,6 +4,7 @@ import "../styles/DashboardPage.css";
 import { useDispatch, useSelector } from "react-redux";
 import UserComponent from "../components/userComponent";
 import { getUsers } from "../redux/actions/AuthAction";
+import AddUserForm from "../components/AddUserForm";
 
 const AllUsers = ({ navVisible }) => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const AllUsers = ({ navVisible }) => {
   const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users);
 
   const [searchValue, setSearchValue] = useState("");
-
+  const [showAddUserForm, setShowAddUserForm] = useState(false);
 
   return (
     <div className={navVisible ? "page page-with-navbar" : "page"}>
@@ -29,7 +30,15 @@ const AllUsers = ({ navVisible }) => {
             />
           </form>
         </div>
-        <button style={{ color: "Red" }}>Ajouter USer</button>
+        <button
+          style={{ color: "Red" }}
+          onClick={() => setShowAddUserForm(true)}
+        >
+          Ajouter USer
+        </button>
+        {showAddUserForm && (
+          <AddUserForm onClose={() => setShowAddUserForm(false)} />
+        )}
 
         {testingInfo && testingInfo.length > 0 ? (
           testingInfo

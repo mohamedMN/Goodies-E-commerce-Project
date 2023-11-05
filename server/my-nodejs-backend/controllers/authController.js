@@ -79,7 +79,8 @@ const login = async (req, res) => {
 };
 
 const registerUser = async (req, res) => {
-  const { firstName, lastName, email, userName, password, role } = req.body;
+  const { firstName, lastName, email, userName, password } = req.body;
+  // const { firstName, lastName, email, userName, password, role } = req.body;
   console.log("Last Name:", lastName);
   console.log("First Name:", firstName);
   console.log("User Name:", userName);
@@ -90,8 +91,8 @@ const registerUser = async (req, res) => {
     lastName,
     email,
     userName,
-    password,
-    role
+    password
+    // role
   );
   if (newUser) {
     res.status(201).json({ message: "user created successfully" });

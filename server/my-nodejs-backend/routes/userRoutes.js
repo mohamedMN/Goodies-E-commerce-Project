@@ -10,8 +10,8 @@ const register = async (
   lastName,
   email,
   userName,
-  password,
-  role
+  password
+  // role
 ) => {
   try {
     const salt = await bcrypt.genSalt(10);
@@ -24,7 +24,7 @@ const register = async (
       first_name: firstName,
       last_name: lastName,
       email: email,
-      role: role,
+      // role: role,
       user_name: userName,
       password: hashedPassword,
       active: true,
