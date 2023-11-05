@@ -1,32 +1,52 @@
-import {
-  AiOutlineDelete,
-  AiOutlineEllipsis,
-  AiOutlineUserAdd,
-} from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEllipsis } from "react-icons/ai";
+import { axiosPrivate } from "../services/api";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const UserComponent = (Props) => {
   const { managersInfo } = Props;
+  const [isDeleted, setIsDeleted] = useState(false);
+  const user = useSelector((state) => state.authReducer?.authData);
+  const [showManagerAlert, setShowManagerAlert] = useState(false);
+
+  const handleUserDelete = (id) => {
+    axiosPrivate
+      .delete(`/users/${id}`)
+      .then((response) => {
+        // Handle the response from the server (e.g., show a success message)
+        console.log("User deleted successfully", response.data);
+        setIsDeleted(true); // Set the deleted state to true
+      })
+      .catch((error) => {
+        // Handle any errors that occur during the request
+        setShowManagerAlert(true);
+        console.error("Error deleting user", error);
+      });
+  };
+
   return (
     <div className="manager-Container">
+      {showManagerAlert && (
+        <div className="manager-alert">
+          Alert: you don't permission just for Admin !!!
+        </div>
+      )}
       <div className="manager-Info">
-        {/* <label>Username: {managersInfo.user_name}</label> */}
-        <label>{managersInfo._id}</label>
-        {/* <label>{managersInfo.email}</label> */}
-        <label>{managersInfo.role}</label>
-        {/* <label>{managersInfo.last_name}</label>
-        <label>{managersInfo.first_name}</label>*/}
-        <label>{managersInfo.user_name}</label>
-      </div>
-      <div className="manager-Options">
-        <button onClick={() => {}}>
-          <AiOutlineDelete />
-        </button>
-        <button onClick={() => {}}>
-          <AiOutlineUserAdd />
-        </button>{" "}
-        <button onClick={() => {}}>
-          <AiOutlineEllipsis />
-        </button>
+        {isDeleted ? (
+          <p>User deleted successfully!</p>
+        ) : (
+          <>
+            <label>{managersInfo._id}</label>
+            <label>{managersInfo.role}</label>
+            <label>{managersInfo.user_name}</label>
+            <button onClick={() => handleUserDelete(managersInfo._id)}>
+              <AiOutlineDelete />
+            </button>
+            <button onClick={() => {}}>
+              <AiOutlineEllipsis />
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

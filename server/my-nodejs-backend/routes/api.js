@@ -11,7 +11,7 @@ const {
 const {
   checkUserRoleAdmin,
   checkUserRole,
-} = require("../middleware/authMiddleware");
+} = require("../middleware/chequeRole");
 const {
   login,
   registerUser,

@@ -22,6 +22,7 @@ const users = new Schema({
   },
   user_name: {
     type: String,
+    unique: true,
     required: true,
   },
   password: {

@@ -1,9 +1,10 @@
 const express = require("express");
 const middleware = express();
 const passport = require("passport");
+const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
-const session = require("express-session");
+
 const cors = require("cors");
 const corsOptions = {
   origin: [
@@ -11,6 +12,7 @@ const corsOptions = {
     "http://localhost:5174",
     "http://localhost:3125",
   ],
+  // methods: ["*"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
@@ -19,10 +21,9 @@ middleware
   .use(cors(corsOptions))
   .use(
     session({
-      secret: "secret",
-      resave: false,
-      saveUninitialized: true,
-      // cookie: { secure: true, maxAge: 3600000 },
+      secret: "abcdefg",
+      resave: true,
+      saveUninitialized: false,
     })
   )
   .use(passport.initialize())
@@ -32,31 +33,4 @@ middleware
   .use(bodyParser.urlencoded({ extended: true }))
   .use(cookieParser("secret3"));
 
-// only ADMIN account can use this route
-const checkUserRoleAdmin = (req, res, next) => {
-  console.log(
-    // "req.session.user " +
-    //   req.session.user +
-    " req.session.user.role " + req.session.user.role
-  );
-  if (req.session.user.role === "Admin") {
-    next();
-  } else {
-    res.status(403).json({
-      message: "you don't have enough privilege .",
-    });
-  }
-};
-const checkUserRole = (req, res, next) => {
-  const userRole = req.session.user.role;
-
-  if (userRole === "Admin" || userRole === "Manager") {
-    next();
-  } else {
-    res.status(403).json({
-      message: "Role privilege limitation",
-    });
-  }
-};
-
-module.exports = { middleware, checkUserRole, checkUserRoleAdmin };
+module.exports = { middleware };

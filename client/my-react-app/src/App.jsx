@@ -16,6 +16,7 @@ import Analytics from "./pages/Analytics";
 import Order from "./pages/Order";
 import User from "./pages/User";
 import Product from "./pages/Product";
+import AllUSers from "./pages/AllUsers";
 
 function App() {
   const [navVisible, showNavbar] = useState(false);
@@ -33,6 +34,11 @@ function App() {
     {
       name: "Dashboard",
       link: "/dashboard",
+      icon: <RxDashboard className="nav-link-icon" />,
+    },
+    {
+      name: "users",
+      link: "/users",
       icon: <RxDashboard className="nav-link-icon" />,
     },
     {
@@ -64,12 +70,14 @@ function App() {
         <Route path="/login" element={<LoginPage navVisible={navVisible} />} />
 
         <Route element={<RequireAuth />}>
-          <Route path="/" element={<Dashboard navVisible={navVisible} />} />
+          <Route path="/" element={<AllUSers navVisible={navVisible} />} />
 
           <Route
             path="/dashboard"
             element={<Dashboard navVisible={navVisible} />}
           />
+          <Route path="/users" element={<AllUSers navVisible={navVisible} />} />
+
           <Route
             path="/analytics"
             element={<Analytics navVisible={navVisible} />}

@@ -1,12 +1,16 @@
 const User = require("../models/User");
-const express = require("express");
 
 const ListUserController = async (req, res) => {
   try {
-    // const username = req.session.user.username;
-    const users = await User.find();
+    // console.log("req.session.passport " + req.session.user);
+    const users = await User.find().select(
+      "_id user_name first_name role email"
+    );
+    // console.log("userss " + users);
     // res.status(200).json({ users, username });
+
     res.status(200).json({ users });
+    // console.log(" role ! " + JSON.stringify(req));
   } catch (error) {
     res.status(500).json({ message: "error to get all users" });
   }

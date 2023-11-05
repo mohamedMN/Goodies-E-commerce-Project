@@ -19,10 +19,11 @@ const login = async (req, res) => {
         resolve(user);
       })(req, res);
     });
-    console.log("user " + USER);
+    req.session.user = USER;
+    await req.session.save;
+    // console.log(" role ! " + JSON.stringify(req.session));
+
     if (USER.active) {
-      req.session.user = USER;
-      await req.session.save;
       const { _id } = USER;
       let options = {
         maxAge: 86400, // would expire after 1 day
@@ -33,6 +34,10 @@ const login = async (req, res) => {
       const refreshToken = generate_Private_Token({ _id }, 86400); // Expire in 1 day
       // console.log("accessToken :" + accessToken);
       // console.log("refreshToken :" + refreshToken);
+      // console.log("req.session.passport.user  " + req.session.passport);
+
+      // console.log("user session ::" + JSON.stringify(req.session));
+
       res.cookie("refreshToken", refreshToken, options);
       //   Update the user with the refreshToken
       await User.updateOne({ _id }, { $set: { refreshToken } });
