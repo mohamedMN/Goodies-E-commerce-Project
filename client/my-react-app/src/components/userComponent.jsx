@@ -23,6 +23,9 @@ const UserComponent = (Props) => {
         console.error("Error deleting user", error);
       });
   };
+  const [showAddUserForm, setShowAddUserForm] = useState(false);
+
+  const handleUserUpdate = () => {};
 
   return (
     <div className="manager-Container">
@@ -42,7 +45,7 @@ const UserComponent = (Props) => {
             <button onClick={() => handleUserDelete(managersInfo._id)}>
               <AiOutlineDelete />
             </button>
-            <button onClick={() => {}}>
+            <button onClick={() => handleUserUpdate()}>
               <AiOutlineEllipsis />
             </button>
           </>

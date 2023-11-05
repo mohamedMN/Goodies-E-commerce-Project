@@ -32,7 +32,9 @@ const AllUsers = ({ navVisible }) => {
         </div>
         <button
           style={{ color: "Red" }}
-          onClick={() => setShowAddUserForm(true)}
+          onClick={() => {
+            setShowAddUserForm(true);
+          }}
         >
           Ajouter USer
         </button>

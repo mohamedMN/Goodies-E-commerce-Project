@@ -37,11 +37,6 @@ function App() {
       icon: <RxDashboard className="nav-link-icon" />,
     },
     {
-      name: "users",
-      link: "/users",
-      icon: <RxDashboard className="nav-link-icon" />,
-    },
-    {
       name: "Analytics",
       link: "/analytics",
       icon: <IoAnalytics className="nav-link-icon" />,
@@ -54,7 +49,7 @@ function App() {
     {
       name: "Users",
       link: "/users",
-      icon: <FiUsers className="nav-link-icon" />,
+      icon: <RxDashboard className="nav-link-icon" />,
     },
     {
       name: "Products",
@@ -83,7 +78,6 @@ function App() {
             element={<Analytics navVisible={navVisible} />}
           />
           <Route path="/orders" element={<Order navVisible={navVisible} />} />
-          <Route path="/users" element={<User navVisible={navVisible} />} />
           <Route
             path="/products"
             element={<Product navVisible={navVisible} />}
