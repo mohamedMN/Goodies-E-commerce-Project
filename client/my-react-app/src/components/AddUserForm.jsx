@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { axiosPrivate } from "../services/api";
+import axios from "../services/api";
 
 const AddUserForm = (Props) => {
-  const { onClose, onAddUser } = Props;
+  const { onClose } = Props;
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -10,25 +10,36 @@ const AddUserForm = (Props) => {
   const [ConPassword, setConfirmPassword] = useState("");
   const [userName, setUserName] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
+  const [image, setImage] = useState(null); // Store the selected image
+  const formData = new FormData(); // Create a FormData object
 
-  const handleSubmit = (e) => {
+  const handleFileChange = (e) => {
+    setImage(e.target.files[0]);
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Perform actions to add the user with the provided data
     if (ConPassword === password) {
-      const data = {
-        firstName,
-        lastName,
-        email,
-        password,
-        userName,
-      };
-      axiosPrivate
-        .post("/register", data)
+      formData.append("firstName", firstName);
+      formData.append("lastName", lastName);
+      formData.append("email", email);
+      formData.append("password", password);
+      formData.append("userName", userName);
+      if (image) {
+        formData.append("image", image); // Append the image file to the FormData
+      }
+
+      await axios
+        .post("/register", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data", // Use multipart form data
+          },
+        })
         .then(() => {
           setAlertMessage("User added successfully!");
+          onClose();
         })
         .catch((err) => setAlertMessage("Error adding user: " + err.message));
-      onClose();
     } else {
       setAlertMessage("Passwords do not match.");
     }
@@ -36,7 +47,11 @@ const AddUserForm = (Props) => {
 
   return (
     <div className="add-user-form">
-      {alertMessage && <div className="alert-message">{alertMessage}</div>}
+      {alertMessage && (
+        <div className="alert-message" style={{ color: "Red" }}>
+          {alertMessage}
+        </div>
+      )}
 
       <form onSubmit={handleSubmit}>
         <label style={{ color: "white" }}>First Name :</label>
@@ -58,7 +73,7 @@ const AddUserForm = (Props) => {
           <span style={{ color: "red" }}>*</span>:
         </label>
         <input
-          type="email"
+          type="text"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -82,7 +97,12 @@ const AddUserForm = (Props) => {
         <label style={{ color: "white" }}>Password:</label>
         <input type="password" onChange={(e) => setPassword(e.target.value)} />
         <br />
-
+        <input
+          type="file"
+          name="image"
+          accept="image/*"
+          onChange={handleFileChange}
+        />
         <button style={{ color: "Red" }} type="submit">
           Submit
         </button>

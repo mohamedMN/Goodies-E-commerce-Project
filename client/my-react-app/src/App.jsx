@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./containers/Navbar";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
+import { RxPerson } from "react-icons/rx";
 import { IoAnalytics, IoPricetagOutline, IoCartOutline } from "react-icons/io5";
 import "./index.css";
 import { FiUsers } from "react-icons/fi";
@@ -52,6 +53,11 @@ function App() {
       icon: <RxDashboard className="nav-link-icon" />,
     },
     {
+      name: "Profile",
+      link: "/profile",
+      icon: <RxPerson className="nav-link-icon" />,
+    },
+    {
       name: "Products",
       link: "/products",
       icon: <IoPricetagOutline className="nav-link-icon" />,
@@ -72,6 +78,8 @@ function App() {
             element={<Dashboard navVisible={navVisible} />}
           />
           <Route path="/users" element={<AllUSers navVisible={navVisible} />} />
+
+          <Route path="/profile" element={<User navVisible={navVisible} />} />
 
           <Route
             path="/analytics"

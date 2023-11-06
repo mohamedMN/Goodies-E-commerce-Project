@@ -1,4 +1,6 @@
 const checkUserRole = (req, res, next) => {
+  console.log("role " + req.session.user.role);
+
   const userRole = req.session.user.role;
 
   if (userRole === "Admin" || userRole === "Manager") {
@@ -11,8 +13,8 @@ const checkUserRole = (req, res, next) => {
 };
 // only ADMIN account can use this route
 const checkUserRoleAdmin = (req, res, next) => {
+  console.log("role " + req.session.user.role);
   const userRole = req.session.user.role;
-  console.log("role " + userRole);
   if (req.session.user.role === "Admin") {
     next();
   } else {

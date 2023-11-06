@@ -24,6 +24,29 @@ const getUserById = async (req, res) => {
   }
   res.status(200).json({ data: user });
 };
+const profileController = async (req, res) => {
+  try {
+    const id = req.session.user._id;
+    // const username = req.session.user.user_name;
+    // console.log("username :" + username);
+    const user = await User.findById(id);
+    const encodedImage = user.image.data.toString("base64");
+
+    const USER = {
+      id: user._id,
+      user_name: user.user_name,
+      first_name: user.first_name,
+      email: user.email,
+      role: user.role,
+      image: {
+        image: encodedImage,
+      },
+    };
+    res.status(200).json(USER);
+  } catch (error) {
+    res.status(500).json({ message: "error in findById function" });
+  }
+};
 const getUserByName = async (req, res) => {
   const query = req.query.query;
   const results = await User.findOne({ user_name: query });
@@ -74,4 +97,5 @@ module.exports = {
   DeleteUser,
   UpdateUser,
   getUserByName,
+  profileController,
 };

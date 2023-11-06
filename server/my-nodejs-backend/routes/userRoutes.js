@@ -10,7 +10,8 @@ const register = async (
   lastName,
   email,
   userName,
-  password
+  password,
+  data
   // role
 ) => {
   try {
@@ -28,6 +29,9 @@ const register = async (
       user_name: userName,
       password: hashedPassword,
       active: true,
+      image: {
+        data: data,
+      },
     });
 
     await newUser.save();

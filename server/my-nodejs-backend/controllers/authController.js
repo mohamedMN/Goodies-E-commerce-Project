@@ -8,6 +8,8 @@ const User = require("../models/User");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 passport.use(new LocalStrategy(authUser));
+const path = require("path");
+const fs = require("fs");
 
 const login = async (req, res) => {
   try {
@@ -80,18 +82,28 @@ const login = async (req, res) => {
 
 const registerUser = async (req, res) => {
   const { firstName, lastName, email, userName, password } = req.body;
-  // const { firstName, lastName, email, userName, password, role } = req.body;
   console.log("Last Name:", lastName);
   console.log("First Name:", firstName);
   console.log("User Name:", userName);
   console.log("Password:", password);
   console.log("Email:", email);
+  if (req.file) {
+    var data = req.file.buffer;
+  } else {
+    const defaultImagePath = path.join(
+      __dirname,
+      "../assets/images/images.jpg"
+    );
+    var data = fs.readFileSync(defaultImagePath);
+  }
+  // const { firstName, lastName, email, userName, password, role } = req.body;
   const newUser = await register(
     firstName,
     lastName,
     email,
     userName,
-    password
+    password,
+    data
     // role
   );
   if (newUser) {

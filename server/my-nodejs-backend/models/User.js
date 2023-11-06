@@ -44,6 +44,10 @@ const users = new Schema({
   active: {
     type: Boolean,
   },
+  image: {
+    data: Buffer,
+    createdAt: { type: Date, default: Date.now },
+  },
   refreshToken: {
     type: String,
     default: "",

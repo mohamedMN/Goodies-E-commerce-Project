@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import UserComponent from "../components/userComponent";
 import { getUsers } from "../redux/actions/AuthAction";
 import AddUserForm from "../components/AddUserForm";
-
 const AllUsers = ({ navVisible }) => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -36,7 +35,7 @@ const AllUsers = ({ navVisible }) => {
             setShowAddUserForm(true);
           }}
         >
-          Ajouter USer
+          Ajouter User
         </button>
         {showAddUserForm && (
           <AddUserForm onClose={() => setShowAddUserForm(false)} />
