@@ -5,12 +5,12 @@ const {
   register,
 } = require("../routes/userRoutes");
 const User = require("../models/User");
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
-passport.use(new LocalStrategy(authUser));
 const path = require("path");
 const fs = require("fs");
 
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+passport.use(new LocalStrategy(authUser));
 const login = async (req, res) => {
   try {
     const USER = await new Promise((resolve, reject) => {
@@ -122,4 +122,20 @@ const refresh = (req, res) => {
     .json({ accessToken, message: "the refresh token is created" });
 };
 
+
+// Customer Auth functions
+// const loginCustomerController = ()=>{
+//   try {
+//     const USER = await new Promise((resolve, reject) => {
+//       passport.authenticate("local", { session: true }, (err, user) => {
+//         if (err || !user) {
+//           return reject("Authentication failed!");
+//         }
+//         resolve(user);
+//       })(req, res);
+//     });
+//   }catch(err){
+//     console.log(err)
+//   }
+// } 
 module.exports = { login, registerUser, refresh };

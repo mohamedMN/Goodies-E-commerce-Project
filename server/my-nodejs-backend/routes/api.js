@@ -59,4 +59,8 @@ router.put("/users/:id", checkUserRoleAdmin, UpdateUser);
 // Only the users with admin role can DELETE the user's. checkUserRoleAdmin
 router.delete("/users/:id", checkUserRoleAdmin, DeleteUser);
 
+//Customer API
+
+// router.get("loginCustomer", loginCustomerController);
+
 module.exports = router;

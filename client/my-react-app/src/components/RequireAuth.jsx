@@ -1,4 +1,4 @@
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 
 const RequireAuth = () => {
@@ -9,7 +9,10 @@ const RequireAuth = () => {
   const auth = useSelector((state) => state.authReducer?.authData);
   // console.log("auth " + JSON.stringify(auth));
 
-  const location = useLocation();
+  var location = useLocation();
+  if (!location) {
+    location = "/dashboard";
+  }
   return auth ? (
     <Outlet />
   ) : (
