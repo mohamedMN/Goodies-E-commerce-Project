@@ -3,7 +3,7 @@ import "../styles/Profile.css";
 import { useNavigate } from "react-router-dom";
 import { axiosPrivate } from "../services/api";
 
-const User = (Props) => {
+const Profile = (Props) => {
   const { navVisible } = Props;
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -44,10 +44,10 @@ const User = (Props) => {
             )}
             <br />
 
-            <h2 className="username">user_name : {user.user_name}</h2>
-            <h2 className="username"> first_name : {user.first_name}</h2>
-            <h2 className="username">email :{user.email}</h2>
-            <p className="username">role :{user.role}</p>
+            <h2 className="username" style={{ color: "white" }} >user_name : {user.user_name}</h2>
+            <h2 className="username" style={{ color: "white" }}> first_name : {user.first_name}</h2>
+            <h2 className="username" style={{ color: "white" }}>email :{user.email}</h2>
+            <p className="username" style={{ color: "white" }}>role :{user.role}</p>
             <br />
           </div>
           <br />
@@ -69,4 +69,4 @@ const User = (Props) => {
   );
 };
 
-export default User;
+export default Profile;

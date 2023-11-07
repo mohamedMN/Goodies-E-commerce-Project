@@ -3,11 +3,12 @@ nav{
 	top:0;
 	left:0;
 	display:flex;
+	align-items: center;
 	flex-direction:column;
 	justify-content: space-between;
-	width: 18%;
+	width: 5%;
 	min-height: 100vh;
-	background-color: #161618;
+	background-color: #183D3D;
 	padding:2rem 1rem 1rem 1rem;
 	transition: transform 0.5s;
 }
@@ -17,10 +18,9 @@ nav{
 }
 
 .nav-link-icon{
-	margin-right: 10px;
 	color: #fff;
-	height: 1.7rem;
-	width: 1.7rem;
+	height: 3rem;
+	width: 3rem;
 	display: flex;
 	transition: all 300ms ease-in-out;
 }
@@ -36,7 +36,7 @@ nav{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #161618;
+	background-color: #183D3D;
 	outline: none;
 	border: none;
 	font-size: 1rem;
@@ -46,16 +46,20 @@ nav{
 }
 
 .logo{
-	display: block;
-	width: 100px;
-	margin: auto;
 	background:transparent;
+}
+
+.navbar-ops{
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: space-around;
 }
 
 .logo img{
 	display: block;
-	width: 100%;
-	height: 100%;
+	width: 120%;
+	height: 120%;
 }
 
 .nav-link{
@@ -63,7 +67,7 @@ nav{
 	align-items: center;
 	color: #ffff;
 	text-decoration: none;
-	padding: 10px 1rem;
+	padding: 1rem;
 	border-radius: 5px;
 	margin-bottom: 5px;
 	transition: all 300ms ease;
@@ -72,16 +76,10 @@ nav{
 
 .nav-link:hover{
 	background-color:#B9B4C7;
-	color: #161618;
+	color: #183D3D;
 }
 
-.nav-link span{
-	margin-left: 10px;
-}
 
-.nav-top{
-	margin-top: 10rem;
-}
 
 .mobile-nav{
 	background-color:#352F44;

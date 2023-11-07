@@ -1,31 +1,86 @@
-.manager-Container{
-    color: white;
-    background-color: #5C5470;
-    display: flex;
-    width: 80%;
-    justify-content: space-between;
-    padding: 5px;
-    border-radius: 8px;
-    border: solid;
-    border-color: #FAF0E6;
+.Main-table{
+    width: 100%;
+    height: 80%;
+    color: #fff;
+    border-collapse: collapse;
+    border: #fff solid;
     border-width: 1px;
 }
-.manager-Info{
-    width: 60%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+.Table-row-Dark{
+    background-color: #5C8374;
+}
+.Table-Data{
+    border: #fff solid;
+    border-width: 1px;;
+    text-align: center;
+    height: 20px;
+}
+.Table-Data-functions{
+    text-align: center;
+    border: #fff solid;
+    border-width: 1px;
+}
+.Table-Row{
+    border: #fff solid;
+    border-width: 1px;
+    width: 100%;
+    height: fit-content;
+}
+.Table-Body{
+    border: #fff solid;
+    border-width: 1px;
+    width: 100%;
+    height: fit-content ;
+}
 
+.searchUserInput{
+    flex-grow: 1;
+}
+.table-Header{
+    background-color: #5C8374;
+    border: #fff solid;
+    border-width: 1px;
+    padding: 10px 0px;
+}
+.form-search-user{
+    background-color: #00000083;
+    border-radius: 10px;
+    width: 330px;
+    color: #fff;
+    font-weight: 400;
+    height: 30px;
+    padding: 1px 1px;
+    display: flex;
+    flex-direction: row-reverse;
+}
+.search-icon{
+    height: inherit;
+    position: relative;
+    left: 0;
+    width: auto;
+    color: #fff;
 }
 .dashboard{
     width: 90%;
     border-radius: 40px;
     display:flex;
     justify-content: space-around;
-    height: 80%;
+    height: 70%;
     flex-direction: column;
     align-items: center;
-    background-color: #352F44;
+    background-color: #183D3D80;
+    padding: 0px 40px;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+.ErrorMsgContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    color: #5C8374;
+    font-size: 40px;
+    font-weight: 600;
 }

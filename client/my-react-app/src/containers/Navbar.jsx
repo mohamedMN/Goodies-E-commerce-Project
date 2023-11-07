@@ -9,7 +9,7 @@ import {
 import { NavLink } from "react-router-dom";
 import "./../styles/Navbar.css";
 
-const ICON_SIZE = 20;
+const ICON_SIZE = 26;
 const BIG_ICON = 30
 const MID_ICON = 25
 
@@ -34,37 +34,34 @@ function Navbar(Props) {
 					{!visible
 						? <FaAngleRight size={BIG_ICON} /> : <FaAngleLeft size={BIG_ICON} />}
 				</button>
-				<div>
+				<div className="logo-container">
 					<NavLink
 						className="logo"
 						to="/"
 					>
 						<img
-							height={80} width={80}
+							className="logo"
 							src={logo}
 							alt="logo"
 						/>
 					</NavLink>
+				</div>
 					<div className="links nav-top">
 						{navOptions.map((option, index) => {
 							return (
-								<NavLink key={index} className="nav-link" to={`${option.link}`}>
+								<NavLink className="nav-link" key={index}  to={`${option.link}`}>
 									{option.icon}
-									<span><p>{option.name}</p></span>
 								</NavLink>
 							)
 						})}
 					</div>
-				</div>
 
 				<div className="links">
 					<NavLink to="/settings" className="nav-link">
 						<FaCog size={ICON_SIZE} />
-						<span>Settings</span>
 					</NavLink>
 					<NavLink to="/Sign-out" className="nav-link">
 						<FaSignOutAlt size={ICON_SIZE} />
-						<span>Logout</span>
 					</NavLink>
 				</div>
 			</nav>

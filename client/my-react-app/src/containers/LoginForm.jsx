@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { LogIn } from "../redux/actions/AuthAction";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import "./../styles/LoginForm.css";
 
 function LoginForm() {
   const [username, setUserName] = useState("");
@@ -10,17 +11,22 @@ function LoginForm() {
   const dispatch = useDispatch();
   const userRef = useRef();
   const error = useSelector((state) => state.authReducer?.error);
-  const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const user = useSelector((state) => state.authReducer?.authData);
+  const navigate = useNavigate();
 
   useEffect(() => {
     userRef.current.focus();
   }, []);
   useEffect(() => {
     if (error) {
-      errorMessage("false creadialse");
+      errorMessage(
+        "Password Or Username Wrong Verify Credintials Or Contact Your Administrator"
+      );
+      setTimeout(() => {
+        errorMessage(false);
+      }, 2000);
     }
     if (user) {
       navigate(from, { replace: true });
@@ -37,39 +43,39 @@ function LoginForm() {
   };
   return (
     <form className="login-Form" method="post" onSubmit={handleSubmit}>
+      <h1 className="Header-Login">Log in</h1>
       <div className="form-Container">
-        <div className="label-Container">
-          <label className="label-Login-Form">Username:</label>
-          <label className="label-Login-Form">Password:</label>
-        </div>
-        <div className="input-Container">
-          <input
-            onChange={(e) => setUserName(e.target.value)}
-            className="input-Login-Form"
-            name="username"
-            type="text"
-            placeholder=""
-            required
-            ref={userRef}
-          />
-          <input
-            onChange={(e) => setPassword(e.target.value)}
-            className="input-Login-Form"
-            name="password"
-            type="password"
-            placeholder=""
-            required
-            ref={userRef}
-          />
-        </div>
+        <label className="label-Login-Form">Username:</label>
+        <input
+          onChange={(e) => setUserName(e.target.value)}
+          className="inputLoginForm"
+          name="username"
+          type="text"
+          placeholder=""
+          required
+          ref={userRef}
+        />
+        <label className="label-Login-Form">Password:</label>
+        <input
+          onChange={(e) => setPassword(e.target.value)}
+          className="inputLoginForm"
+          name="password"
+          type="password"
+          placeholder=""
+          required
+        ></input>
       </div>
       <div className="button-Container">
+        <Link className="Link">Forgot Password?</Link>
         <button className="submit-Button" type="submit">
-          Submit
+          Login
         </button>
       </div>
 
-      <div className={message ? "LoginErrorMessage" : "hidden"}>{message}</div>
+      <div className={message ? "LoginErrorMessage" : "hidden"}>
+        {message}
+        <div className="LoaderErr"></div>
+      </div>
     </form>
   );
 }

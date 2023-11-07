@@ -5,19 +5,18 @@ import { useState, useEffect } from "react";
 import Navbar from "./containers/Navbar";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
-import { RxPerson } from "react-icons/rx";
 import { IoAnalytics, IoPricetagOutline, IoCartOutline } from "react-icons/io5";
 import "./index.css";
-import { FiUsers } from "react-icons/fi";
+import { FiUser, FiUsers } from "react-icons/fi";
 import { useSelector } from "react-redux";
 import RequireAuth from "./components/requireAuth";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Users";
 import LoginPage from "./pages/LoginPage";
 import Analytics from "./pages/Analytics";
 import Order from "./pages/Order";
-import User from "./pages/User";
 import Product from "./pages/Product";
-import AllUSers from "./pages/AllUsers";
+import Users from "./pages/Users";
+import Profile from "./pages/Profile";
 
 function App() {
   const [navVisible, showNavbar] = useState(false);
@@ -35,32 +34,32 @@ function App() {
     {
       name: "Dashboard",
       link: "/dashboard",
-      icon: <RxDashboard className="nav-link-icon" />,
+      icon: <RxDashboard size={32} />,
     },
     {
       name: "Analytics",
       link: "/analytics",
-      icon: <IoAnalytics className="nav-link-icon" />,
+      icon: <IoAnalytics size={32} />,
     },
     {
       name: "Orders",
       link: "/orders",
-      icon: <IoCartOutline className="nav-link-icon" />,
+      icon: <IoCartOutline size={32} />,
     },
     {
       name: "Users",
       link: "/users",
-      icon: <RxDashboard className="nav-link-icon" />,
+      icon: <FiUsers size={32} />,
     },
     {
       name: "Profile",
       link: "/profile",
-      icon: <RxPerson className="nav-link-icon" />,
+      icon: <FiUser size={32} />,
     },
     {
       name: "Products",
       link: "/products",
-      icon: <IoPricetagOutline className="nav-link-icon" />,
+      icon: <IoPricetagOutline size={32} />,
     },
   ];
 
@@ -71,15 +70,18 @@ function App() {
         <Route path="/login" element={<LoginPage navVisible={navVisible} />} />
 
         <Route element={<RequireAuth />}>
-          <Route path="/" element={<AllUSers navVisible={navVisible} />} />
+          <Route path="/" element={<Users navVisible={navVisible} />} />
 
           <Route
             path="/dashboard"
             element={<Dashboard navVisible={navVisible} />}
           />
-          <Route path="/users" element={<AllUSers navVisible={navVisible} />} />
+          <Route path="/users" element={<Users navVisible={navVisible} />} />
 
-          <Route path="/profile" element={<User navVisible={navVisible} />} />
+          <Route
+            path="/profile"
+            element={<Profile navVisible={navVisible} />}
+          />
 
           <Route
             path="/analytics"

@@ -1,0 +1,19 @@
+
+
+
+.Login-Content{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #ffffff00;
+    box-shadow: 10px 10px 50px 7px;
+    border-radius: 0px 20px 20px 20px;
+    height: 60%;
+    width: 67%;
+    padding: 10px 50px;
+}
+
+body{
+    background-color: #040D12;
+}
+
