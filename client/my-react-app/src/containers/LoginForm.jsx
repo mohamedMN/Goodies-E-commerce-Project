@@ -1,14 +1,36 @@
-import React, { useState } from "react";
-import axios from "axios"
-  
-  function LoginForm() {
-    const [Info, setInfo] = useState({
-      username: "",
-      password: "",
-    });
+import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { LogIn } from "../redux/actions/AuthAction";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import "./../styles/LoginForm.css"
 
-  //handling submit
-  const handleSubmit = async(e) => {
+function LoginForm() {
+  const [username, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, errorMessage] = useState(false);
+  const dispatch = useDispatch();
+  const userRef = useRef();
+  const error = useSelector((state) => state.authReducer?.error);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+  const user = useSelector((state) => state.authReducer?.authData);
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+  useEffect(() => {
+    if (error) {
+      errorMessage("Password Or Username Wrong Verify Credintials Or Contact Your Administrator");
+      setTimeout(()=>{
+        errorMessage(false)
+      },2000)
+    }
+    if (user) {
+      navigate(from, { replace: true });
+    }
+  }, [error, user]);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(Info)
     try{
@@ -27,31 +49,36 @@ import axios from "axios"
 };
   return(
     <form className="login-Form" method="post" onSubmit={handleSubmit}>
+    <h1 className="Header-Login">Log in</h1>
       <div className="form-Container">
-        <div className="label-Container">
           <label className="label-Login-Form">Username:</label>
-          <label className="label-Login-Form">Password:</label>
-        </div>
-        <div className="input-Container">
           <input
-            className="input-Login-Form"
+            onChange={(e) => setUserName(e.target.value)}
+            className="inputLoginForm"
             name="username"
             type="text"
             placeholder=""
             required
-          ></input>
+            ref={userRef}
+          />
+          <label className="label-Login-Form">Password:</label>
           <input
-            className="input-Login-Form"
+            onChange={(e) => setPassword(e.target.value)}
+            className="inputLoginForm"
             name="password"
             type="password"
             placeholder=""
             required
           ></input>
         </div>
-      </div>
       <div className="button-Container">
-      <button className="submit-Button" type="submit">Submit</button>
+      <Link className="Link" >Forgot Password?</Link>
+        <button className="submit-Button" type="submit">
+          Login
+        </button>
       </div>
+
+      <div className={message ? "LoginErrorMessage" : "hidden"}>{message}<div className="LoaderErr"></div></div>
     </form>
   );
     } ;

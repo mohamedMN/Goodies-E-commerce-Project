@@ -14,51 +14,79 @@ import {FiUsers} from 'react-icons/fi'
 import { AuthProvider } from 'react-auth-kit'
 
 function App() {
-	const [navVisible, showNavbar] = useState(false);
-	const navOptions =[
-		{name:"Dashboard",link:"/dashboard",icon:<RxDashboard className='nav-link-icon'/>},
-		{name:"Analytics",link:"/analytics",icon:<IoAnalytics className='nav-link-icon'/>},
-		{name:"Orders",link:"/orders",icon:<IoCartOutline className='nav-link-icon'/>},
-		{name:"Users",link:"/users",icon:<FiUsers className='nav-link-icon'/>},
-		{name:"Products",link:"/products",icon:<IoPricetagOutline className='nav-link-icon'/>}
+  const [navVisible, showNavbar] = useState(false);
+  const user = useSelector((state) => state.addUserReducer?.authData?.user);
+  const navigate = useNavigate();
 
-	]
+  // console.log("user " + JSON.stringify(user));
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  }, [user]);
 
-	return (
-		<BrowserRouter >
-			<div className="App">
-				<Navbar navOptions={navOptions} visible={ navVisible } show={ showNavbar } />
-				<Routes>
-					<Route path="/" element={<Navigate to="/dashboard" />} />
-          <Route path="/login" element={<div className={!navVisible ? "page" : "page page-with-navbar"}><LoginForm/></div>} />
-					<Route path='/dashboard' element={
-						<div className={!navVisible ? "page" : "page page-with-navbar"}>
-							<Dashboard/>
-						</div>
-					} />
-					<Route path='/analytics' element={
-						<div className={!navVisible ? "page" : "page page-with-navbar"}>
-							<h1>Analystics</h1>
-						</div>
-					}/>
-					<Route path='/orders' element={
-						<div className={!navVisible ? "page" : "page page-with-navbar"}>
-							<h1>Orders</h1>
-						</div>
-					}/>
-					<Route path='/users' element={
-						<div className={!navVisible ? "page" : "page page-with-navbar"}>
-							<h1>Users</h1>
-						</div>
-					}/>
-					<Route path='/settings' element={
-						<div className={!navVisible ? "page" : "page page-with-navbar"}>
-							<h1>Settings</h1>
-						</div>
-					}/>
-				</Routes>
-			</div>
-		</BrowserRouter>
+  const navOptions = [
+    {
+      name: "Dashboard",
+      link: "/dashboard",
+      icon: <RxDashboard  size={32} />,
+    },
+    {
+      name: "Analytics",
+      link: "/analytics",
+      icon: <IoAnalytics size={32} />,
+    },
+    {
+      name: "Orders",
+      link: "/orders",
+      icon: <IoCartOutline size={32} />,
+    },
+    {
+      name: "Users",
+      link: "/users",
+      icon: <FiUsers size={32} />,
+    },
+    {
+      name: "Products",
+      link: "/products",
+      icon: <IoPricetagOutline size={32} />,
+    },
+  ];
+
+  return (
+    <div className="App">
+      <Navbar navOptions={navOptions} visible={navVisible} show={showNavbar} />
+      <Routes>
+        <Route path="/login" element={<LoginPage navVisible={navVisible} />} />
+
+        <Route element={<RequireAuth />}>
+          <Route path="/" element={<Dashboard navVisible={navVisible} />} />
+
+          <Route
+            path="/dashboard"
+            element={<Dashboard navVisible={navVisible} />}
+          />
+          <Route
+            path="/analytics"
+            element={<Analytics navVisible={navVisible} />}
+          />
+          <Route path="/orders" element={<Order navVisible={navVisible} />} />
+          <Route path="/users" element={<User navVisible={navVisible} />} />
+          <Route
+            path="/products"
+            element={<Product navVisible={navVisible} />}
+          />
+          <Route
+            path="/settings"
+            element={
+              <div className={!navVisible ? "page" : "page page-with-navbar"}>
+                <h1>Settings</h1>
+              </div>
+            }
+          />
+        </Route>
+      </Routes>
+    </div>
   );
 }
 

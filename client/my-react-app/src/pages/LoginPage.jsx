@@ -1,12 +1,18 @@
-import React from 'react'
-import LoginForm from './../containers/LoginForm'
+import LeftSideLog from "../containers/LeftSideLog";
+import "./../styles/LoginPage.css"
+import LoginForm from "./../containers/LoginForm";
 
-
- function LoginPage() {
+function LoginPage(Props) {
+  const { navVisible } = Props;
   return (
-    <div className="Login-Page">
-        <LoginForm/>
+    <div className={!navVisible ? "page" : "page page-with-navbar"}>
+    <div className="Background-Login">
 
+    </div>
+      <div className="Login-Content">
+        <LoginForm  />
+        <LeftSideLog className='LeftSideLoginPage'/>
+      </div>
     </div>
   )
 }
