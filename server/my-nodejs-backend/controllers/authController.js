@@ -3,7 +3,7 @@ const {
   generate_Private_Token,
   authUser,
   register,
-} = require("../routes/userRoutes");
+} = require("./passport-config");
 const User = require("../models/User");
 const path = require("path");
 const fs = require("fs");
@@ -122,7 +122,6 @@ const refresh = (req, res) => {
     .json({ accessToken, message: "the refresh token is created" });
 };
 
-
 // Customer Auth functions
 // const loginCustomerController = ()=>{
 //   try {
@@ -137,5 +136,5 @@ const refresh = (req, res) => {
 //   }catch(err){
 //     console.log(err)
 //   }
-// } 
+// }
 module.exports = { login, registerUser, refresh };
