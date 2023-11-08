@@ -10,9 +10,9 @@ function LoginForm() {
   const [message, errorMessage] = useState(false);
   const dispatch = useDispatch();
   const userRef = useRef();
-  const error = useSelector((state) => state.authReducer?.error);
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
+  const error = useSelector((state) => state.authReducer?.error);
   const user = useSelector((state) => state.authReducer?.authData);
   const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ function LoginForm() {
     if (user) {
       navigate(from, { replace: true });
     }
-  }, [error, user]);
+  }, [error]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -66,7 +66,9 @@ function LoginForm() {
         ></input>
       </div>
       <div className="button-Container">
-        <Link className="Link">Forgot Password?</Link>
+        <Link to={"/RequestForgetPassword"} className="Link">
+          Forgot Password?
+        </Link>
         <button className="submit-Button" type="submit">
           Login
         </button>

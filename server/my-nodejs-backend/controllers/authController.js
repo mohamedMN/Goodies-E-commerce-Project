@@ -9,6 +9,7 @@ const path = require("path");
 const fs = require("fs");
 
 const passport = require("passport");
+const sendEmail = require("../utils/sendEmail");
 const LocalStrategy = require("passport-local").Strategy;
 passport.use(new LocalStrategy(authUser));
 const login = async (req, res) => {
@@ -122,6 +123,95 @@ const refresh = (req, res) => {
     .json({ accessToken, message: "the refresh token is created" });
 };
 
+//---------------------- RESET PASSWORD -----------------------------
+const crypto = require("crypto");
+const bcrypt = require("bcrypt");
+const Token = require("../models/Token");
+require("dotenv").config();
+bcryptSalt = process.env.BCRYPT_SALT;
+clientURL = process.env.CLIENT_URL;
+const requestPasswordReset = async (email) => {
+  console.log("clientURL " + clientURL);
+  const user = await User.findOne({ email });
+
+  if (!user) throw new Error("User does not exist");
+  console.log("user._id " + user._id);
+
+  let token = await Token.findOne({ userId: user._id });
+  if (token) await token.deleteOne();
+  let resetToken = crypto.randomBytes(32).toString("hex");
+  const hash = await bcrypt.hash(resetToken, Number(bcryptSalt));
+  await new Token({
+    userId: user._id,
+    token: hash,
+    createdAt: Date.now(),
+  }).save();
+
+  const link = `${clientURL}?token=${resetToken}&id=${user._id}`;
+  sendEmail(
+    user.email,
+    "Password Reset Request",
+    { name: user.user_name, link: link },
+    "../utils/email/template/requestResetPassword.handlebars"
+  );
+  return link;
+};
+const resetPasswordRequestController = async (req, res, next) => {
+  const { email } = req.body;
+  // console.log("email " + JSON.stringify(req.body));
+  try {
+    const requestPasswordResetService = await requestPasswordReset(email);
+    return res.status(200).json(requestPasswordResetService);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const resetPasswordController = async (req, res, next) => {
+  console.log(`
+  userId: ${req.body.userId},
+  token: ${req.body.token},
+  password: ${req.body.password}
+`);
+  const resetPasswordService = await resetPassword(
+    req.body.userId,
+    req.body.token,
+    req.body.password
+  );
+  if (resetPasswordService) {
+    return res.status(200).json({ message: " password has reset succes" });
+  } else {
+    return res.status(400).json({ error: "Password reset failed" });
+  }
+};
+const resetPassword = async (userId, token, password) => {
+  let passwordResetToken = await Token.findOne({ userId });
+  if (!passwordResetToken) {
+    throw new Error("Invalid or expired password reset token");
+  }
+  const isValid = await bcrypt.compare(token, passwordResetToken.token);
+  if (!isValid) {
+    throw new Error("Invalid or expired password reset token");
+  }
+  const hash = await bcrypt.hash(password, Number(bcryptSalt));
+  await User.updateOne(
+    { _id: userId },
+    { $set: { password: hash } },
+    { new: true }
+  );
+  const user = await User.findById({ _id: userId });
+  sendEmail(
+    user.email,
+    "Password Reset Successfully",
+    {
+      name: user.name,
+    },
+    "./template/resetPassword.handlebars"
+  );
+  await passwordResetToken.deleteOne();
+  return true;
+};
+// ------------------------------------------CuStomer Controller----------------------------------------
 // Customer Auth functions
 // const loginCustomerController = ()=>{
 //   try {
@@ -137,4 +227,10 @@ const refresh = (req, res) => {
 //     console.log(err)
 //   }
 // }
-module.exports = { login, registerUser, refresh };
+module.exports = {
+  login,
+  registerUser,
+  refresh,
+  resetPasswordRequestController,
+  resetPasswordController,
+};

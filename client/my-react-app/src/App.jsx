@@ -1,14 +1,13 @@
 import "./index.css";
 
 // import RoutesComponent from "./components/RoutesComponent";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Navbar from "./containers/Navbar";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { RxDashboard } from "react-icons/rx";
 import { IoAnalytics, IoPricetagOutline, IoCartOutline } from "react-icons/io5";
 import "./index.css";
 import { FiUser, FiUsers } from "react-icons/fi";
-import { useSelector } from "react-redux";
 import RequireAuth from "./components/requireAuth";
 import Dashboard from "./pages/Users";
 import LoginPage from "./pages/LoginPage";
@@ -17,18 +16,13 @@ import Order from "./pages/Order";
 import Product from "./pages/Product";
 import Users from "./pages/Users";
 import Profile from "./pages/Profile";
+import RequestForgetPassword from "./pages/ForgetPassword";
+import PasswordResetPage from "./pages/NewPassword";
 
 function App() {
   const [navVisible, showNavbar] = useState(false);
-  const user = useSelector((state) => state.addUserReducer?.authData?.user);
-  const navigate = useNavigate();
 
   // console.log("user " + JSON.stringify(user));
-  useEffect(() => {
-    if (!user) {
-      navigate("/login");
-    }
-  }, [user]);
 
   const navOptions = [
     {
@@ -67,6 +61,14 @@ function App() {
     <div className="App">
       <Navbar navOptions={navOptions} visible={navVisible} show={showNavbar} />
       <Routes>
+        <Route
+          path="/RequestForgetPassword"
+          element={<RequestForgetPassword navVisible={navVisible} />}
+        />
+        <Route
+          path="/NewPassword"
+          element={<PasswordResetPage navVisible={navVisible} />}
+        />
         <Route path="/login" element={<LoginPage navVisible={navVisible} />} />
 
         <Route element={<RequireAuth />}>
@@ -87,10 +89,15 @@ function App() {
             path="/analytics"
             element={<Analytics navVisible={navVisible} />}
           />
+
           <Route path="/orders" element={<Order navVisible={navVisible} />} />
           <Route
             path="/products"
             element={<Product navVisible={navVisible} />}
+          />
+          <Route
+            path="/logout"
+            element={<LoginPage navVisible={navVisible} />}
           />
           <Route
             path="/settings"

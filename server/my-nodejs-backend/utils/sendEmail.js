@@ -3,16 +3,17 @@ const handlebars = require("handlebars");
 const fs = require("fs");
 const path = require("path");
 require("dotenv").config();
-
 const sendEmail = async (email, subject, payload, template) => {
+  const FromEmail = process.env.EMAIL_FROM_EMAIL;
+  const AppPAs = process.env.APP_email_PASSWORD;
   try {
     // Protocole SMTP transport
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
       port: 465,
       auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD,
+        user: FromEmail,
+        pass: AppPAs,
       },
     });
 
@@ -20,7 +21,7 @@ const sendEmail = async (email, subject, payload, template) => {
     const compiledTemplate = handlebars.compile(source);
     const options = () => {
       return {
-        from: process.env.FROM_EMAIL,
+        from: FromEmail,
         to: email,
         subject: subject,
         html: compiledTemplate(payload),

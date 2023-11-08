@@ -15,6 +15,7 @@ export const SignUp = (formData) => async (dispatch) => {
     dispatch({ type: ADD_USER_Fail });
   }
 };
+
 // login ACTION
 export const AUTH_LOADING = "AUTH_LOADING";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
@@ -27,10 +28,11 @@ export const LogIn = (formData) => async (dispatch) => {
     dispatch({ type: AUTH_SUCCESS, data: data.data });
   } catch (error) {
     console.log(error);
-    dispatch({ type: AUTH_Fail });
+    dispatch({ type: AUTH_Fail, error: error });
   }
 };
-// get users action
+
+// get ALL users action
 export const Users = "Users";
 export const ROLE_PERMANENT = "ROLE_PERMANENT";
 export const getUsers = () => async (dispatch) => {

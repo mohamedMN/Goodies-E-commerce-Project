@@ -2,13 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  authUser,
-  generate_Public_Token,
-  generate_Private_Token,
-  verifyRefreshToken,
-  verifyAccessToken,
-} = require("./userRoutes");
-const {
   checkUserRoleAdmin,
   checkUserRole,
 } = require("../middleware/chequeRole");
@@ -16,6 +9,8 @@ const {
   login,
   registerUser,
   refresh,
+  resetPasswordRequestController,
+  resetPasswordController,
 } = require("../controllers/authController");
 const {
   ListUserController,
@@ -31,13 +26,8 @@ const upload = multer({ storage });
 
 // our API
 //checkUserRoleAdmin
-// taking the image on image folder
-router.post(
-  "/register",
-  checkUserRoleAdmin,
-  upload.single("image"),
-  registerUser
-);
+// taking the image on image folder    checkUserRoleAdmin
+router.post("/register", upload.single("image"), registerUser);
 
 router.post("/authentication", login);
 //to get new access Token
@@ -51,9 +41,10 @@ router.get("/profile", profileController);
 //Only the users with admin and manager role can get ALL users. checkUserRole
 // API : you can search for users whose user_name matches
 // Exemple : GET /api/users?query=john_doe
-
 router.get("/api/users", checkUserRole, getUserByName);
-
+// Forget Password Request
+router.post("/PasswordRequest", resetPasswordRequestController);
+router.post("/resetPassword", resetPasswordController);
 // Only the users with admin role can update the user's data. checkUserRoleAdmin
 router.put("/users/:id", checkUserRoleAdmin, UpdateUser);
 // Only the users with admin role can DELETE the user's. checkUserRoleAdmin

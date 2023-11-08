@@ -7,11 +7,7 @@ const bodyParser = require("body-parser");
 
 const cors = require("cors");
 const corsOptions = {
-  origin: [
-    "http://localhost:5173",
-    "http://localhost:5174",
-    "http://localhost:3125",
-  ],
+  origin: ["http://localhost:5173", "*"],
   // methods: ["*"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,

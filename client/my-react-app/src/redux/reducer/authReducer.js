@@ -10,7 +10,7 @@ const authReducer = (
       // console.log("action.data " + localStorage.getItem("profile"));
       return { ...state, authData: action.data, loading: false, error: false };
     case "AUTH_Fail":
-      return { ...state, loading: false, error: true };
+      return { ...state, loading: false, error: action.error };
     default:
       return state;
   }
