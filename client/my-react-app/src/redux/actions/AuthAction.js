@@ -20,7 +20,13 @@ export const SignUp = (formData) => async (dispatch) => {
 export const AUTH_LOADING = "AUTH_LOADING";
 export const AUTH_SUCCESS = "AUTH_SUCCESS";
 export const AUTH_Fail = "AUTH_Fail";
+export const LOGOUT = "LOGOUT";
+export const logout = () => ({
+  type: LOGOUT,
+});
 export const LogIn = (formData) => async (dispatch) => {
+  dispatch(logout());
+
   dispatch({ type: AUTH_LOADING });
   try {
     const data = await AuthApi.LogIn(formData);

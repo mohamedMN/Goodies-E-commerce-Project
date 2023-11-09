@@ -56,6 +56,18 @@ const authUser = async (username, password, done) => {
     return done(err);
   }
 };
+const logOut = (req, res, next) => {
+  console.log("user " + req.session.user);
+
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    console.log("user " + req.session.user);
+    // res.redirect("/");
+    res.status(200).json({ message: "logout succes" });
+  });
+};
 passport.serializeUser((user, done) => {
   console.log(user);
   done(null, user);
@@ -121,4 +133,5 @@ module.exports = {
   generate_Public_Token,
   verifyAccessToken,
   verifyRefreshToken,
+  logOut,
 };

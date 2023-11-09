@@ -96,10 +96,6 @@ function App() {
             element={<Product navVisible={navVisible} />}
           />
           <Route
-            path="/logout"
-            element={<LoginPage navVisible={navVisible} />}
-          />
-          <Route
             path="/settings"
             element={
               <div className={!navVisible ? "page" : "page page-with-navbar"}>
