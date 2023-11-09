@@ -5,11 +5,11 @@ import {
 } from "react-icons/ai";
 import { axiosPrivate } from "../services/api";
 import { useState } from "react";
+import Swal from 'sweetalert2'
 // import { useSelector } from "react-redux";
 
 const UserComponent = (Props) => {
   const { managersInfo, index } = Props;
-  const [isDeleted, setIsDeleted] = useState(false);
   // const user = useSelector((state) => state.authReducer?.authData);
   // const [showManagerAlert, setShowManagerAlert] = useState(false);
 
@@ -17,27 +17,65 @@ const UserComponent = (Props) => {
     axiosPrivate
       .delete(`/users/${id}`)
       .then((response) => {
-        // Handle the response from the server (e.g., show a success message)
         console.log("User deleted successfully", response.data);
-        setIsDeleted(true); // Set the deleted state to true
       })
       .catch((error) => {
-        // Handle any errors that occur during the request
         // setShowManagerAlert(true);
         console.error("Error deleting user", error);
       });
   };
+  const showDeleteSwal = (id,username)=>{
+    Swal.fire({
+      title: `Are you sure ?`,
+      text: `${username}'s account will be deleted permanently`,
+      icon: 'warning',
+      background: '#183D3D',
+      backdrop: "#040D1280",
+      color:'#B9B4C7',
+      showCancelButton: true,
+      confirmButtonColor: '#4BB543',
+      cancelButtonColor: '#f87272',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        handleUserDelete(id)
+        Swal.fire(
+          {
+            title:'Deleted!', 
+            text: `${username} has been deleted.`,
+            background : "#183D3D",
+            backdrop: '#040D1290',
+            color: '#B9B4C7',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 1500
+          }
+          
+        )
+      }
+      // else{
+      //   Swal.fire(
+      //     {
+      //       title:'Cancelled', 
+      //       text: `${username} has not been deleted.`,
+      //       background : "#183D3D",
+      //       backdrop: true,
+      //       color: '#B9B4C7',
+      //       icon: 'error',
+      //       showConfirmButton: false,
+      //       timer: 1500
+      //     }
+      //   )
+      // }
+      })
+  }
 
   // const [showAddUserForm, setShowAddUserForm] = useState(false);
 
   // const handleUserUpdate = () => {};
 
   return (
-    <>
-      {isDeleted ? (
-        <p>User deleted successfully!</p>
-      ) : (
-        <tr className={index % 2 === 0 ? "Table-Row" : "Table-row-Dark"}>
+        <tr className="Table-Row">
           <td className="Table-Data" scope="row">
             <label>{managersInfo.user_name}</label>
           </td>
@@ -51,7 +89,7 @@ const UserComponent = (Props) => {
             <label>{managersInfo.email}</label>
           </td>
           <td className="Table-Data-functions" scope="col">
-            <button onClick={() => handleUserDelete(managersInfo._id)}>
+            <button onClick={() => showDeleteSwal(managersInfo._id,managersInfo.user_name)}>
               <AiOutlineDelete />
             </button>
             <button onClick={() => {}}>
@@ -62,8 +100,6 @@ const UserComponent = (Props) => {
             </button>
           </td>
         </tr>
-      )}
-    </>
   );
 };
 

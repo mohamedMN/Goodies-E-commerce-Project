@@ -1,27 +1,21 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import PropTypes from "prop-types";
 import "../styles/DashboardPage.css";
-import { useDispatch, useSelector } from "react-redux";
-import UserComponent from "../components/userComponent";
 import { AiOutlineSearch } from "react-icons/ai";
-import ErrorComponent from "../components/ErrorComponent";
-import { getUsers } from "../redux/actions/AuthAction";
 import AddUserForm from "../components/AddUserForm";
+import TableContainer from "../containers/TableContainer";
+import { motion } from "framer-motion";
+
 
 const Users = ({ navVisible }) => {
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
-  const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users);
 
   const [searchValue, setSearchValue] = useState("");
   // const [filteredUsers, setFilteredUsers] = useState([]);
 
   // Use useEffect to update filteredUsers whenever searchValue changes
   // useEffect(() => {
-  //   // Filter the user list based on the searchValue
+  // Filter the user list based on the searchValue
   //   const result = testingInfo.filter((user) =>
   //     user.user_name.includes(searchValue)
   //   );
@@ -33,18 +27,20 @@ const Users = ({ navVisible }) => {
     <>
       <div className={navVisible ? "page page-with-navbar" : "page"}>
         <div className="dashboard">
-          <div>
+          <div className="Header-Container">
             <button
-              style={{ color: "Red" }}
+            className="btn"
               onClick={() => {
                 setShowAddUserForm(true);
               }}
             >
-              Ajouter User
+              Add User
             </button>
+            <motion.div whileTap={{ scale: 0.98 }}  dragConstraints={{ left:500, right: 500,bottom: 20,top: 0 }} className="Create-User-Form" drag>
             {showAddUserForm && (
               <AddUserForm onClose={() => setShowAddUserForm(false)} />
             )}
+            </motion.div>
             <form className="flex form-search-user">
               <input
                 className="searchUserInput bg-transparent"
@@ -56,52 +52,9 @@ const Users = ({ navVisible }) => {
               <AiOutlineSearch className="search-icon" />
             </form>
           </div>
-          <table className="Main-table">
-            <caption>Users Table for your Back Office</caption>
-            <thead className="t-head">
-              <tr>
-                <th className="table-Header" scope="col">
-                  <label>Username</label>
-                </th>
-                <th className="table-Header" scope="col">
-                  <label>Id</label>
-                </th>
-                <th className="table-Header" scope="col">
-                  <label>Role</label>
-                </th>
-                <th className="table-Header" scope="col">
-                  <label>Email</label>
-                </th>
-                <th className="table-Header" scope="col">
-                  <label>Actions</label>
-                </th>
-              </tr>
-            </thead>
-
-            <tbody className="Table-Body">
-              {testingInfo && testingInfo.length > 0 ? (
-                (() => {
-                  const results = testingInfo.filter((user) =>
-                    user.user_name.includes(searchValue.toLowerCase())
-                  );
-
-                  if (results.length > 0) {
-                    return results.map((user, index) => (
-                      <UserComponent
-                        key={user.id}
-                        index={index}
-                        managersInfo={user}
-                      />
-                    ));
-                  } else {
-                    return <ErrorComponent />;
-                  }
-                })()
-              ) : (
-                <ErrorComponent />
-              )}
-            </tbody>
-          </table>
+          <div className="Table-Container h-3/5 overflow-x-auto">
+          <TableContainer searchValue={searchValue}/>
+          </div>
         </div>
       </div>
     </>

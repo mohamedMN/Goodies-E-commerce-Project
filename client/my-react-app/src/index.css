@@ -3,10 +3,19 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Color Vars */
+:root{
+    --primary: #183D3D;
+    --secondary: #5C8374;
+    --tertiary: #B9B4C7;
+    --quaternary: #FAF0E6;
+    --quinary: #040D12;
+}
+
 /* Main Css  */
 @layer components{
     body{
-        background-color: #f5f8fa;
+        overflow: hidden;
         font-family:'Nunito', sans-serif;
         margin: 0;
         padding: 0;
@@ -21,7 +30,7 @@
         @apply flex flex-col ;
     }
     .button-Container{
-     @apply flex  justify-between;
+     @apply flex  justify-between items-baseline;
     }
     
     .navbar-Main{
@@ -29,9 +38,6 @@
     }
     .nav-Op{
         @apply flex w-36 gap-10 py-4;
-    }
-    .LoginErrorMessage{
-        @apply p-3 bg-rose-400 border-red-600 border-[3px] tracking-wider 
     }
     .Login-Content{
         @apply w-2/6 md:w-3/5
@@ -49,9 +55,6 @@
 	font-family: 'Open Sans', sans-serif;
 }
 .LoginErrorMessage{
-    color: white;
-    text-align: center;
-    font-weight: 600;
     position: fixed;
     font-size: 16px;
     bottom: 20px;
@@ -60,7 +63,7 @@
 .LoaderErr{
     animation: LoadingLoad 2s forwards 0s  ease-in-out;
     height: 5px;
-    background: #fff;
+    background: var(--quaternary);
     position: relative;
     bottom: -15px;
     left: -14px;

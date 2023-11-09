@@ -1,55 +1,59 @@
-.Main-table{
+:root{
+    --primary: #183D3D;
+    --secondary: #5C8374;
+    --sixth: #2F7777
+    --tertiary: #B9B4C7;
+    --quaternary: #FAF0E6;
+    --quinary: #040D12;
+}
+
+.Table-Container{
     width: 100%;
-    height: 80%;
-    color: #fff;
-    border-collapse: collapse;
-    border: #fff solid;
-    border-width: 1px;
+    scrollbar-color: red orange;
+    scrollbar-width: thin;
+    align-self: center;
+    justify-self: flex-start;
+    
 }
-.Table-row-Dark{
-    background-color: #5C8374;
-}
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #040D12;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #183D3D;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #275252;
+  }
 .Table-Data{
-    border: #fff solid;
-    border-width: 1px;;
     text-align: center;
-    height: 20px;
 }
 .Table-Data-functions{
     text-align: center;
-    border: #fff solid;
-    border-width: 1px;
 }
-.Table-Row{
-    border: #fff solid;
-    border-width: 1px;
-    width: 100%;
-    height: fit-content;
-}
-.Table-Body{
-    border: #fff solid;
-    border-width: 1px;
-    width: 100%;
-    height: fit-content ;
-}
-
 .searchUserInput{
     flex-grow: 1;
 }
 .table-Header{
-    background-color: #5C8374;
-    border: #fff solid;
-    border-width: 1px;
-    padding: 10px 0px;
+    background-color: var(--primary);
+    text-align: center;
 }
 .form-search-user{
     background-color: #00000083;
     border-radius: 10px;
-    width: 330px;
+    width: 25%;
     color: #fff;
     font-weight: 400;
     height: 30px;
-    padding: 1px 1px;
     display: flex;
     flex-direction: row-reverse;
 }
@@ -61,26 +65,70 @@
     color: #fff;
 }
 .dashboard{
-    width: 90%;
+    width: 80%;
     border-radius: 40px;
     display:flex;
     justify-content: space-around;
-    height: 70%;
+    height: 65%;
     flex-direction: column;
     align-items: center;
-    background-color: #183D3D80;
-    padding: 0px 40px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    background-color: #27525280;
+    padding: 10px 40px;
 }
 .ErrorMsgContainer{
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: absolute;
-    top: 50%;
+    top: 100%;
     left: 30%;
-    color: #5C8374;
-    font-size: 40px;
-    font-weight: 600;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 25px;
+    border-radius: 25px;
+    background-color: transparent;
+    color: var(--secondary);
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.Header-Container{
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+}
+.Create-User-Form{
+    background-color: var(--primary);
+    position: absolute;
+    left: 25%;
+    bottom: 25%;
+    display: flex;
+    border-radius: 10px;
+    z-index: 2;
+    height: 60%;
+}
+.UserFormForm{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    justify-content: space-around;
+    height: 100%;
+}
+.UserInfoResolveBtns{
+    display: flex;
+    justify-items: center;
+    justify-content: space-evenly;
+}
+.Inputs-n-Labels{
+    display: flex;
+    flex-direction: column;
+}
+.alert-message{
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 105%;
+}
+.AlertMsg{
+    color: #fff;
 }

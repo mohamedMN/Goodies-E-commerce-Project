@@ -13,7 +13,7 @@ nav{
 	transition: transform 0.5s;
 }
 
-.navbar{
+.navbarbar{
 	transform: translateX(-100%);
 }
 
@@ -82,7 +82,7 @@ nav{
 
 
 .mobile-nav{
-	background-color:#352F44;
+	background-color:#183D3D;
 	width: 100%;
 	height:40px;
 	display: none;

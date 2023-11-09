@@ -1,36 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto:wght@500&display=swap');
 
-.submit-Button{
-    background-color: #5C8374;
-    padding: 0.1em;
-    width: 80px;
-    height: 30px;
-    padding-left: 1em;
-    padding-right: 1em;
-    color:#183D3D;
-    border-radius: 5px;
-    font-weight: 500;
-    font-family: 'Roboto', sans-serif;
-    border: none;
-    transition: all 0.5s ease-in-out;
-}
-.submit-Button:hover {
-    background-color: #183D3D;
-    color: #5C8374;
-    transition: 0.5s;
-    cursor: pointer;
-}
 .form-Container{
-    gap: 8px;
-}
-.inputLoginForm{
-    background-color: #00000083;
-    border-radius: 10px;
-    width: 330px;
-    color: #fff;
-    font-weight: 400;
-    height: 30px;
-    padding: 1px 1px;
+    gap: 10px;
+    width: 100%;
 }
 input:focus{
     outline: none;
@@ -38,11 +10,12 @@ input:focus{
 input:focus-visible{
     outline: none;
 }
-.label-Login-Form{
-    font-size: 16px;
-    font-family: 'Roboto', sans-serif;
-    color: #183D3D;
-    font-weight: 500;
+.login-Form{
+    width: 75%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 .Link{
     text-decoration: underline;
@@ -62,6 +35,5 @@ input:focus-visible{
     font-size: 30px;
     font-weight: 500;
     align-self: center  ;
-    padding-bottom: 40px;
 
 }

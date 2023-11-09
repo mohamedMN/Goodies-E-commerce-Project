@@ -7,11 +7,10 @@ function LoginPage(Props) {
   return (
     <div className={!navVisible ? "page" : "page page-with-navbar"}>
     <div className="Background-Login">
-
+        <LeftSideLog className='LeftSideLoginPage'/>
     </div>
       <div className="Login-Content">
         <LoginForm  />
-        <LeftSideLog className='LeftSideLoginPage'/>
       </div>
     </div>
   );

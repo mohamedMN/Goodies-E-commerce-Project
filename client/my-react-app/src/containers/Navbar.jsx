@@ -14,40 +14,48 @@ const BIG_ICON = 30;
 const MID_ICON = 25;
 
 function Navbar(Props) {
-  const { navOptions, visible, show } = Props;
-  return (
-    <>
-      <div className="mobile-nav">
-        <button className="mobile-nav-btn" onClick={() => show(!visible)}>
-          <FaBars size={MID_ICON} />
-        </button>
-      </div>
-      <nav className={!visible ? "navbar" : ""}>
-        <button
-          type="button"
-          className="nav-btn"
-          onClick={() => show(!visible)}
-        >
-          {!visible ? (
-            <FaAngleRight size={BIG_ICON} />
-          ) : (
-            <FaAngleLeft size={BIG_ICON} />
-          )}
-        </button>
-        <div className="logo-container">
-          <NavLink className="logo" to="/">
-            <img className="logo" src={logo} alt="logo" />
-          </NavLink>
-        </div>
-        <div className="links nav-top">
-          {navOptions.map((option, index) => {
-            return (
-              <NavLink className="nav-link" key={index} to={`${option.link}`}>
-                {option.icon}
-              </NavLink>
-            );
-          })}
-        </div>
+	const { navOptions, visible, show } = Props
+	return (
+		<>
+			<div className="mobile-nav">
+				<button
+					className="mobile-nav-btn"
+					onClick={() => show(!visible)}
+				>
+					<FaBars size={MID_ICON} />
+				</button>
+			</div>
+			<nav className={!visible ? 'navbarbar' : ''}>
+				<button
+					type="button"
+					className="nav-btn"
+					onClick={() => show(!visible)}
+				>
+					{!visible
+						? <FaAngleRight size={BIG_ICON} /> : <FaAngleLeft size={BIG_ICON} />}
+				</button>
+				<div className="logo-container">
+					<NavLink
+						className="logo"
+						to="/"
+					>
+						<img
+							width={100}
+							height={100}
+							src={logo}
+							alt="logo"
+						/>
+					</NavLink>
+				</div>
+					<div className="links nav-top">
+						{navOptions.map((option, index) => {
+							return (
+								<NavLink className="nav-link" key={index}  to={`${option.link}`}>
+									{option.icon}
+								</NavLink>
+							)
+						})}
+					</div>
 
         <div className="links">
           <NavLink to="/settings" className="nav-link">
