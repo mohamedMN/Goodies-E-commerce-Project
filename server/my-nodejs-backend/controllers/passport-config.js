@@ -57,7 +57,10 @@ const authUser = async (username, password, done) => {
   }
 };
 const logOut = (req, res, next) => {
-  console.log("user " + req.session.user);
+  console.log("user logOut " + req.session.user);
+  const userId = req.session.user;
+  const currentTime = new Date();
+  User.findByIdAndUpdate({ _id: userId }, { last_login: currentTime });
 
   req.logout(function (err) {
     if (err) {
@@ -65,9 +68,10 @@ const logOut = (req, res, next) => {
     }
     console.log("user " + req.session.user);
     // res.redirect("/");
-    res.status(200).json({ message: "logout succes" });
+    res.status(200).json({ message: "logout success" });
   });
 };
+
 passport.serializeUser((user, done) => {
   console.log(user);
   done(null, user);
