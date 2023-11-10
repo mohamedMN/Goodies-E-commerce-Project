@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import "../styles/DashboardPage.css";
 import { AiOutlineSearch } from "react-icons/ai";
@@ -6,10 +6,7 @@ import AddUserForm from "../components/AddUserForm";
 import TableContainer from "../containers/TableContainer";
 import { motion } from "framer-motion";
 
-
 const Users = ({ navVisible }) => {
-
-
   const [searchValue, setSearchValue] = useState("");
   // const [filteredUsers, setFilteredUsers] = useState([]);
 
@@ -29,22 +26,27 @@ const Users = ({ navVisible }) => {
         <div className="dashboard">
           <div className="Header-Container">
             <button
-            className="btn"
+              className="btn"
               onClick={() => {
-                setShowAddUserForm(true);
+                setShowAddUserForm(!showAddUserForm);
               }}
             >
               Add User
             </button>
-            <motion.div whileTap={{ scale: 0.98 }}  dragConstraints={{ left:500, right: 500,bottom: 20,top: 0 }} className="Create-User-Form" drag>
-            {showAddUserForm && (
-              <AddUserForm onClose={() => setShowAddUserForm(false)} />
-            )}
+            <motion.div
+              whileTap={{ scale: 0.98 }}
+              dragConstraints={{ left: 500, right: 500, bottom: 20, top: 0 }}
+              className="Create-User-Form"
+              drag
+            >
+              {showAddUserForm && (
+                <AddUserForm onClose={() => setShowAddUserForm(false)} />
+              )}
             </motion.div>
             <form className="flex form-search-user">
               <input
                 className="searchUserInput bg-transparent"
-                placeholder="  Search"
+                placeholder="  Search By Username"
                 type="text"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
@@ -53,7 +55,7 @@ const Users = ({ navVisible }) => {
             </form>
           </div>
           <div className="Table-Container h-3/5 overflow-x-auto">
-          <TableContainer searchValue={searchValue}/>
+            <TableContainer searchValue={searchValue} />
           </div>
         </div>
       </div>

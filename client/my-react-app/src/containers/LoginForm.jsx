@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AUTH_LOADING, LogIn   } from "../redux/actions/AuthAction";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./../styles/LoginForm.css";
+import { loading } from "../redux/actions/AuthAction";
 
 function LoginForm() {
   const [username, setUserName] = useState("");
@@ -12,10 +13,11 @@ function LoginForm() {
   const dispatch = useDispatch();
   const userRef = useRef();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/dashboard";
+  const from = location.state?.from?.pathname || "/";
   const error = useSelector((state) => state.authReducer?.error);
   const user = useSelector((state) => state.authReducer?.authData);
   const navigate = useNavigate();
+  const isloading = useSelector((state) => state.authReducer?.loading);
 
   // to show Error Message each time user did mistake informations
   useEffect(() => {
@@ -45,7 +47,10 @@ function LoginForm() {
     };
     isLoading(true)
     // console.log("data " + data.username + " password " + data.password);
+    console.log("isloading " + isloading);
+    dispatch(loading());
     dispatch(LogIn(data));
+    console.log("isloading " + isloading);
   };
   return (
     <form className="login-Form" method="post" onSubmit={handleSubmit}>

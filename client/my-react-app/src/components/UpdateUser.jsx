@@ -1,8 +1,9 @@
 import { useState } from "react";
 import axios from "../services/api";
+import { useSelector } from "react-redux";
 
-const AddUserForm = (Props) => {
-  const { onClose } = Props;
+const UpdateUser = (Props) => {
+  const { onClose, id } = Props;
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -13,10 +14,12 @@ const AddUserForm = (Props) => {
   const [image, setImage] = useState(null); // Store the selected image
   const formData = new FormData(); // Create a FormData object
 
+  const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users); // getting all users
+  const user = testingInfo.find((user) => user._id === id);
   const handleFileChange = (e) => {
     setImage(e.target.files[0]);
   };
-  // const passwordsDontMatch = () => {};
+  //   const passwordsDontMatch = () => {};
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Perform actions to add the user with the provided data
@@ -50,7 +53,7 @@ const AddUserForm = (Props) => {
   };
 
   return (
-    <>
+    <motion.div className="Create-User-Form z-50">
       {alertMessage && (
         <div className="alert alert-error alert-message">
           <svg
@@ -80,7 +83,7 @@ const AddUserForm = (Props) => {
               <input
                 className="input input-sm input-bordered w-full max-w-xs"
                 type="text"
-                value={firstName}
+                value={user.firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
@@ -91,7 +94,7 @@ const AddUserForm = (Props) => {
               <input
                 className="input input-sm input-bordered w-full max-w-xs"
                 type="text"
-                value={lastName}
+                value={user.lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
             </div>
@@ -106,7 +109,7 @@ const AddUserForm = (Props) => {
               <input
                 className="input input-sm input-bordered w-full max-w-xs"
                 type="text"
-                value={email}
+                value={user.email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
@@ -121,7 +124,7 @@ const AddUserForm = (Props) => {
               <input
                 className="input w-full input-sm input-bordered max-w-xs"
                 type="text"
-                value={userName}
+                value={user.userName}
                 onChange={(e) => setUserName(e.target.value)}
                 required
               />
@@ -169,8 +172,8 @@ const AddUserForm = (Props) => {
           </div>
         </form>
       </div>
-    </>
+    </motion.div>
   );
 };
 
-export default AddUserForm;
+export default UpdateUser;
