@@ -7,12 +7,12 @@ const RequireAuth = () => {
   //   dispatch(getUsers());
   // }, []);
   //
-  const auth = useSelector((state) => state.authReducer?.authData);// user 
+  const auth = useSelector((state) => state.authReducer?.authData); // user
   // console.log("auth " + JSON.stringify(auth));
 
   var location = useLocation();
   if (!location) {
-    location = "/dashboard";
+    location = "/";
   }
   return auth ? (
     <Outlet />
