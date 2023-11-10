@@ -12,13 +12,15 @@ export default function TableContainer(Props) {
     dispatch(getUsers());
   }, [dispatch]);
 
-  
   const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users);
 
   // filter function for search Button
   if (testingInfo) {
-    var results = testingInfo.filter((user) =>
-      user.user_name.includes(searchValue.toLowerCase())
+    var results = testingInfo.filter(
+      (user) =>
+        user.user_name.includes(searchValue.toLowerCase()) 
+        ||
+        user.email.includes(searchValue.toLowerCase())
     );
   }
 
