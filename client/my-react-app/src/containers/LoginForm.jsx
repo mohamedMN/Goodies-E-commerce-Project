@@ -1,15 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AUTH_LOADING, LogIn   } from "../redux/actions/AuthAction";
+import { LogIn } from "../redux/actions/AuthAction";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./../styles/LoginForm.css";
-import { loading } from "../redux/actions/AuthAction";
+// import { loading } from "../redux/actions/AuthAction";
 
 function LoginForm() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [message, errorMessage] = useState(false);
-  const [loading , isLoading] = useState(false)
+  const [loading, isLoading] = useState(false);
   const dispatch = useDispatch();
   const userRef = useRef();
   const location = useLocation();
@@ -17,7 +17,7 @@ function LoginForm() {
   const error = useSelector((state) => state.authReducer?.error);
   const user = useSelector((state) => state.authReducer?.authData);
   const navigate = useNavigate();
-  const isloading = useSelector((state) => state.authReducer?.loading);
+  // const isloading = useSelector((state) => state.authReducer?.loading);
 
   // to show Error Message each time user did mistake informations
   useEffect(() => {
@@ -26,15 +26,16 @@ function LoginForm() {
   useEffect(() => {
     if (error) {
       errorMessage(
-        "Password Or Username Wrong Verify Credintials Or Contact Your Administrator");
-        isLoading(false)
-        setTimeout(()=>{
-          errorMessage(false)
-        },2000)
-      }
-      if (user) {
-        navigate(from, { replace: true });
-        isLoading(false)
+        "Password Or Username Wrong Verify Credintials Or Contact Your Administrator"
+      );
+      isLoading(false);
+      setTimeout(() => {
+        errorMessage(false);
+      }, 2000);
+    }
+    if (user) {
+      navigate(from, { replace: true });
+      isLoading(false);
     }
   }, [user]);
 
@@ -45,12 +46,12 @@ function LoginForm() {
       username: username,
       password: password,
     };
-    isLoading(true)
+    isLoading(true);
     // console.log("data " + data.username + " password " + data.password);
-    console.log("isloading " + isloading);
-    dispatch(loading());
+    // console.log("isloading " + isloading);
+    // dispatch(loading());
     dispatch(LogIn(data));
-    console.log("isloading " + isloading);
+    // console.log("isloading " + isloading);
   };
   return (
     <form className="login-Form" method="post" onSubmit={handleSubmit}>
@@ -84,18 +85,17 @@ function LoginForm() {
           ></input>
         </div>
       </div>
-        <button className="btn btn-outline w-full" type="submit">
-          Login
-        </button>
+      <button className="btn btn-outline w-full" type="submit">
+        Login
+      </button>
       <div className="button-Container">
         <Link to={"/RequestForgetPassword"} className="Link">
           Forgot Password?
         </Link>
-        {loading && 
-          <span className="loading loading-spinner text-primary"></span>}
-        <Link  className="Link">
-          Contact Admin?
-        </Link>
+        {loading && (
+          <span className="loading loading-spinner text-primary"></span>
+        )}
+        <Link className="Link">Contact Admin?</Link>
       </div>
       {message && (
         <div className="alert w-fit alert-error LoginErrorMessage">
