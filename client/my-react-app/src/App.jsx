@@ -9,7 +9,6 @@ import { IoAnalytics, IoPricetagOutline, IoCartOutline } from "react-icons/io5";
 import "./index.css";
 import { FiUser, FiUsers } from "react-icons/fi";
 import RequireAuth from "./components/requireAuth";
-import Dashboard from "./pages/Users";
 import LoginPage from "./pages/LoginPage";
 import Analytics from "./pages/Analytics";
 import Order from "./pages/Order";
@@ -26,9 +25,9 @@ function App() {
 
   const navOptions = [
     {
-      name: "Dashboard",
-      link: "/dashboard",
-      icon: <RxDashboard size={32} />,
+      name: "Users",
+      link: "/Users",
+      icon: <RxDashboard size={32} />, // dashboard component
     },
     {
       name: "Analytics",
@@ -74,11 +73,8 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="/" element={<Users navVisible={navVisible} />} />
 
-          <Route
-            path="/dashboard"
-            element={<Dashboard navVisible={navVisible} />}
-          />
-          <Route path="/users" element={<Users navVisible={navVisible} />} />
+          <Route path="/Users" element={<Users navVisible={navVisible} />} />
+          {/* <Route path="/users" element={<Users navVisible={navVisible} />} /> */}
 
           <Route
             path="/profile"

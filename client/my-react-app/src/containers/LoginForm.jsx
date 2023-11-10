@@ -11,7 +11,7 @@ function LoginForm() {
   const dispatch = useDispatch();
   const userRef = useRef();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/dashboard";
+  const from = location.state?.from?.pathname || "/";
   const error = useSelector((state) => state.authReducer?.error);
   const user = useSelector((state) => state.authReducer?.authData);
   const navigate = useNavigate();

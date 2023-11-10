@@ -12,7 +12,16 @@ export default function TableContainer(Props) {
     dispatch(getUsers());
   }, [dispatch]);
 
+  
   const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users);
+
+  // filter function for search Button
+  if (testingInfo) {
+    var results = testingInfo.filter((user) =>
+      user.user_name.includes(searchValue.toLowerCase())
+    );
+  }
+
   return (
     <table className=" table table-zebra Main-Table table-pin-rows">
       <caption>Users Table for your Back Office</caption>
@@ -38,23 +47,13 @@ export default function TableContainer(Props) {
 
       <tbody className="Table-Body">
         {testingInfo && testingInfo.length > 0 ? (
-          (() => {
-            const results = testingInfo.filter((user) =>
-              user.user_name.includes(searchValue.toLowerCase())
-            );
-
-            if (results.length > 0) {
-              return results.map((user, index) => (
-                <UserComponent
-                  key={user.id}
-                  index={index}
-                  managersInfo={user}
-                />
-              ));
-            } else {
-              return <ErrorComponent />;
-            }
-          })()
+          results.length > 0 ? (
+            results.map((user, index) => (
+              <UserComponent key={user.id} index={index} managersInfo={user} />
+            ))
+          ) : (
+            <ErrorComponent />
+          )
         ) : (
           <ErrorComponent />
         )}

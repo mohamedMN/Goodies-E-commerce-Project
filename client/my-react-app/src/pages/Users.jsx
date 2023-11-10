@@ -31,7 +31,7 @@ const Users = ({ navVisible }) => {
             <button
             className="btn"
               onClick={() => {
-                setShowAddUserForm(true);
+                setShowAddUserForm(!showAddUserForm);
               }}
             >
               Add User
