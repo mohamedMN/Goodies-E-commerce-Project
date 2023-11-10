@@ -44,10 +44,9 @@ const AddUserForm = (Props) => {
         .catch((err) => setAlertMessage("Error adding user: " + err.message));
     } else {
       setAlertMessage("Passwords do not match.");
-      setTimeout(()=>{
-        setAlertMessage(false)
-
-      },2000)
+      setTimeout(() => {
+        setAlertMessage(false);
+      }, 2000);
     }
   };
 
@@ -66,111 +65,100 @@ const AddUserForm = (Props) => {
               stroke-linejoin="round"
               stroke-width="2"
               color="#fff"
-
               d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
           <span className="AlertMsg">{alertMessage}.</span>
         </div>
       )}
-    <div className="add-user-form">
-
-      <form className="UserFormForm" onSubmit={handleSubmit}>
-        <div className="Inputs-n-Labels">
-          <div class="form-control w-full max-w-xs">
-            <label className="label">
-              <span className="label-text">First Name:</span>
-              
-            </label>
+      <div className="add-user-form">
+        <form className="UserFormForm " onSubmit={handleSubmit}>
+          <div className="Inputs-n-Labels ">
+            <div className="w-fit flex gap-2">
+              <div class="form-control w-fit max-w-xs">
+                <label className="label">
+                  <span className="label-text">First Name:</span>
+                </label>
+                <input
+                  className="input input-sm input-bordered w-full max-w-xs"
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </div>
+              <div class="form-control w-fit max-w-xs">
+                <label className="label">
+                  <span className="label-text">Last Name:</span>
+                </label>
+                <input
+                  className="input input-sm input-bordered w-full max-w-xs"
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
+            </div>
+            <div class="form-control w-full self-center">
+              <label className="label">
+                <span className="label-text">Email:</span>
+                <span className="Label-text-alt text-red-700 font-semibold ">
+                  *
+                </span>
+              </label>
+              <input
+                className="input input-sm input-bordered w-full "
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div class=" self-center form-control w-full ">
+              <label className="label">
+                <span className="label-text">Username:</span>
+                <span className="Label-text-alt text-red-700 font-semibold ">
+                  *
+                </span>
+              </label>
+              <input
+                className="input w-full input-sm input-bordered "
+                type="text"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+                required
+              />
+            </div>
+            <div class="form-control self-center w-full ">
+              <label className="label">
+                <span className="label-text">Password:</span>
+              </label>
+              <input
+                className="input input-sm input-bordered w-full "
+                type="password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="Image-input">
             <input
-              className="input input-sm input-bordered w-full max-w-xs"
-              type="text"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              className="file-input input-sm  w-full max-w-xs"
+              type="file"
+              name="image"
+              accept="image/*"
+              onChange={handleFileChange}
             />
           </div>
-          <div class="form-control w-full max-w-xs">
-            <label className="label">
-              <span className="label-text">Last Name:</span>
-            </label>
-            <input
-              className="input input-sm input-bordered w-full max-w-xs"
-              type="text"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </div>
-          <div class="form-control w-full max-w-xs">
-            <label className="label">
-              <span className="label-text">Email:</span>
-              <span className="Label-text-alt text-red-700 font-semibold ">
-                *
-              </span>
-            </label>
-            <label className="Label-User-Input"></label>
-            <input
-              className="input input-sm input-bordered w-full max-w-xs"
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div class="form-control w-full max-w-xs">
-            <label className="label">
-              <span className="label-text">Username:</span>
-              <span className="Label-text-alt text-red-700 font-semibold ">
-                *
-              </span>
-            </label>
-            <input
-              className="input w-full input-sm input-bordered max-w-xs"
-              type="text"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
-              required
-            />
-          </div>
-          <div class="form-control w-full max-w-xs">
-            <label className="label">
-              <span className="label-text">Password:</span>
-            </label>
-            <input
-              className="input input-sm input-bordered w-full max-w-xs"
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div class="form-control w-full max-w-xs">
-            <label className="label">
-              <span className="label-text">Confirm Password:</span>
-            </label>
-            <input
-              className="input input-sm input-bordered w-full max-w-xs"
-              type="password"
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="Image-input">
-          <input
-            className="file-input input-sm  w-full max-w-xs"
-            type="file"
-            name="image"
-            accept="image/*"
-            onChange={handleFileChange}
-          />
-        </div>
-        <div className="UserInfoResolveBtns">
-          <button className="btn btn-sm btn-outline btn-base" type="submit">
+          <button className="btn btn-md btn-outline btn-base" type="submit">
             Submit
           </button>
-          <button className="btn btn-outline btn-sm btn-error" onClick={onClose}>
+          <button
+            className="btn  btn-md btn-base w-3/4 self-center"
+            onClick={onClose}
+          >
             Cancel
           </button>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
     </>
   );
 };

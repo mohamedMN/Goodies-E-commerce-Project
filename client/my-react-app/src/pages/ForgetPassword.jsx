@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { axiosPrivate } from "../services/api";
+import LeftSideLog from "../containers/LeftSideLog";
 
-const RequestForgetPassword = () => {
+const RequestForgetPassword = (props) => {
+  const { navVisible } = props;
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
@@ -28,22 +30,33 @@ const RequestForgetPassword = () => {
   };
 
   return (
-    <div className="Login-Content">
-      <form className="login-Form" method="get" onSubmit={handleSubmit}>
-        <h2 style={{ color: "white" }}>Forget Password</h2>
-        <p style={{ color: "white" }}>
+    <div className={navVisible ? "page page-with-navbar" : "page"}>
+     <div className="Background-Login">
+        <LeftSideLog className='LeftSideLoginPage'/>
+    </div>
+      <div className="Login-Content">
+      <div className="w-3/4 h-full">
+      <form className="items-center text-center flex flex-col h-full justify-evenly " method="get" onSubmit={handleSubmit}>
+        <h2  className="font-roboto text-lg">Forgot Password?</h2>
+        <p className="font-roboto">
           Enter your email to reset your password:
         </p>
+        <div className="flex flex-col w-full h-1/3 justify-around ">
         <input
+        className="input input-ghost input-sm w-full"
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button style={{ color: "Red" }}>Reset Password</button>
+        <button className="btn btn-outline font-semibold btn-primary">Reset Password</button>
+        </div>
         <p style={{ color: "white" }}>{message}</p>
       </form>
     </div>
+      </div>
+    </div>
+    
   );
 };
 

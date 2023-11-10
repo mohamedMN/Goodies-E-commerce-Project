@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../styles/Profile.css";
+import "../styles/Profilepage.css";
 import { useNavigate } from "react-router-dom";
 import { axiosPrivate } from "../services/api";
 
@@ -31,39 +31,52 @@ const Profile = (Props) => {
   return (
     <>
       <div className={navVisible ? "page page-with-navbar" : "page"}>
-        <div className="profile">
-          <div className="profile-image">{/* image */}</div>
-          <div className="profile-info">
+        <div className="Profile-Container">
+          <div className="Profile-info">
+          <div className="ProfilePicContainer">
             {user && images ? (
               <img
+              className="Profile-Picture"
                 src={`data:image/jpeg;base64,${images}`}
                 alt={`Uploaded Image`}
               />
             ) : (
               <p>No image available</p>
             )}
-            <br />
-
-            <h2 className="username" style={{ color: "white" }} >user_name : {user.user_name}</h2>
-            <h2 className="username" style={{ color: "white" }}> first_name : {user.first_name}</h2>
-            <h2 className="username" style={{ color: "white" }}>email :{user.email}</h2>
-            <p className="username" style={{ color: "white" }}>role :{user.role}</p>
-            <br />
           </div>
-          <br />
+
+            <h2 className="UserData" style={{ color: "white" }} >Username : {user.user_name}</h2>
+            <h2 className="UserData" style={{ color: "white" }}> First name : {user.first_name}</h2>
+            <h2 className="UserData" style={{ color: "white" }}>Email :{user.email}</h2>
+            <p className="UserData" style={{ color: "white" }}>Role :{user.role}</p>
+          </div>
 
           <button
-            className="signOutBtn"
-            style={{ color: "Red" }}
+            className="btn btn-accent btn-outline"
             onClick={() => navigate("/dashboard")}
           >
             GO To Dashboard
           </button>
-          <br />
-          <span>
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-          </span>
-        </div>{" "}
+        </div>
+        {errorMessage && (
+        <div className="alert w-fit alert-error ProfilePageError">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              color="#fff"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span className="text-white">{errorMessage}.</span>
+        </div>
+      )}
       </div>
     </>
   );

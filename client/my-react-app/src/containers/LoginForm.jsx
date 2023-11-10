@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { LogIn } from "../redux/actions/AuthAction";
+import { AUTH_LOADING, LogIn   } from "../redux/actions/AuthAction";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./../styles/LoginForm.css";
 
@@ -8,6 +8,7 @@ function LoginForm() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [message, errorMessage] = useState(false);
+  const [loading , isLoading] = useState(false)
   const dispatch = useDispatch();
   const userRef = useRef();
   const location = useLocation();
@@ -22,11 +23,15 @@ function LoginForm() {
   useEffect(() => {
     if (error) {
       errorMessage(
-        "Password Or Username Wrong Verify Credintials Or Contact Your Administrator"
-      );
-    }
-    if (user) {
-      navigate(from, { replace: true });
+        "Password Or Username Wrong Verify Credintials Or Contact Your Administrator");
+        isLoading(false)
+        setTimeout(()=>{
+          errorMessage(false)
+        },2000)
+      }
+      if (user) {
+        navigate(from, { replace: true });
+        isLoading(false)
     }
   }, [error]);
   const handleSubmit = async (e) => {
@@ -35,6 +40,7 @@ function LoginForm() {
       username: username,
       password: password,
     };
+    isLoading(true)
     // console.log("data " + data.username + " password " + data.password);
     dispatch(LogIn(data));
   };
@@ -70,13 +76,18 @@ function LoginForm() {
           ></input>
         </div>
       </div>
+        <button className="btn btn-outline w-full" type="submit">
+          Login
+        </button>
       <div className="button-Container">
         <Link to={"/RequestForgetPassword"} className="Link">
           Forgot Password?
         </Link>
-        <button className="btn" type="submit">
-          Login
-        </button>
+        {loading && 
+          <span className="loading loading-spinner text-primary"></span>}
+        <Link  className="Link">
+          Contact Admin?
+        </Link>
       </div>
       {message && (
         <div className="alert w-fit alert-error LoginErrorMessage">
