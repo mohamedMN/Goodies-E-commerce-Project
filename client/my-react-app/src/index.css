@@ -60,23 +60,6 @@
     bottom: 20px;
     
 }
-.LoaderErr{
-    animation: LoadingLoad 2s forwards 0s  ease-in-out;
-    height: 5px;
-    background: var(--quaternary);
-    position: relative;
-    bottom: -15px;
-    left: -14px;
-    padding: 0px 10px;
-}
-@keyframes LoadingLoad {
-    0%{
-        width: 0%;
-    }
-    100%{
-        width: 104%;
-    }
-}
 
 .App{
 	display: flex;
@@ -101,5 +84,8 @@
 		width: 100%;
 		margin-left: 0;
 	}
+    .Logo{
+        width: 50%;
+    }
 
 }

@@ -23,9 +23,8 @@ function LoginForm() {
   }, []);
   useEffect(() => {
     if (error) {
-      errorMessage(
-        "Password Or Username Wrong Verify Credintials Or Contact Your Administrator");
-        isLoading(false)
+      errorMessage("Password Or Username Wrong Verify Credintials Or Contact Your Administrator");
+        isLoading(false);
         setTimeout(()=>{
           errorMessage(false)
         },2000)
