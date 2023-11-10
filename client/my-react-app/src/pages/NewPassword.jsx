@@ -22,7 +22,6 @@ function PasswordResetPage() {
     password: ${password}
   `);
     axiosPrivate
-      // .post(`http://localhost:3125/resetPassword?token=${token}&id=${id}`, {
       .post(`http://localhost:3125/resetPassword`, data)
       .then(() => {
         console.log("Reset password succed ");

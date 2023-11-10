@@ -6,7 +6,8 @@ const RequireAuth = () => {
   // useEffect(() => {
   //   dispatch(getUsers());
   // }, []);
-  const auth = useSelector((state) => state.authReducer?.authData);
+  //
+  const auth = useSelector((state) => state.authReducer?.authData);// user 
   // console.log("auth " + JSON.stringify(auth));
 
   var location = useLocation();

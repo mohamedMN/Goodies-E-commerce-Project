@@ -17,6 +17,7 @@ function LoginForm() {
   const user = useSelector((state) => state.authReducer?.authData);
   const navigate = useNavigate();
 
+  // to show Error Message each time user did mistake informations
   useEffect(() => {
     userRef.current.focus();
   }, []);
@@ -33,7 +34,9 @@ function LoginForm() {
         navigate(from, { replace: true });
         isLoading(false)
     }
-  }, [error]);
+  }, [user]);
+
+  // handle submit function
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
