@@ -13,13 +13,14 @@ export default function TableContainer(Props) {
   }, [dispatch]);
 
   const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users);
-
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [testingInfo, dispatch]);
   // filter function for search Button
   if (testingInfo) {
     var results = testingInfo.filter(
       (user) =>
-        user.user_name.includes(searchValue.toLowerCase()) 
-        ||
+        user.user_name.includes(searchValue.toLowerCase()) ||
         user.email.includes(searchValue.toLowerCase())
     );
   }
@@ -51,7 +52,7 @@ export default function TableContainer(Props) {
         {testingInfo && testingInfo.length > 0 ? (
           results.length > 0 ? (
             results.map((user, index) => (
-              <UserComponent key={user.id} index={index} managersInfo={user} />
+              <UserComponent key={index} index={index} managersInfo={user} />
             ))
           ) : (
             <ErrorComponent />

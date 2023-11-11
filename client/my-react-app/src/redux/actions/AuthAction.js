@@ -45,6 +45,10 @@ export const LogIn = (formData) => async (dispatch) => {
 // get ALL users action
 export const Users = "Users";
 export const ROLE_PERMANENT = "ROLE_PERMANENT";
+export const CLEAN_GET_USERS = "CLEAN_GET_USERS";
+export const cleanGetUsers = () => ({
+  type: CLEAN_GET_USERS,
+});
 export const getUsers = () => async (dispatch) => {
   try {
     const data = await AuthApi.getUsers();
@@ -52,5 +56,21 @@ export const getUsers = () => async (dispatch) => {
   } catch (error) {
     console.log(error);
     dispatch({ type: ROLE_PERMANENT });
+  }
+};
+
+export const UPDATE_USER = "UPDATE_USER";
+export const ERREUR_UPDATE_USER = "ERREUR_UPDATE_USER";
+export const CLEAN_UPDATE_USER = "CLEAN_UPDATE_USER";
+export const cleanUpdateId = () => ({
+  type: CLEAN_UPDATE_USER,
+});
+export const UpdateUser = (id) => (dispatch) => {
+  try {
+    // console.log("id " + id);
+    dispatch({ type: UPDATE_USER, id: id });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: ERREUR_UPDATE_USER, error: error });
   }
 };

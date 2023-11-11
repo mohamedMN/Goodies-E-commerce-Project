@@ -5,14 +5,15 @@ import {
 } from "react-icons/ai";
 import { axiosPrivate } from "../services/api";
 import Swal from "sweetalert2";
-import UpdateUser from "./UpdateUser";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { UpdateUser } from "../redux/actions/AuthAction";
 // import { useSelector } from "react-redux";
-
 const UserComponent = (Props) => {
   const { managersInfo } = Props;
   // const user = useSelector((state) => state.authReducer?.authData);
   // const [showManagerAlert, setShowManagerAlert] = useState(false);
+
+  const dispatch = useDispatch();
 
   const handleUserDelete = (id) => {
     axiosPrivate
@@ -68,18 +69,16 @@ const UserComponent = (Props) => {
     });
   };
 
-  const [showAddUserForm, setShowAddUserForm] = useState(false);
-  const [id, setId] = useState("");
+  // const [id, setId] = useState("");
   const handleUserUpdate = (id) => {
-    setId(id);
-    console.log("showAddUserForm " + showAddUserForm);
+    dispatch(UpdateUser(id));
   };
 
   return (
     <>
-      {showAddUserForm && (
+      {/* {showAddUserForm && (
         <UpdateUser onClose={() => setShowAddUserForm(false)} id={id} />
-      )}
+      )} */}
       <tr className="Table-Row">
         <td className="Table-Data" scope="row">
           <label>{managersInfo.user_name}</label>
@@ -106,7 +105,6 @@ const UserComponent = (Props) => {
           </button>{" "}
           <button
             onClick={() => {
-              setShowAddUserForm(true);
               handleUserUpdate(managersInfo._id);
             }}
           >

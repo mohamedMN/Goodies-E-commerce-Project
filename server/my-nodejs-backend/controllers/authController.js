@@ -115,12 +115,16 @@ const registerUser = async (req, res) => {
 };
 
 const refresh = (req, res) => {
-  const _id = req.session.user._id;
-  // console.log("id : " + _id);
-  const accessToken = generate_Public_Token({ _id }, 3600); //expired: 1H
-  res
-    .status(200)
-    .json({ accessToken, message: "the refresh token is created" });
+  try {
+    const _id = req.session.user._id;
+    // console.log("id : " + _id);
+    const accessToken = generate_Public_Token({ _id }, 3600); //expired: 1H
+    res
+      .status(200)
+      .json({ accessToken, message: "the refresh token is created" });
+  } catch (error) {
+    return res.status(400).json({ error: " user id is undefined" });
+  }
 };
 
 //---------------------- RESET PASSWORD -----------------------------

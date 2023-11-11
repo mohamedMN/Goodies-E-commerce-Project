@@ -1,24 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "../styles/DashboardPage.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import AddUserForm from "../components/AddUserForm";
 import TableContainer from "../containers/TableContainer";
 import { motion } from "framer-motion";
-
+import { useSelector } from "react-redux";
+import UpdateUser from "../components/UpdateUser";
 const Users = ({ navVisible }) => {
   const [searchValue, setSearchValue] = useState("");
-  // const [filteredUsers, setFilteredUsers] = useState([]);
 
-  // Use useEffect to update filteredUsers whenever searchValue changes
-  // useEffect(() => {
-  // Filter the user list based on the searchValue
-  //   const result = testingInfo.filter((user) =>
-  //     user.user_name.includes(searchValue)
-  //   );
-  //   setFilteredUsers(result);
-  // }, [searchValue]);
   const [showAddUserForm, setShowAddUserForm] = useState(false);
+  const [showUpdateUserForm, setShowUpdateUserForm] = useState(false);
+  // Update user if he click on it or not
+  const id_user = useSelector((state) => state.UpdateUserReducer?.id);
+  // console.log("id_user " + id_user);
+
+  useEffect(() => {
+    if (id_user) {
+      setShowUpdateUserForm(true);
+    }
+  }, [id_user]);
 
   return (
     <>
@@ -41,6 +43,17 @@ const Users = ({ navVisible }) => {
             >
               {showAddUserForm && (
                 <AddUserForm onClose={() => setShowAddUserForm(false)} />
+              )}
+
+              {showUpdateUserForm && (
+                <UpdateUser
+                  id={id_user}
+                  onClose={() => setShowUpdateUserForm(false)}
+                  onClick={() => {
+                    setShowUpdateUserForm(true);
+                    console.log("id_user " + id_user);
+                  }}
+                />
               )}
             </motion.div>
             <form className="flex form-search-user">

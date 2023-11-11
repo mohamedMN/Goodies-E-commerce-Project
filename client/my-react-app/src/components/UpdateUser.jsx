@@ -1,59 +1,64 @@
-import { useState } from "react";
-import axios from "../services/api";
-import { useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { cleanUpdateId } from "../redux/actions/AuthAction";
+import { useDispatch, useSelector } from "react-redux";
+import { axiosPrivate } from "../services/api";
 
 const UpdateUser = (Props) => {
   const { onClose, id } = Props;
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users); // aLL users
+  const user = testingInfo.filter((e) => e._id.toLowerCase().includes(id));
+  const [firstName, setFirstName] = useState(user[0].first_name);
+  const [lastName, setLastName] = useState(user[0].last_name);
+  const [email, setEmail] = useState(user[0].email);
   const [password, setPassword] = useState("");
-  const [ConPassword, setConfirmPassword] = useState("");
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState(user[0].user_name);
   const [alertMessage, setAlertMessage] = useState("");
-  const [image, setImage] = useState(null); // Store the selected image
+  // const [image, setImage] = useState(null); // Store the selected image
   const formData = new FormData(); // Create a FormData object
 
-  const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users); // getting all users
-  const user = testingInfo.find((user) => user._id === id);
-  const handleFileChange = (e) => {
-    setImage(e.target.files[0]);
-  };
-  //   const passwordsDontMatch = () => {};
+  const dispatch = useDispatch(); // clear the inputs when it Close
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+  // console.log("user " + JSON.stringify(user));
+
+  // const handleFileChange = (e) => {
+  //   setImage(e.target.files[0]);
+  // };
+  // const passwordsDontMatch = () => {};
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Perform actions to add the user with the provided data
-    if (ConPassword === password) {
-      formData.append("firstName", firstName);
-      formData.append("lastName", lastName);
-      formData.append("email", email);
-      formData.append("password", password);
-      formData.append("userName", userName);
-      if (image) {
-        formData.append("image", image); // Append the image file to the FormData
-      }
 
-      await axios
-        .post("/register", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data", // Use multipart form data
-          },
-        })
-        .then(() => {
-          setAlertMessage("User added successfully!");
-          onClose();
-        })
-        .catch((err) => setAlertMessage("Error adding user: " + err.message));
-    } else {
-      setAlertMessage("Passwords do not match.");
-      setTimeout(() => {
-        setAlertMessage(false);
-      }, 2000);
-    }
+    // Perform actions to add the user with the provided data
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("userName", userName);
+
+    console.log("firstName " + firstName);
+    console.log("lastName " + lastName);
+    console.log("email " + email);
+    console.log("userName " + userName);
+    // if (image) {
+    //   formData.append("image", image); // Append the image file to the FormData
+    // }
+
+    await axiosPrivate
+      .post(`/users/${id}`, formData)
+      .then(() => {
+        setAlertMessage("User Updated successfully!");
+        console.log("Update USer Success");
+        onClose();
+      })
+      .catch((err) => setAlertMessage("Error Updated user: " + err.message));
   };
 
   return (
-    <motion.div className="Create-User-Form z-50">
+    <>
       {alertMessage && (
         <div className="alert alert-error alert-message">
           <svg
@@ -83,7 +88,9 @@ const UpdateUser = (Props) => {
               <input
                 className="input input-sm input-bordered w-full max-w-xs"
                 type="text"
-                value={user.firstName}
+                defaultValue={user[0].first_name}
+                ref={inputRef}
+                // onFocus={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
@@ -94,8 +101,9 @@ const UpdateUser = (Props) => {
               <input
                 className="input input-sm input-bordered w-full max-w-xs"
                 type="text"
-                value={user.lastName}
+                defaultValue={user[0].last_name}
                 onChange={(e) => setLastName(e.target.value)}
+                ref={inputRef}
               />
             </div>
             <div className="form-control w-full max-w-xs">
@@ -109,8 +117,9 @@ const UpdateUser = (Props) => {
               <input
                 className="input input-sm input-bordered w-full max-w-xs"
                 type="text"
-                value={user.email}
+                defaultValue={user[0].email}
                 onChange={(e) => setEmail(e.target.value)}
+                ref={inputRef}
                 required
               />
             </div>
@@ -124,8 +133,9 @@ const UpdateUser = (Props) => {
               <input
                 className="input w-full input-sm input-bordered max-w-xs"
                 type="text"
-                value={user.userName}
+                defaultValue={user[0].user_name}
                 onChange={(e) => setUserName(e.target.value)}
+                ref={inputRef}
                 required
               />
             </div>
@@ -139,18 +149,8 @@ const UpdateUser = (Props) => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">Confirm Password:</span>
-              </label>
-              <input
-                className="input input-sm input-bordered w-full max-w-xs"
-                type="password"
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </div>
           </div>
-          <div className="Image-input">
+          {/* <div className="Image-input">
             <input
               className="file-input input-sm  w-full max-w-xs"
               type="file"
@@ -158,21 +158,24 @@ const UpdateUser = (Props) => {
               accept="image/*"
               onChange={handleFileChange}
             />
-          </div>
+          </div> */}
           <div className="UserInfoResolveBtns">
             <button className="btn btn-sm btn-outline btn-base" type="submit">
               Submit
             </button>
             <button
               className="btn btn-outline btn-sm btn-error"
-              onClick={onClose}
+              onClick={() => {
+                onClose();
+                dispatch(cleanUpdateId());
+              }}
             >
               Cancel
             </button>
           </div>
         </form>
       </div>
-    </motion.div>
+    </>
   );
 };
 

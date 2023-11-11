@@ -35,6 +35,7 @@ const AddUserForm = (Props) => {
           headers: {
             "Content-Type": "multipart/form-data", // Use multipart form data
           },
+          withCredentials: true,
         })
         .then(() => {
           setAlertMessage("User added successfully!");

@@ -28,7 +28,12 @@ const upload = multer({ storage });
 // our API
 //checkUserRoleAdmin
 // taking the image on image folder    checkUserRoleAdmin
-router.post("/register", upload.single("image"), registerUser);
+router.post(
+  "/register",
+  upload.single("image"),
+  checkUserRoleAdmin,
+  registerUser
+);
 
 router.post("/authentication", login);
 router.post("/logout", logOut);
@@ -48,7 +53,7 @@ router.get("/api/users", checkUserRole, getUserByName);
 router.post("/PasswordRequest", resetPasswordRequestController);
 router.post("/resetPassword", resetPasswordController);
 // Only the users with admin role can update the user's data. checkUserRoleAdmin
-router.put("/users/:id", checkUserRoleAdmin, UpdateUser);
+router.post("/users/:id", checkUserRoleAdmin, UpdateUser);
 // Only the users with admin role can DELETE the user's. checkUserRoleAdmin
 router.delete("/users/:id", checkUserRoleAdmin, DeleteUser);
 

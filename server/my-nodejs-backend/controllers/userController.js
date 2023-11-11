@@ -4,7 +4,7 @@ const ListUserController = async (req, res) => {
   try {
     // console.log("req.session.passport " + req.session.user);
     const users = await User.find().select(
-      "_id user_name first_name role email"
+      "_id user_name last_name first_name role email"
     );
     // console.log("userss " + users);
     // res.status(200).json({ users, username });
@@ -60,9 +60,18 @@ const getUserByName = async (req, res) => {
 
 const UpdateUser = async (req, res) => {
   const userId = req.params["id"];
-  // console.log('userId ' + userId)
-  const updatedUserData = req.body;
-  // console.log('updatedUserData ' + updatedUserData)
+  console.log("userId " + userId);
+  const { firstName, lastName, email, userName } = req.body;
+  console.log("Last Name:", lastName);
+  console.log("First Name:", firstName);
+  console.log("User Name:", userName);
+  console.log("Email:", email);
+  const updatedUserData = {
+    first_name: firstName,
+    last_name: lastName,
+    email: email,
+    user_name: userName,
+  };
   try {
     const user = await User.findOne({ _id: userId });
     if (!user) {
