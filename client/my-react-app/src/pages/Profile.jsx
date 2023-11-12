@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../styles/Profilepage.css";
 import { useNavigate } from "react-router-dom";
-import { axiosPrivate } from "../services/api";
+import {  axiosPrivateUser } from "../services/api";
 
 const Profile = (Props) => {
   const { navVisible } = Props;
@@ -14,7 +14,7 @@ const Profile = (Props) => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axiosPrivate.get("/profile");
+        const response = await axiosPrivateUser.get("/profile");
         setUser(response.data);
         // const imageBlob = await response.image.image.blob();
         // const imageUrl = URL.createObjectURL(imageBlob);

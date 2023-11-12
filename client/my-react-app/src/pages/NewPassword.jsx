@@ -1,6 +1,6 @@
 // PasswordResetPage.js
 import { useState } from "react";
-import { axiosPrivate } from "../services/api";
+import { axiosPrivateUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
 function PasswordResetPage() {
   const queryParameters = new URLSearchParams(window.location.search);
@@ -21,7 +21,7 @@ function PasswordResetPage() {
     token: ${token},
     password: ${password}
   `);
-    axiosPrivate
+    axiosPrivateUser
       .post(`http://localhost:3125/resetPassword`, data)
       .then(() => {
         console.log("Reset password succed ");

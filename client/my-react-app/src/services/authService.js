@@ -1,6 +1,7 @@
-import { axiosPrivate } from "./api";
+import { axiosPrivateUser } from "./api";
 
-export const SignUp = (userData) => axiosPrivate.post("/register", userData);
+export const SignUp = (userData) =>
+  axiosPrivateUser.post("/register", userData);
 export const LogIn = (userData) =>
-  axiosPrivate.post("/authentication", userData);
-export const getUsers = () => axiosPrivate.get("/users");
+  axiosPrivateUser.post("/authentication", userData);
+export const getUsers = () => axiosPrivateUser.get("/users");

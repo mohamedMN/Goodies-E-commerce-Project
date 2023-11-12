@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const { v4 } = require("uuid"); // Import the uuid package and generate a v4 UUID
+const Customer = require("../models/Customer");
 require("dotenv").config();
 
 const register = async (
@@ -129,6 +130,23 @@ const verifyAccessToken = async (req, res, next) => {
 function generateToken(user, temps) {
   return jwt.sign(user, Access_Secret_Key, { expiresIn: temps }); // expiresIn : 1H
 }
+// -------------------------------- Customer Authentication-------------------
+// const loginCustomer = async (username, password, done) => {
+//   console.log("email " + username + " passwotrd " + password);
+//   const data = await Customer.findOne({ email: username });
+//   if (!data)
+//     return done(null, false, {
+//       message: "Cannot find user with that username",
+//     });
+//   try {
+//     const checkPassword = await bcrypt.compare(password, data.password);
+//     if (!checkPassword)
+//       return done(null, false, { message: "Incorrect password" });
+//     if (data) done(null, data);
+//   } catch (err) {
+//     return done(err);
+//   }
+// };
 
 module.exports = {
   register,
@@ -138,4 +156,5 @@ module.exports = {
   verifyAccessToken,
   verifyRefreshToken,
   logOut,
+  // loginCustomer,
 };

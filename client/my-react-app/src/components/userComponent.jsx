@@ -3,7 +3,7 @@ import {
   AiOutlineEllipsis,
   AiOutlineUserAdd,
 } from "react-icons/ai";
-import { axiosPrivate } from "../services/api";
+import { axiosPrivateUser } from "../services/api";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { UpdateUser } from "../redux/actions/AuthAction";
@@ -16,8 +16,8 @@ const UserComponent = (Props) => {
   const dispatch = useDispatch();
 
   const handleUserDelete = (id) => {
-    axiosPrivate
-      .delete(`/users/${id}`)
+    axiosPrivateUser
+      .delete(`/${id}`)
       .then((response) => {
         console.log("User deleted successfully", response.data);
       })

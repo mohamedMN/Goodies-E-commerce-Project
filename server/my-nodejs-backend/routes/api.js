@@ -42,7 +42,7 @@ router.post("/refresh", refresh);
 //Only the users with admin and manager role can get the users data.  checkUserRole
 router.get("/users", ListUserController);
 //Only the users with admin and manager role can get the users data. checkUserRole
-router.get("/users/:id", checkUserRole, getUserById);
+router.get("/:id", checkUserRole, getUserById);
 // get profile informations
 router.get("/profile", profileController);
 //Only the users with admin and manager role can get ALL users. checkUserRole
@@ -53,11 +53,9 @@ router.get("/api/users", checkUserRole, getUserByName);
 router.post("/PasswordRequest", resetPasswordRequestController);
 router.post("/resetPassword", resetPasswordController);
 // Only the users with admin role can update the user's data. checkUserRoleAdmin
-router.post("/users/:id", checkUserRoleAdmin, UpdateUser);
+router.post("/:id", checkUserRoleAdmin, UpdateUser);
 // Only the users with admin role can DELETE the user's. checkUserRoleAdmin
-router.delete("/users/:id", checkUserRoleAdmin, DeleteUser);
-
-//Customer API
+router.delete("/:id", checkUserRoleAdmin, DeleteUser);
 
 // router.get("loginCustomer", loginCustomerController);
 

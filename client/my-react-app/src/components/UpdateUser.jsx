@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { cleanUpdateId } from "../redux/actions/AuthAction";
 import { useDispatch, useSelector } from "react-redux";
-import { axiosPrivate } from "../services/api";
+import {  axiosPrivateUser } from "../services/api";
 
 const UpdateUser = (Props) => {
   const { onClose, id } = Props;
@@ -47,8 +47,8 @@ const UpdateUser = (Props) => {
     //   formData.append("image", image); // Append the image file to the FormData
     // }
 
-    await axiosPrivate
-      .post(`/users/${id}`, formData)
+    await axiosPrivateUser
+      .post(`/${id}`, formData)
       .then(() => {
         setAlertMessage("User Updated successfully!");
         console.log("Update USer Success");

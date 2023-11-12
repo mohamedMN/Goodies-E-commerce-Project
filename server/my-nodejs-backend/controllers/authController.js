@@ -216,11 +216,12 @@ const resetPassword = async (userId, token, password) => {
   return true;
 };
 // ------------------------------------------CuStomer Controller----------------------------------------
-// Customer Auth functions
-// const loginCustomerController = ()=>{
+const Customer = require("../models/Customer");
+
+// const loginCustomerController = async()=>{
 //   try {
 //     const USER = await new Promise((resolve, reject) => {
-//       passport.authenticate("local", { session: true }, (err, user) => {
+//       passport.authenticate("Customer-local", { session: true }, (err, user) => {
 //         if (err || !user) {
 //           return reject("Authentication failed!");
 //         }
@@ -237,4 +238,5 @@ module.exports = {
   refresh,
   resetPasswordRequestController,
   resetPasswordController,
+  // loginCustomerController
 };

@@ -8,7 +8,7 @@ import {
 } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./../styles/Navbar.css";
-import { axiosPrivate } from "../services/api";
+import { axiosPrivateUser } from "../services/api";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/actions/AuthAction";
 
@@ -21,7 +21,7 @@ function Navbar(Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSignOut = () => {
-    axiosPrivate
+    axiosPrivateUser
       .post(`/logout`)
       .then(() => {
         console.log("logout succes ");
