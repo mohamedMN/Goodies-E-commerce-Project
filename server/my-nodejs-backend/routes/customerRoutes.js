@@ -15,7 +15,7 @@ const router = express.Router();
 
 //-----------------------------Customer API------------------------------
 // Authentication of Customer
-// router.post("/login", loginCustomerController);
+router.post("/login", loginCustomerController);
 
 // Add Customer
 router.post("/Customers", Add_Customer_Controller);

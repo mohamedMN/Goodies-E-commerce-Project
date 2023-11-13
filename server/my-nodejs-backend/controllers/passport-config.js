@@ -5,7 +5,7 @@ const passport = require("passport");
 const { v4 } = require("uuid"); // Import the uuid package and generate a v4 UUID
 const Customer = require("../models/Customer");
 require("dotenv").config();
-
+bcryptSalt = process.env.BCRYPT_SALT;
 const register = async (
   firstName,
   lastName,
@@ -16,8 +16,8 @@ const register = async (
   // role
 ) => {
   try {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    // const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, Number(bcryptSalt));
     const uniqueId = v4();
 
     // Create a new user
@@ -131,22 +131,45 @@ function generateToken(user, temps) {
   return jwt.sign(user, Access_Secret_Key, { expiresIn: temps }); // expiresIn : 1H
 }
 // -------------------------------- Customer Authentication-------------------
-// const loginCustomer = async (username, password, done) => {
-//   console.log("email " + username + " passwotrd " + password);
-//   const data = await Customer.findOne({ email: username });
-//   if (!data)
-//     return done(null, false, {
-//       message: "Cannot find user with that username",
-//     });
-//   try {
-//     const checkPassword = await bcrypt.compare(password, data.password);
-//     if (!checkPassword)
-//       return done(null, false, { message: "Incorrect password" });
-//     if (data) done(null, data);
-//   } catch (err) {
-//     return done(err);
-//   }
-// };
+
+const loginCustomer = async (username, password, done) => {
+  console.log("email " + username + " passwotrd " + password);
+  const data = await Customer.findOne({ email: username });
+  if (!data)
+    return done(null, false, {
+      message: "Cannot find user with that username",
+    });
+  try {
+    const checkPassword = await bcrypt.compare(password, data.password);
+    if (!checkPassword)
+      return done(null, false, { message: "Incorrect password" });
+    if (data) done(null, data);
+  } catch (err) {
+    return done(err);
+  }
+};
+const register_Customer = async (firstName, lastName, email, password) => {
+  try {
+    const hashedPassword = await bcrypt.hash(password, Number(bcryptSalt));
+    const uniqueId = v4();
+
+    // Create a new user
+    const newUser = new Customer({
+      _id: uniqueId,
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      password: hashedPassword,
+      active: true,
+    });
+
+    await newUser.save();
+    return newUser;
+  } catch (error) {
+    console.error("error :" + error);
+    return false;
+  }
+};
 
 module.exports = {
   register,
@@ -156,5 +179,6 @@ module.exports = {
   verifyAccessToken,
   verifyRefreshToken,
   logOut,
-  // loginCustomer,
+  loginCustomer,
+  register_Customer,
 };

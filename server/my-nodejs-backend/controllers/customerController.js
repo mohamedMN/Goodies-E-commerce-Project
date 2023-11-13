@@ -1,29 +1,27 @@
 const Customer = require("../models/Customer");
+const { register_Customer } = require("./passport-config");
 
 // Add Customer
 const Add_Customer_Controller = async (req, res) => {
-  try {
-    // Extract customer data from the request body
-    const { username /* other properties */ } = req.body;
-
-    // Create a new customer instance
-    const newCustomer = new Customer({
-      username,
-      // set other properties based on req.body
-    });
-
-    // Save the new customer to the database
-    await newCustomer.save();
-
-    // Send a response indicating success
+  // Extract customer data from the request body
+  const { firstName, lastName, email, password } = req.body;
+  console.log("Last Name:", lastName);
+  console.log("First Name:", firstName);
+  console.log("Password:", password);
+  console.log("Email:", email);
+  // Create a new customer instance
+  const newCustomer = await register_Customer({
+    firstName,
+    lastName,
+    email,
+    password,
+  });
+  if (newCustomer) {
     res
       .status(201)
-      .json({ message: "Customer added successfully", data: newCustomer });
-  } catch (error) {
-    // Handle errors, e.g., validation errors or database errors
-    res
-      .status(500)
-      .json({ message: "Error adding customer", error: error.message });
+      .json({ message: "Customer created successfully", data: newCustomer });
+  } else {
+    res.status(500).json({ message: "Customer failed" });
   }
 };
 
@@ -202,22 +200,18 @@ const Update_Customer_Profile_Controller = async (req, res) => {
       // Save the updated customer to the database
       await customer.save();
 
-      res
-        .status(200)
-        .json({
-          message: "Customer profile updated successfully",
-          data: customer,
-        });
+      res.status(200).json({
+        message: "Customer profile updated successfully",
+        data: customer,
+      });
     } else {
       res.status(404).json({ message: "Customer not found" });
     }
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        message: "Error updating customer profile",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Error updating customer profile",
+      error: error.message,
+    });
   }
 };
 

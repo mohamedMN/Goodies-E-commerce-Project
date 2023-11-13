@@ -3,19 +3,20 @@ const {
   generate_Private_Token,
   authUser,
   register,
+  loginCustomer,
 } = require("./passport-config");
 const User = require("../models/User");
 const path = require("path");
 const fs = require("fs");
 
-const passport = require("passport");
 const sendEmail = require("../utils/sendEmail");
+const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-passport.use(new LocalStrategy(authUser));
+passport.use("local-user", new LocalStrategy(authUser));
 const login = async (req, res) => {
   try {
     const USER = await new Promise((resolve, reject) => {
-      passport.authenticate("local", { session: true }, (err, user) => {
+      passport.authenticate("local-user", { session: true }, (err, user) => {
         if (err || !user) {
           return reject("Authentication failed!");
         }
@@ -217,26 +218,31 @@ const resetPassword = async (userId, token, password) => {
 };
 // ------------------------------------------CuStomer Controller----------------------------------------
 const Customer = require("../models/Customer");
+passport.use("local-customer", new LocalStrategy(loginCustomer));
 
-// const loginCustomerController = async()=>{
-//   try {
-//     const USER = await new Promise((resolve, reject) => {
-//       passport.authenticate("Customer-local", { session: true }, (err, user) => {
-//         if (err || !user) {
-//           return reject("Authentication failed!");
-//         }
-//         resolve(user);
-//       })(req, res);
-//     });
-//   }catch(err){
-//     console.log(err)
-//   }
-// }
+const loginCustomerController = async () => {
+  try {
+    const USER = await new Promise((resolve, reject) => {
+      passport.authenticate(
+        "local-customer",
+        { session: true },
+        (err, user) => {
+          if (err || !user) {
+            return reject("Authentication failed!");
+          }
+          resolve(user);
+        }
+      )(req, res);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
 module.exports = {
   login,
   registerUser,
   refresh,
   resetPasswordRequestController,
   resetPasswordController,
-  // loginCustomerController
+  loginCustomerController
 };
