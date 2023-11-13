@@ -56,16 +56,6 @@ const Users = ({ navVisible }) => {
                 />
               )}
             </motion.div>
-            <form className="flex form-search-user">
-              <input
-                className="searchUserInput bg-transparent"
-                placeholder="  Search By Username"
-                type="text"
-                value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
-              />
-              <AiOutlineSearch className="search-icon" />
-            </form>
           </div>
           <div className="Table-Container h-3/5 overflow-x-auto">
             <TableContainer searchValue={searchValue} />

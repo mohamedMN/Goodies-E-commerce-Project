@@ -4,10 +4,11 @@ import LoginForm from "./../containers/LoginForm";
 
 function LoginPage(Props) {
   const { navVisible } = Props;
+  const LoginMessage = 'Welcome Back'
   return (
     <div className={!navVisible ? "page" : "page page-with-navbar"}>
     <div className="Background-Login">
-        <LeftSideLog className='LeftSideLoginPage'/>
+        <LeftSideLog message={LoginMessage} className='LeftSideLoginPage'/>
     </div>
       <div className="Login-Content">
         <LoginForm  />

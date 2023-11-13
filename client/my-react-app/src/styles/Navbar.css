@@ -109,12 +109,19 @@ nav{
 		align-items: center;
 	}
 	nav{
-		width: 70%;
-		top: 38px;
+		width: 100%;
+		top: 25px;
 		min-height: calc(100vh - 38px);
+		z-index: 999;
 	}
 
 	.nav-btn{
 		display: none;
+	}
+	.logo{
+		width: 100%;
+	}
+	.logo-container{
+		width: 10%
 	}
 }

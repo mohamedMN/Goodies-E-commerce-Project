@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { axiosPrivateUser } from "../services/api";
 import LeftSideLog from "../containers/LeftSideLog";
+import { Link, Navigate } from "react-router-dom";
 
 const RequestForgetPassword = (props) => {
   const { navVisible } = props;
@@ -32,7 +33,7 @@ const RequestForgetPassword = (props) => {
   return (
     <div className={navVisible ? "page page-with-navbar" : "page"}>
       <div className="Background-Login">
-        <LeftSideLog className="LeftSideLoginPage" />
+        <LeftSideLog message={'Forgot Password?'} className="LeftSideLoginPage" />
       </div>
       <div className="Login-Content">
         <div className="w-3/4 h-full">
@@ -45,7 +46,7 @@ const RequestForgetPassword = (props) => {
             <p className="font-roboto">
               Enter your email to reset your password:
             </p>
-            <div className="flex flex-col w-full h-1/3 justify-around ">
+            <div className="flex flex-col w-full h-1/2 justify-around  ">
               <input
                 className="input input-ghost input-sm w-full"
                 type="email"
@@ -56,6 +57,9 @@ const RequestForgetPassword = (props) => {
               <button className="btn btn-outline font-semibold btn-primary">
                 Reset Password
               </button>
+              <Link className="Link" to={"/login"}>
+                Back To Login
+              </Link>
             </div>
             <p style={{ color: "white" }}>{message}</p>
           </form>

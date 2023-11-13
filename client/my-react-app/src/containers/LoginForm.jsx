@@ -25,17 +25,15 @@ function LoginForm() {
   }, []);
   useEffect(() => {
     if (error) {
-      errorMessage(
-        "Password Or Username Wrong Verify Credintials Or Contact Your Administrator"
-      );
-      isLoading(false);
-      setTimeout(() => {
-        errorMessage(false);
-      }, 2000);
-    }
-    if (user) {
-      navigate(from, { replace: true });
-      isLoading(false);
+      errorMessage("Password Or Username Wrong Verify Credintials Or Contact Your Administrator");
+        isLoading(false);
+        setTimeout(()=>{
+          errorMessage(false)
+        },2000)
+      }
+      if (user) {
+        navigate(from, { replace: true });
+        isLoading(false)
     }
   }, [user]);
 
@@ -47,11 +45,7 @@ function LoginForm() {
       password: password,
     };
     isLoading(true);
-    // console.log("data " + data.username + " password " + data.password);
-    // console.log("isloading " + isloading);
-    // dispatch(loading());
     dispatch(LogIn(data));
-    // console.log("isloading " + isloading);
   };
   return (
     <form className="login-Form" method="post" onSubmit={handleSubmit}>
@@ -88,7 +82,7 @@ function LoginForm() {
       <button className="btn btn-outline w-full" type="submit">
         Login
       </button>
-      <div className="button-Container">
+      <div className="button-Container justify-between">
         <Link to={"/RequestForgetPassword"} className="Link">
           Forgot Password?
         </Link>

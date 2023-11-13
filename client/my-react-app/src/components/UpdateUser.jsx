@@ -59,6 +59,7 @@ const UpdateUser = (Props) => {
 
   return (
     <>
+    <>
       {alertMessage && (
         <div className="alert alert-error alert-message">
           <svg
@@ -113,9 +114,8 @@ const UpdateUser = (Props) => {
                   *
                 </span>
               </label>
-              <label className="Label-User-Input"></label>
               <input
-                className="input input-sm input-bordered w-full max-w-xs"
+                className="input input-sm input-bordered w-full "
                 type="text"
                 defaultValue={user[0].email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -131,7 +131,7 @@ const UpdateUser = (Props) => {
                 </span>
               </label>
               <input
-                className="input w-full input-sm input-bordered max-w-xs"
+                className="input w-full input-sm input-bordered "
                 type="text"
                 defaultValue={user[0].user_name}
                 onChange={(e) => setUserName(e.target.value)}
@@ -144,7 +144,7 @@ const UpdateUser = (Props) => {
                 <span className="label-text">Password:</span>
               </label>
               <input
-                className="input input-sm input-bordered w-full max-w-xs"
+                className="input input-sm input-bordered w-full "
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
@@ -152,7 +152,7 @@ const UpdateUser = (Props) => {
           </div>
           {/* <div className="Image-input">
             <input
-              className="file-input input-sm  w-full max-w-xs"
+              className="file-input input-sm w-full max-w-xs self-center"
               type="file"
               name="image"
               accept="image/*"
@@ -178,5 +178,4 @@ const UpdateUser = (Props) => {
     </>
   );
 };
-
 export default UpdateUser;

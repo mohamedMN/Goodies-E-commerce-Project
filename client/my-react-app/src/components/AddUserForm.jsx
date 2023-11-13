@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "../services/api";
+import { color } from "framer-motion";
 
 const AddUserForm = (Props) => {
   const { onClose } = Props;
@@ -16,7 +17,7 @@ const AddUserForm = (Props) => {
   const handleFileChange = (e) => {
     setImage(e.target.files[0]);
   };
-  // const passwordsDontMatch = () => {};
+  const passwordsDontMatch = () => {};
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Perform actions to add the user with the provided data
@@ -53,17 +54,17 @@ const AddUserForm = (Props) => {
   return (
     <>
       {alertMessage && (
-        <div className="alert alert-error alert-message">
+        <div class="alert alert-error alert-message">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="stroke-current shrink-0 h-6 w-6"
+            class="stroke-current shrink-0 h-6 w-6"
             fill="none"
             viewBox="0 0 24 24"
           >
             <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
               color="#fff"
               d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
             />
@@ -72,47 +73,48 @@ const AddUserForm = (Props) => {
         </div>
       )}
       <div className="add-user-form">
-        <form className="UserFormForm" onSubmit={handleSubmit}>
-          <div className="Inputs-n-Labels">
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">First Name:</span>
-              </label>
-              <input
-                className="input input-sm input-bordered w-full max-w-xs"
-                type="text"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
+        <form className="UserFormForm " onSubmit={handleSubmit}>
+          <div className="Inputs-n-Labels ">
+            <div className="w-fit flex gap-2">
+              <div class="form-control w-fit max-w-xs">
+                <label className="label">
+                  <span className="label-text">First Name:</span>
+                </label>
+                <input
+                  className="input input-sm input-bordered w-full max-w-xs"
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </div>
+              <div class="form-control w-fit max-w-xs">
+                <label className="label">
+                  <span className="label-text">Last Name:</span>
+                </label>
+                <input
+                  className="input input-sm input-bordered w-full max-w-xs"
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
             </div>
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">Last Name:</span>
-              </label>
-              <input
-                className="input input-sm input-bordered w-full max-w-xs"
-                type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </div>
-            <div className="form-control w-full max-w-xs">
+            <div class="form-control w-full self-center">
               <label className="label">
                 <span className="label-text">Email:</span>
                 <span className="Label-text-alt text-red-700 font-semibold ">
                   *
                 </span>
               </label>
-              <label className="Label-User-Input"></label>
               <input
-                className="input input-sm input-bordered w-full max-w-xs"
+                className="input input-sm input-bordered w-full "
                 type="text"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
-            <div className="form-control w-full max-w-xs">
+            <div class=" self-center form-control w-full ">
               <label className="label">
                 <span className="label-text">Username:</span>
                 <span className="Label-text-alt text-red-700 font-semibold ">
@@ -120,54 +122,42 @@ const AddUserForm = (Props) => {
                 </span>
               </label>
               <input
-                className="input w-full input-sm input-bordered max-w-xs"
+                className="input w-full input-sm input-bordered "
                 type="text"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
                 required
               />
             </div>
-            <div className="form-control w-full max-w-xs">
+            <div class="form-control self-center w-full ">
               <label className="label">
                 <span className="label-text">Password:</span>
               </label>
               <input
-                className="input input-sm input-bordered w-full max-w-xs"
+                className="input input-sm input-bordered w-full "
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">Confirm Password:</span>
-              </label>
-              <input
-                className="input input-sm input-bordered w-full max-w-xs"
-                type="password"
-                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
           </div>
           <div className="Image-input">
             <input
-              className="file-input input-sm  w-full max-w-xs"
+              className="file-input input-sm w-full max-w-xs self-center"
               type="file"
               name="image"
               accept="image/*"
               onChange={handleFileChange}
             />
           </div>
-          <div className="UserInfoResolveBtns">
-            <button className="btn btn-sm btn-outline btn-base" type="submit">
-              Submit
-            </button>
-            <button
-              className="btn btn-outline btn-sm btn-error"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-          </div>
+          <button className="btn btn-md btn-outline btn-base max-w-xs self-center w-full" type="submit">
+            Submit
+          </button>
+          <button
+            className="btn  btn-md btn-base w-full self-center max-w-xs"
+            onClick={onClose}
+          >
+            Cancel
+          </button>
         </form>
       </div>
     </>
