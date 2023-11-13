@@ -3,19 +3,20 @@ const {
   generate_Private_Token,
   authUser,
   register,
+  loginCustomer,
 } = require("./passport-config");
 const User = require("../models/User");
 const path = require("path");
 const fs = require("fs");
 
-const passport = require("passport");
 const sendEmail = require("../utils/sendEmail");
+const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-passport.use(new LocalStrategy(authUser));
+passport.use("local-user", new LocalStrategy(authUser));
 const login = async (req, res) => {
   try {
     const USER = await new Promise((resolve, reject) => {
-      passport.authenticate("local", { session: true }, (err, user) => {
+      passport.authenticate("local-user", { session: true }, (err, user) => {
         if (err || !user) {
           return reject("Authentication failed!");
         }
@@ -217,26 +218,76 @@ const resetPassword = async (userId, token, password) => {
 };
 // ------------------------------------------CuStomer Controller----------------------------------------
 const Customer = require("../models/Customer");
+passport.use("local-customer", new LocalStrategy(loginCustomer));
 
-// const loginCustomerController = async()=>{
-//   try {
-//     const USER = await new Promise((resolve, reject) => {
-//       passport.authenticate("Customer-local", { session: true }, (err, user) => {
-//         if (err || !user) {
-//           return reject("Authentication failed!");
-//         }
-//         resolve(user);
-//       })(req, res);
-//     });
-//   }catch(err){
-//     console.log(err)
-//   }
-// }
+const loginCustomerController = async (req, res) => {
+  try {
+    const CUSTOMER = await new Promise((resolve, reject) => {
+      passport.authenticate(
+        "local-customer",
+        { session: true },
+        (err, user) => {
+          if (err || !user) {
+            return reject("Authentication failed!");
+          }
+          resolve(user);
+        }
+      )(req, res);
+    });
+    req.session.customer = CUSTOMER;
+    await req.session.save;
+    // console.log(" role ! " + JSON.stringify(req.session));
+
+    if (CUSTOMER.active) {
+      const { _id } = CUSTOMER;
+      let options = {
+        maxAge: 86400, // would expire after 1 day
+        httpOnly: true,
+        signed: true,
+      };
+      const accessToken = generate_Public_Token({ _id }, 3600); // Expire in 1H
+      const refreshToken = generate_Private_Token({ _id }, 86400); // Expire in 1 day
+      res.cookie("refreshToken", refreshToken, options);
+      //   Update the user with the refreshToken
+      await Customer.updateOne({ _id }, { $set: { refreshToken } });
+      const now = new Date();
+      const lastLogin = now.toISOString();
+      res.status(200).json({
+        // accessToken,
+        message: "login success",
+        user: {
+          _id: _id,
+          firstName: CUSTOMER.first_name,
+          lastName: CUSTOMER.last_name,
+          email: CUSTOMER.email,
+          creationDate: now,
+          lastLogin: lastLogin,
+          active: true,
+          valid_account: true,
+        },
+        token: {
+          access_token: accessToken,
+          token_type: " JWT, algorithm : HMAC SHA-256",
+          expires_in: "in 1H",
+          refresh_token: refreshToken,
+        },
+      });
+    } else {
+      res.status(402).json({
+        // accessToken,
+        message: "ERROR account is not active",
+      });
+    }
+  } catch (error) {
+    console.error("Error in login:", error);
+    res.status(401).json({ message: "invalid credentials" });
+  }
+};
 module.exports = {
   login,
   registerUser,
   refresh,
   resetPasswordRequestController,
   resetPasswordController,
-  // loginCustomerController
+  loginCustomerController,
 };
