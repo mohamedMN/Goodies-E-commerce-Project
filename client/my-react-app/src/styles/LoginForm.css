@@ -37,3 +37,8 @@ input:focus-visible{
     align-self: center  ;
 
 }
+.button-Container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between ;
+}

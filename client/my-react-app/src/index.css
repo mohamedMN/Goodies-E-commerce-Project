@@ -70,7 +70,9 @@
 .page{
 	flex-basis: 100%;
 	display: flex;
-	justify-content: center;
+    height: 100%;
+    justify-content: space-around;
+    flex-direction: column;
 	align-items: center;
 	transition: margin-left 0.5s;
 }

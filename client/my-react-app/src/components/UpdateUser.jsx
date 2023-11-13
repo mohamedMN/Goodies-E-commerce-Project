@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "../services/api";
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 const UpdateUser = (Props) => {
   const { onClose, id } = Props;
@@ -53,7 +54,7 @@ const UpdateUser = (Props) => {
   };
 
   return (
-    <motion.div className="Create-User-Form z-50">
+    <>
       {alertMessage && (
         <div className="alert alert-error alert-message">
           <svg
@@ -71,50 +72,50 @@ const UpdateUser = (Props) => {
             />
           </svg>
           <span className="AlertMsg">{alertMessage}.</span>
-        </div>
-      )}
-      <div className="add-user-form">
-        <form className="UserFormForm" onSubmit={handleSubmit}>
+        </div>)}
+      <motion.div className="Update-user-form" drag>
+        <form className="UpdateFormForm" onSubmit={handleSubmit}>
           <div className="Inputs-n-Labels">
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">First Name:</span>
-              </label>
-              <input
-                className="input input-sm input-bordered w-full max-w-xs"
-                type="text"
-                value={user.firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
+            <div className="w-fit flex gap-2">
+              <div class="form-control w-fit max-w-xs">
+                <label className="label">
+                  <span className="label-text">First Name:</span>
+                </label>
+                <input
+                  className="input input-sm input-bordered w-full max-w-xs"
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </div>
+              <div class="form-control w-fit max-w-xs">
+                <label className="label">
+                  <span className="label-text">Last Name:</span>
+                </label>
+                <input
+                  className="input input-sm input-bordered w-full max-w-xs"
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+              </div>
             </div>
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">Last Name:</span>
-              </label>
-              <input
-                className="input input-sm input-bordered w-full max-w-xs"
-                type="text"
-                value={user.lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-            </div>
-            <div className="form-control w-full max-w-xs">
+            <div class="form-control w-full self-center">
               <label className="label">
                 <span className="label-text">Email:</span>
                 <span className="Label-text-alt text-red-700 font-semibold ">
                   *
                 </span>
               </label>
-              <label className="Label-User-Input"></label>
               <input
-                className="input input-sm input-bordered w-full max-w-xs"
+                className="input input-sm input-bordered w-full "
                 type="text"
-                value={user.email}
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>
-            <div className="form-control w-full max-w-xs">
+            <div class=" self-center form-control w-full ">
               <label className="label">
                 <span className="label-text">Username:</span>
                 <span className="Label-text-alt text-red-700 font-semibold ">
@@ -122,57 +123,49 @@ const UpdateUser = (Props) => {
                 </span>
               </label>
               <input
-                className="input w-full input-sm input-bordered max-w-xs"
+                className="input w-full input-sm input-bordered "
                 type="text"
-                value={user.userName}
+                value={userName}
                 onChange={(e) => setUserName(e.target.value)}
                 required
               />
             </div>
-            <div className="form-control w-full max-w-xs">
+            <div class="form-control self-center w-full ">
               <label className="label">
                 <span className="label-text">Password:</span>
               </label>
               <input
-                className="input input-sm input-bordered w-full max-w-xs"
+                className="input input-sm input-bordered w-full "
                 type="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">Confirm Password:</span>
-              </label>
-              <input
-                className="input input-sm input-bordered w-full max-w-xs"
-                type="password"
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </div>
           </div>
-          <div className="Image-input">
+          <div className="items-center">
             <input
-              className="file-input input-sm  w-full max-w-xs"
+              className="file-input input-sm w-full max-w-xs self-center"
               type="file"
               name="image"
               accept="image/*"
               onChange={handleFileChange}
             />
           </div>
-          <div className="UserInfoResolveBtns">
-            <button className="btn btn-sm btn-outline btn-base" type="submit">
-              Submit
-            </button>
-            <button
-              className="btn btn-outline btn-sm btn-error"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-          </div>
+          <button
+            className="btn btn-md btn-outline btn-base max-w-xs self-center w-full"
+            type="submit"
+          >
+            Submit
+          </button>
+          <button
+            className="btn  btn-md btn-base w-full self-center max-w-xs"
+            onClick={onClose}
+          >
+            Cancel
+          </button>
         </form>
-      </div>
-    </motion.div>
+      </motion.div>
+     
+    </>
   );
 };
 

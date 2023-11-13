@@ -2,8 +2,8 @@ import "./../styles/LeftSideLog.css"
 import Logo from "./../assets/GoodiesAdmin.svg"
 
 
-export default function LeftSideLog() {
-  return (
+export default function LeftSideLog({message}) {
+    return (
     <div className="LeftSideLog">
         <div className="Logo-container-left">
         <img 
@@ -13,7 +13,7 @@ export default function LeftSideLog() {
         />
         </div>
         <div className="Welcome-Label">
-Welcome Back
+{message}
         </div>
         <div className="additional-speech">
         if you’re encountering issures with logging in please contact your administrator.

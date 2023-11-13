@@ -5,6 +5,8 @@ import { AiOutlineSearch } from "react-icons/ai";
 import AddUserForm from "../components/AddUserForm";
 import TableContainer from "../containers/TableContainer";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { Await } from "react-router-dom";
 
 const Users = ({ navVisible }) => {
   const [searchValue, setSearchValue] = useState("");
@@ -19,30 +21,11 @@ const Users = ({ navVisible }) => {
   //   setFilteredUsers(result);
   // }, [searchValue]);
   const [showAddUserForm, setShowAddUserForm] = useState(false);
+  const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users);
 
   return (
     <>
       <div className={navVisible ? "page page-with-navbar" : "page"}>
-        <div className="dashboard">
-          <div className="Header-Container">
-            <button
-              className="btn"
-              onClick={() => {
-                setShowAddUserForm(!showAddUserForm);
-              }}
-            >
-              Add User
-            </button>
-            <motion.div
-              whileTap={{ scale: 0.98 }}
-              dragConstraints={{ left: 500, right: 500, bottom: 20, top: 0 }}
-              className="Create-User-Form"
-              drag
-            >
-              {showAddUserForm && (
-                <AddUserForm onClose={() => setShowAddUserForm(false)} />
-              )}
-            </motion.div>
             <form className="flex form-search-user">
               <input
                 className="searchUserInput bg-transparent"
@@ -53,6 +36,32 @@ const Users = ({ navVisible }) => {
               />
               <AiOutlineSearch className="search-icon" />
             </form>
+        <div className="dashboard">
+          <div className="Header-Container">
+          <h1 className="headerTitle">USERS</h1>
+
+            <button
+              className="btn"
+              onClick={() => {
+                setShowAddUserForm(!showAddUserForm);
+              }}
+            >
+              Add User
+            </button>
+            <label className="flex flex-col">
+            <h1 className="text-center">Total Users :</h1>
+            <span className="self-end text-lg text-primary">{testingInfo.length}</span>
+            </label>
+            <motion.div
+              whileTap={{ scale: 0.98 }}
+              dragConstraints={{ left: 500, right: 500, bottom: 20, top: 0 }}
+              className="Create-User-Form"
+              drag
+            >
+              {showAddUserForm && (
+                <AddUserForm onClose={() => setShowAddUserForm(false)} />
+              )}
+            </motion.div>
           </div>
           <div className="Table-Container h-3/5 overflow-x-auto">
             <TableContainer searchValue={searchValue} />
@@ -60,6 +69,7 @@ const Users = ({ navVisible }) => {
         </div>
       </div>
     </>
+
   );
 };
 

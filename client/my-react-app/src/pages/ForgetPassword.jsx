@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { axiosPrivate } from "../services/api";
 import LeftSideLog from "../containers/LeftSideLog";
+import { Link, Navigate } from "react-router-dom";
 
 const RequestForgetPassword = (props) => {
   const { navVisible } = props;
@@ -31,32 +32,40 @@ const RequestForgetPassword = (props) => {
 
   return (
     <div className={navVisible ? "page page-with-navbar" : "page"}>
-     <div className="Background-Login">
-        <LeftSideLog className='LeftSideLoginPage'/>
-    </div>
+      <div className="Background-Login">
+        <LeftSideLog message={'Forgot Password?'} className="LeftSideLoginPage" />
+      </div>
       <div className="Login-Content">
-      <div className="w-3/4 h-full">
-      <form className="items-center text-center flex flex-col h-full justify-evenly " method="get" onSubmit={handleSubmit}>
-        <h2  className="font-roboto text-lg">Forgot Password?</h2>
-        <p className="font-roboto">
-          Enter your email to reset your password:
-        </p>
-        <div className="flex flex-col w-full h-1/3 justify-around ">
-        <input
-        className="input input-ghost input-sm w-full"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <button className="btn btn-outline font-semibold btn-primary">Reset Password</button>
+        <div className="w-3/4 h-full">
+          <form
+            className="items-center text-center flex flex-col h-full justify-evenly "
+            method="get"
+            onSubmit={handleSubmit}
+          >
+            <h2 className="font-roboto text-lg">Forgot Password?</h2>
+            <p className="font-roboto">
+              Enter your email to reset your password:
+            </p>
+            <div className="flex flex-col w-full h-1/2 justify-around  ">
+              <input
+                className="input input-ghost input-sm w-full"
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <button className="btn btn-outline font-semibold btn-primary">
+                Reset Password
+              </button>
+              <Link className="Link" to={"/login"}>
+                Back To Login
+              </Link>
+            </div>
+            <p style={{ color: "white" }}>{message}</p>
+          </form>
         </div>
-        <p style={{ color: "white" }}>{message}</p>
-      </form>
-    </div>
       </div>
     </div>
-    
   );
 };
 

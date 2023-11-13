@@ -48,17 +48,17 @@
     text-align: center;
 }
 .form-search-user{
-    background-color: #00000083;
+    background-color: #ffffff3f;
     border-radius: 10px;
-    width: 25%;
+    width: 30%;
     color: #fff;
+    align-items: center;
     font-weight: 400;
     height: 30px;
     display: flex;
     flex-direction: row-reverse;
 }
 .search-icon{
-    height: inherit;
     position: relative;
     left: 0;
     width: auto;
@@ -103,8 +103,23 @@
     bottom: 25%;
     display: flex;
     border-radius: 10px;
+    z-index: 999;
+    height: 60%;
+}
+.UpdateFormForm{
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary);
+}
+.Update-user-form{
+    position: absolute;
+    left: 25%;
+    bottom: 25%;
+    display: flex;
+    border-radius: 10px;
     z-index: 2;
     height: 60%;
+
 }
 .UserFormForm{
     position: relative;

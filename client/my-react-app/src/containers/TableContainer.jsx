@@ -7,13 +7,13 @@ import { useDispatch, useSelector } from "react-redux";
 export default function TableContainer(Props) {
   const { searchValue } = Props;
   const dispatch = useDispatch();
-
+  
   useEffect(() => {
     dispatch(getUsers());
   }, [dispatch]);
-
+  
   const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users);
-
+  
   // filter function for search Button
   if (testingInfo) {
     var results = testingInfo.filter(
