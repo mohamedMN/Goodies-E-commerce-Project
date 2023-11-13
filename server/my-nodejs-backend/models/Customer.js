@@ -32,6 +32,10 @@ const customers = new Schema(
     valid_account: {
       type: Boolean,
     },
+    refreshToken: {
+      type: String,
+      default: "",
+    },
   },
   {
     timestamps: true,

@@ -57,11 +57,16 @@ const authUser = async (username, password, done) => {
     return done(err);
   }
 };
-const logOut = (req, res, next) => {
+const logOut = async (req, res, next) => {
   console.log("user logOut " + req.session.user);
   const userId = req.session.user;
   const currentTime = new Date();
-  User.findByIdAndUpdate({ _id: userId }, { last_login: currentTime });
+  const user = await User.findOne({ _id: userId });
+
+  await User.updateOne(
+    { _id: user._id },
+    { $set: { last_login: currentTime } }
+  );
 
   req.logout(function (err) {
     if (err) {
@@ -150,6 +155,10 @@ const loginCustomer = async (username, password, done) => {
 };
 const register_Customer = async (firstName, lastName, email, password) => {
   try {
+    console.log("Last Name:" + lastName);
+    console.log("First Name:" + firstName);
+    console.log("Password:" + password);
+    console.log("Email:" + email);
     const hashedPassword = await bcrypt.hash(password, Number(bcryptSalt));
     const uniqueId = v4();
 
@@ -160,6 +169,7 @@ const register_Customer = async (firstName, lastName, email, password) => {
       last_name: lastName,
       email: email,
       password: hashedPassword,
+      valid_account: true,
       active: true,
     });
 

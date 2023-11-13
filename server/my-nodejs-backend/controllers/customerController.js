@@ -5,17 +5,14 @@ const { register_Customer } = require("./passport-config");
 const Add_Customer_Controller = async (req, res) => {
   // Extract customer data from the request body
   const { firstName, lastName, email, password } = req.body;
-  console.log("Last Name:", lastName);
-  console.log("First Name:", firstName);
-  console.log("Password:", password);
-  console.log("Email:", email);
+  
   // Create a new customer instance
-  const newCustomer = await register_Customer({
+  const newCustomer = await register_Customer(
     firstName,
     lastName,
     email,
     password,
-  });
+  );
   if (newCustomer) {
     res
       .status(201)

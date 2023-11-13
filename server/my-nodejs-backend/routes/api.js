@@ -41,10 +41,10 @@ router.post("/logout", logOut);
 router.post("/refresh", refresh);
 //Only the users with admin and manager role can get the users data.  checkUserRole
 router.get("/users", ListUserController);
-//Only the users with admin and manager role can get the users data. checkUserRole
-router.get("/:id", checkUserRole, getUserById);
 // get profile informations
 router.get("/profile", profileController);
+//Only the users with admin and manager role can get the users data. checkUserRole
+router.get("/:id", checkUserRole, getUserById);
 //Only the users with admin and manager role can get ALL users. checkUserRole
 // API : you can search for users whose user_name matches
 // Exemple : GET /api/users?query=john_doe
