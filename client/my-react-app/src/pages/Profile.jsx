@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../styles/Profilepage.css";
 import { useNavigate } from "react-router-dom";
-import {  axiosPrivateUser } from "../services/api";
+import { axiosPrivateUser } from "../services/api";
 
 const Profile = (Props) => {
   const { navVisible } = Props;
-  const [isEditing,setIsEditing]= useState(false)
+  const [isEditing, setIsEditing] = useState(false);
 
   const [errorMessage, setErrorMessage] = useState("");
   const [images, setImages] = useState([]);
 
   const navigate = useNavigate();
   const [user, setUser] = useState("");
-  const handleEditMode =()=>{
-    setIsEditing(!isEditing)
-  }
+  const handleEditMode = () => {
+    setIsEditing(!isEditing);
+  };
 
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await axiosPrivateUser.get("/profile");
         setUser(response.data);
+        console.log(
+          "response.data.image.image  " + JSON.stringify(response.data)
+        );
         // const imageBlob = await response.image.image.blob();
         // const imageUrl = URL.createObjectURL(imageBlob);
 
@@ -38,38 +41,37 @@ const Profile = (Props) => {
       <div className={navVisible ? "page page-with-navbar" : "page"}>
         <div className="Profile-Container">
           <div className="Profile-info">
-          <div className="flex flex-row-reverse items-center justify-around w-full">
-            <div className="ProfilePicContainer">
-              {user && images ? (
-                <img
-                  className="Profile-Picture"
-                  src={`data:image/jpeg;base64,${images}`}
-                  alt={`Uploaded Image`}
-                />
-              ) : (
-                <p>No image available</p>
-              )}
-            <h1 className="Username">{user?.user_name}</h1>
+            <div className="flex flex-row-reverse items-center justify-around w-full">
+              <div className="ProfilePicContainer">
+                {user && images ? (
+                  <img
+                    className="Profile-Picture"
+                    src={`data:image/jpeg;base64,${images}`}
+                    alt={`Uploaded Image`}
+                  />
+                ) : (
+                  <p>No image available</p>
+                )}
+                <h1 className="Username">{user?.user_name}</h1>
+              </div>
+              <button onClick={handleEditMode} className="btn w-1/6 btn-accent">
+                edit
+              </button>
             </div>
-            <button onClick={handleEditMode} className="btn w-1/6 btn-accent">
-              edit
-            </button>
-          </div>
             <div className="flex justify-around w-full h-2/5 p-3">
-            <div className="flex items-end flex-col justify-around ">
-            <h2 className="UserData">Id: </h2>
-            <h2 className="UserData"> First name : </h2>
-            <h2 className="UserData">Email :</h2>
-            <p className="UserData">Role :</p>
-          </div>
-            <div className="text-primary flex flex-col justify-around">
-            <h2 className="UserData">{user.id}</h2>
-            <h2 className="UserData">{user.first_name}</h2>
-            <h2 className="UserData">{user.email}</h2>
-            <p className="UserData">{user.role}</p>
-          </div>
+              <div className="flex items-end flex-col justify-around ">
+                <h2 className="UserData">Id: </h2>
+                <h2 className="UserData"> First name : </h2>
+                <h2 className="UserData">Email :</h2>
+                <p className="UserData">Role :</p>
+              </div>
+              <div className="text-primary flex flex-col justify-around">
+                <h2 className="UserData">{user.id}</h2>
+                <h2 className="UserData">{user.first_name}</h2>
+                <h2 className="UserData">{user.email}</h2>
+                <p className="UserData">{user.role}</p>
+              </div>
             </div>
-
 
             <button
               className="btn btn-accent max-w-xs w-1/3 self-center btn-outline"

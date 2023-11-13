@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { cleanUpdateId } from "../redux/actions/AuthAction";
 import { useDispatch, useSelector } from "react-redux";
-import {  axiosPrivateUser } from "../services/api";
+import { axiosPrivateUser } from "../services/api";
+import { motion } from "framer-motion";
 
 const UpdateUser = (Props) => {
   const { onClose, id } = Props;
@@ -48,7 +49,7 @@ const UpdateUser = (Props) => {
     // }
 
     await axiosPrivateUser
-      .post(`/${id}`, formData)
+      .post(`/id/${id}`, formData)
       .then(() => {
         setAlertMessage("User Updated successfully!");
         console.log("Update USer Success");
@@ -58,7 +59,6 @@ const UpdateUser = (Props) => {
   };
 
   return (
-    <>
     <>
       {alertMessage && (
         <div className="alert alert-error alert-message">
@@ -79,8 +79,8 @@ const UpdateUser = (Props) => {
           <span className="AlertMsg">{alertMessage}.</span>
         </div>
       )}
-      <div className="add-user-form">
-        <form className="UserFormForm" onSubmit={handleSubmit}>
+      <motion.div className="Update-user-form" drag>
+        <form className="UpdateFormForm" onSubmit={handleSubmit}>
           <div className="Inputs-n-Labels">
             <div className="form-control w-full max-w-xs">
               <label className="label">
@@ -91,7 +91,6 @@ const UpdateUser = (Props) => {
                 type="text"
                 defaultValue={user[0].first_name}
                 ref={inputRef}
-                // onFocus={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
@@ -102,12 +101,13 @@ const UpdateUser = (Props) => {
               <input
                 className="input input-sm input-bordered w-full max-w-xs"
                 type="text"
+                value={user.lastName}
                 defaultValue={user[0].last_name}
                 onChange={(e) => setLastName(e.target.value)}
                 ref={inputRef}
               />
             </div>
-            <div className="form-control w-full max-w-xs">
+            <div className="form-control w-full self-center">
               <label className="label">
                 <span className="label-text">Email:</span>
                 <span className="Label-text-alt text-red-700 font-semibold ">
@@ -123,7 +123,7 @@ const UpdateUser = (Props) => {
                 required
               />
             </div>
-            <div className="form-control w-full max-w-xs">
+            <div className=" self-center form-control w-full ">
               <label className="label">
                 <span className="label-text">Username:</span>
                 <span className="Label-text-alt text-red-700 font-semibold ">
@@ -139,7 +139,7 @@ const UpdateUser = (Props) => {
                 required
               />
             </div>
-            <div className="form-control w-full max-w-xs">
+            <div className="form-control self-center w-full ">
               <label className="label">
                 <span className="label-text">Password:</span>
               </label>
@@ -174,7 +174,7 @@ const UpdateUser = (Props) => {
             </button>
           </div>
         </form>
-      </div>
+      </motion.div>
     </>
   );
 };

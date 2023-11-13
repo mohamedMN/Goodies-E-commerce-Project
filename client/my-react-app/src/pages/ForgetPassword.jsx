@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { axiosPrivateUser } from "../services/api";
 import LeftSideLog from "../containers/LeftSideLog";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const RequestForgetPassword = (props) => {
-  const { navVisible } = props;
+const RequestForgetPassword = (Props) => {
+  const { navVisible } = Props;
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
@@ -33,7 +33,10 @@ const RequestForgetPassword = (props) => {
   return (
     <div className={navVisible ? "page page-with-navbar" : "page"}>
       <div className="Background-Login">
-        <LeftSideLog message={'Forgot Password?'} className="LeftSideLoginPage" />
+        <LeftSideLog
+          message={"Forgot Password?"}
+          className="LeftSideLoginPage"
+        />
       </div>
       <div className="Login-Content">
         <div className="w-3/4 h-full">

@@ -1,22 +1,12 @@
-import { useEffect } from "react";
-import { getUsers } from "../redux/actions/AuthAction";
 import ErrorComponent from "../components/ErrorComponent";
 import UserComponent from "../components/userComponent";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function TableContainer(Props) {
   const { searchValue } = Props;
-  const dispatch = useDispatch();
-  
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [dispatch]);
-  
+
   const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users);
-  
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [testingInfo, dispatch]);
+
   // filter function for search Button
   if (testingInfo) {
     var results = testingInfo.filter(

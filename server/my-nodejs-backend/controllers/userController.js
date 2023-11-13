@@ -27,12 +27,13 @@ const getUserById = async (req, res) => {
 const profileController = async (req, res) => {
   try {
     const id = req.session.user._id;
-    // const username = req.session.user.user_name;
-    // console.log("username :" + username);
+    const username = req.session.user.user_name;
+    console.log("username :" + username);
+    console.log("id :" + id);
     const user = await User.findById(id);
     const encodedImage = user.image.data.toString("base64");
 
-    const USER = {
+    const USER =  {
       id: user._id,
       user_name: user.user_name,
       first_name: user.first_name,
