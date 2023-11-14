@@ -7,14 +7,7 @@
     --quinary: #040D12;
 }
 
-.Table-Container{
-    width: 100%;
-    scrollbar-color: red orange;
-    scrollbar-width: thin;
-    align-self: center;
-    justify-self: flex-start;
-    
-}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
@@ -45,7 +38,7 @@
 }
 .table-Header{
     background-color: var(--primary);
-    text-align: center;
+    text-align: center; 
 }
 .form-search-user{
     background-color: #ffffff3f;
@@ -69,7 +62,7 @@
     border-radius: 40px;
     display:flex;
     justify-content: space-around;
-    height: 70%;
+    height: 75%;
     flex-direction: column;
     align-items: center;
     background-color: #27525280;
@@ -96,16 +89,7 @@
     justify-content: space-around;
     width: 90%;
 }
-.Create-User-Form{
-    background-color: var(--primary);
-    position: absolute;
-    left: 25%;
-    bottom: 25%;
-    display: flex;
-    border-radius: 10px;
-    z-index: 999;
-    height: 60%;
-}
+
 .UpdateFormForm{
     display: flex;
     flex-direction: column;

@@ -79,9 +79,10 @@ const UpdateUser = (Props) => {
           <span className="AlertMsg">{alertMessage}.</span>
         </div>
       )}
-      <motion.div className="Update-user-form" drag>
-        <form className="UpdateFormForm" onSubmit={handleSubmit}>
-          <div className="Inputs-n-Labels">
+      <motion.div className="h-full" >
+        <form drag className="flex flex-col items-center h-full w-full" onSubmit={handleSubmit}>
+        <div className="Inputs-n-Labels">
+            <div className="w-fit flex gap-2">
             <div className="form-control w-full max-w-xs">
               <label className="label">
                 <span className="label-text">First Name:</span>
@@ -106,6 +107,7 @@ const UpdateUser = (Props) => {
                 onChange={(e) => setLastName(e.target.value)}
                 ref={inputRef}
               />
+            </div>
             </div>
             <div className="form-control w-full self-center">
               <label className="label">
@@ -159,12 +161,11 @@ const UpdateUser = (Props) => {
               onChange={handleFileChange}
             />
           </div> */}
-          <div className="UserInfoResolveBtns">
-            <button className="btn btn-sm btn-outline btn-base" type="submit">
+            <button className="btn btn-md btn-outline btn-base max-w-xs w-full self-center" type="submit">
               Submit
             </button>
             <button
-              className="btn btn-outline btn-sm btn-error"
+              className="btn btn-outline btn-md max-w-xs self-center w-2/3 btn-error"
               onClick={() => {
                 onClose();
                 dispatch(cleanUpdateId());
@@ -172,7 +173,6 @@ const UpdateUser = (Props) => {
             >
               Cancel
             </button>
-          </div>
         </form>
       </motion.div>
     </>

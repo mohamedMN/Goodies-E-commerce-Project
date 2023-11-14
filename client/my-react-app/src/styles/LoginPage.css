@@ -1,21 +1,5 @@
 
 
-
-.Login-Content{
-    position: absolute;
-    right: 52.5%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #040D12;
-    box-shadow: 1px 1px 20px 1px #040D12;
-    border-radius: 0px 20px 20px 20px;
-    height: 55%;
-    width: 30%;
-    padding: 20px 50px;
-    z-index: 2;
-}
-
 body{
-    background-color: #040708;
+    background-color: #B9B4C7;
 }
