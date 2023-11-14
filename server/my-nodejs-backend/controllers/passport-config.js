@@ -153,12 +153,19 @@ const loginCustomer = async (username, password, done) => {
     return done(err);
   }
 };
-const register_Customer = async (firstName, lastName, email, password) => {
+const register_Customer = async (
+  firstName,
+  lastName,
+  email,
+  password,
+  hash
+) => {
   try {
-    console.log("Last Name:" + lastName);
-    console.log("First Name:" + firstName);
-    console.log("Password:" + password);
-    console.log("Email:" + email);
+    // console.log("Last Name:" + lastName);
+    // console.log("First Name:" + firstName);
+    // console.log("Password:" + password);
+    // console.log("Email:" + email);
+    // console.log("hash:" + hash);
     const hashedPassword = await bcrypt.hash(password, Number(bcryptSalt));
     const uniqueId = v4();
 
@@ -169,7 +176,8 @@ const register_Customer = async (firstName, lastName, email, password) => {
       last_name: lastName,
       email: email,
       password: hashedPassword,
-      valid_account: true,
+      token: hash, // TOken to check if account is active or not
+      // valid_account: true,
       active: true,
     });
 

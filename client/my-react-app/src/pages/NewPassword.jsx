@@ -2,10 +2,10 @@
 import { useState } from "react";
 import { axiosPrivateUser } from "../services/api";
 import { useNavigate } from "react-router-dom";
-function PasswordResetPage() {
+function NewPassword() {
   const queryParameters = new URLSearchParams(window.location.search);
-  const id = queryParameters.get("id");
   const token = queryParameters.get("token");
+  const id = queryParameters.get("id");
   const [password, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -52,4 +52,4 @@ function PasswordResetPage() {
   );
 }
 
-export default PasswordResetPage;
+export default NewPassword;
