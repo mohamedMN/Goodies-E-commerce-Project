@@ -21,7 +21,7 @@ const {
   profileController,
 } = require("../controllers/userController");
 const multer = require("multer");
-const { logOut } = require("../controllers/passport-config");
+const { logOut, isLogin } = require("../controllers/passport-config");
 const storage = multer.memoryStorage(); // Store the image data in memory as a buffer
 const upload = multer({ storage });
 
@@ -36,26 +36,26 @@ router.post(
 );
 
 router.post("/authentication", login);
-router.post("/logout", logOut);
+router.post("/logout", isLogin, logOut);
 //to get new access Token
 router.post("/refresh", refresh);
 //Only the users with admin and manager role can get the users data.  checkUserRole
-router.get("/users", ListUserController);
+router.get("/users", isLogin, ListUserController);
 // get profile informations
-router.get("/profile", profileController);
+router.get("/profile", isLogin, profileController);
 //Only the users with admin and manager role can get the users data. checkUserRole
-router.get("/id/:id", checkUserRole, getUserById);
+router.get("/id/:id", isLogin, checkUserRole, getUserById);
 //Only the users with admin and manager role can get ALL users. checkUserRole
 // API : you can search for users whose user_name matches
 // Exemple : GET /api/users?query=john_doe
-router.get("/api/users", checkUserRole, getUserByName);
+router.get("/api/users", isLogin, checkUserRole, getUserByName);
 // Forget Password Request
 router.post("/PasswordRequest", resetPasswordRequestController);
 router.post("/resetPassword", resetPasswordController);
 // Only the users with admin role can update the user's data. checkUserRoleAdmin
-router.post("/id/:id", checkUserRoleAdmin, UpdateUser);
+router.post("/id/:id", isLogin, checkUserRoleAdmin, UpdateUser);
 // Only the users with admin role can DELETE the user's. checkUserRoleAdmin
-router.delete("/:id", checkUserRoleAdmin, DeleteUser);
+router.delete("/:id", isLogin, checkUserRoleAdmin, DeleteUser);
 
 // router.get("loginCustomer", loginCustomerController);
 

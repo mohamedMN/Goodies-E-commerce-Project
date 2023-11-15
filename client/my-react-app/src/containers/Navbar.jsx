@@ -30,6 +30,9 @@ function Navbar(Props) {
       })
       .catch((err) => {
         console.log(err);
+        dispatch(logout());
+
+        navigate("/login");
       });
   };
   return (
@@ -59,7 +62,12 @@ function Navbar(Props) {
         <div className="links nav-top">
           {navOptions.map((option, index) => {
             return (
-              <NavLink className="nav-link tooltip tooltip-right "  tooltipData={option.name} key={index} to={`${option.link}`}>
+              <NavLink
+                className="nav-link tooltip tooltip-right "
+                tooltipData={option.name}
+                key={index}
+                to={`${option.link}`}
+              >
                 {option.icon}
               </NavLink>
             );

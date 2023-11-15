@@ -57,25 +57,37 @@ const authUser = async (username, password, done) => {
     return done(err);
   }
 };
+const isLogin = (req, res, next) => {
+  // console.log("req.isAuthenticated() ", req.isAuthenticated());
+  if (req.session.user) {
+    return next();
+  } else {
+    return res.status(401).json({ message: "Unauthorized" }); // User is not authenticated
+  }
+};
 const logOut = async (req, res, next) => {
-  console.log("user logOut " + req.session.user);
-  const userId = req.session.user;
-  const currentTime = new Date();
-  const user = await User.findOne({ _id: userId });
+  try {
+    console.log("user logOut " + req.session.user);
+    const userId = req.session.user;
+    const currentTime = new Date();
+    const user = await User.findOne({ _id: userId });
 
-  await User.updateOne(
-    { _id: user._id },
-    { $set: { last_login: currentTime } }
-  );
+    await User.updateOne(
+      { _id: user._id },
+      { $set: { last_login: currentTime } }
+    );
 
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    console.log("user " + req.session.user);
-    // res.redirect("/");
-    res.status(200).json({ message: "logout success" });
-  });
+    req.logout(function (err) {
+      if (err) {
+        return next(err);
+      }
+      console.log("user " + req.session.user);
+      // res.redirect("/");
+      res.status(200).json({ message: "logout success" });
+    });
+  } catch (error) {
+    console.log("there's no user session to disconnected :", error);
+  }
 };
 
 passport.serializeUser((user, done) => {
@@ -199,4 +211,5 @@ module.exports = {
   logOut,
   loginCustomer,
   register_Customer,
+  isLogin,
 };
