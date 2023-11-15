@@ -25,17 +25,19 @@ function LoginForm() {
   }, []);
   useEffect(() => {
     if (error) {
-      errorMessage("Password Or Username Wrong Verify Credintials Or Contact Your Administrator");
-        isLoading(false);
-        setTimeout(()=>{
-          errorMessage(false)
-        },2000)
-      }
-      if (user) {
-        navigate(from, { replace: true });
-        isLoading(false)
+      errorMessage(
+        "Password Or Username Wrong Verify Credintials Or Contact Your Administrator"
+      );
+      isLoading(false);
+      setTimeout(() => {
+        errorMessage(false);
+      }, 2000);
     }
-  }, [user]);
+    if (user) {
+      navigate(from, { replace: true });
+      isLoading(false);
+    }
+  }, [user, error]);
 
   // handle submit function
   const handleSubmit = async (e) => {
@@ -48,12 +50,20 @@ function LoginForm() {
     dispatch(LogIn(data));
   };
   return (
-    <form className="w-full h-full flex flex-col justify-around" method="post" onSubmit={handleSubmit}>
-      <h1 className="font-roboto font-bold text-center text-primary z-50 text-xl  xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl">Log in</h1>
+    <form
+      className="w-full h-full flex flex-col justify-around"
+      method="post"
+      onSubmit={handleSubmit}
+    >
+      <h1 className="font-roboto font-bold text-center text-primary z-50 text-xl  xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl">
+        Log in
+      </h1>
       <div className="flex flex-col justify-around">
         <div className="form-control w-full max-w-xs self-center">
           <label className="label">
-            <span className="label-text text-xs sm:text-xs md:text-sm xl:text-sm 2xl:text-base">Username:</span>
+            <span className="label-text text-xs sm:text-xs md:text-sm xl:text-sm 2xl:text-base">
+              Username:
+            </span>
           </label>
           <input
             className="input w-full sm:input-sm md:input-sm input-bordered max-w-xs"
@@ -67,10 +77,13 @@ function LoginForm() {
         </div>
         <div className="form-control w-full self-center max-w-xs">
           <label className="label">
-            <span className="label-text text-xs sm:text-xs md:text-sm xl:text-sm 2xl:text-base">Password:</span>
+            <span className="label-text text-xs sm:text-xs md:text-sm xl:text-sm 2xl:text-base">
+              Password:
+            </span>
           </label>
           <input
-className="input w-full sm:input-sm md:input-sm input-bordered max-w-xs"            onChange={(e) => setPassword(e.target.value)}
+            className="input w-full sm:input-sm md:input-sm input-bordered max-w-xs"
+            onChange={(e) => setPassword(e.target.value)}
             name="password"
             type="password"
             placeholder="Password"
@@ -78,17 +91,25 @@ className="input w-full sm:input-sm md:input-sm input-bordered max-w-xs"        
           ></input>
         </div>
       </div>
-      <button className="btn btn-outline max-w-xs self-center w-3/5" type="submit">
+      <button
+        className="btn btn-outline max-w-xs self-center w-3/5"
+        type="submit"
+      >
         Login
       </button>
       <div className=" justify-around items-center flex">
-        <Link to={"/RequestForgetPassword"} className="Link  sm:text-xs md:text-sm xl:text-sm 2xl:text-base text-center font-roboto text-xs underline">
+        <Link
+          to={"/RequestForgetPassword"}
+          className="Link  sm:text-xs md:text-sm xl:text-sm 2xl:text-base text-center font-roboto text-xs underline"
+        >
           Forgot Password?
         </Link>
         {loading && (
-          <span className="loading loading-spinner text-primary text-sm sm:text-sm md:text-sm xl:text-md 2xl:text-xl" ></span>
+          <span className="loading loading-spinner text-primary text-sm sm:text-sm md:text-sm xl:text-md 2xl:text-xl"></span>
         )}
-        <Link className="sm:text-xs md:text-sm xl:text-sm 2xl:text-base text-center font-roboto underline text-xs Link">Contact Admin?</Link>
+        <Link className="sm:text-xs md:text-sm xl:text-sm 2xl:text-base text-center font-roboto underline text-xs Link">
+          Contact Admin?
+        </Link>
       </div>
       {message && (
         <div className="alert w-fit alert-error LoginErrorMessage">
