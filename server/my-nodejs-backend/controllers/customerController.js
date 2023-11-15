@@ -1,25 +1,74 @@
 const Customer = require("../models/Customer");
 const { register_Customer } = require("./passport-config");
+const crypto = require("crypto");
+const bcrypt = require("bcrypt");
+const sendEmail = require("../utils/sendEmail");
+require("dotenv").config();
+bcryptSalt = process.env.BCRYPT_SALT;
+CLIENT_URL_ACTIVATE = process.env.CLIENT_URL_ACTIVATE;
 
 // Add Customer
 const Add_Customer_Controller = async (req, res) => {
   // Extract customer data from the request body
   const { firstName, lastName, email, password } = req.body;
-  
+
+  let SaltToken = crypto.randomBytes(32).toString("hex");
+  const hash = await bcrypt.hash(SaltToken, Number(bcryptSalt));
   // Create a new customer instance
   const newCustomer = await register_Customer(
     firstName,
     lastName,
     email,
     password,
+    hash
   );
+
   if (newCustomer) {
-    res
-      .status(201)
-      .json({ message: "Customer created successfully", data: newCustomer });
+    res.status(201).json({
+      message:
+        "Customer created successfully,Check your Email to activate your account !.",
+      data: newCustomer,
+    });
+    const link = `${CLIENT_URL_ACTIVATE}?token=${hash}`;
+    sendEmail(
+      newCustomer.email,
+      "Activate Account ",
+      {
+        name: newCustomer.first_name + " " + newCustomer.last_name,
+        link: link,
+      },
+      "../utils/email/template/requestActivateAccount.handlebars"
+    );
+    return link;
   } else {
     res.status(500).json({ message: "Customer failed" });
   }
+};
+
+const Activate_Customer_Controller = async (req, res) => {
+  // const userId = req.params["id"];
+
+  const token = req.params.token;
+  // console.log("token :", req.params.token);
+  console.log("token : ", token);
+  try {
+    const customer = await Customer.findOne({ token: token });
+    console.log(" customer email : " + customer.email);
+    if (!customer) {
+      res.status(400).json({ message: "Customer not found" });
+    }
+    // the code should be 1 day expiration
+    const expiresIn = 1000 * 60 * 60 * 60 * 24;
+
+    if (Date.now() - customer.expires > expiresIn) {
+      await Customer.deleteOne({ _id: customer._id });
+      res.status(500).json({ message: "It expired, register a new account" });
+    }
+    customer.valid_account = true;
+    await customer.save();
+    req.session.customer = customer;
+    return res.status(200).json({ message: " Account is Active " });
+  } catch (error) {}
 };
 
 // Get All Customers
@@ -222,4 +271,5 @@ module.exports = {
   Delete_Customer_Controller,
   get_Customer_Profile_Controller,
   Update_Customer_Profile_Controller,
+  Activate_Customer_Controller,
 };

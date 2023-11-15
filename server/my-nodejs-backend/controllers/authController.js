@@ -136,7 +136,8 @@ require("dotenv").config();
 bcryptSalt = process.env.BCRYPT_SALT;
 clientURL = process.env.CLIENT_URL;
 const requestPasswordReset = async (email) => {
-  console.log("clientURL " + clientURL);
+  // console.log("clientURL " + clientURL);
+  console.log("email " + email);
   const user = await User.findOne({ email });
 
   if (!user) throw new Error("User does not exist");
@@ -161,7 +162,7 @@ const requestPasswordReset = async (email) => {
   );
   return link;
 };
-const resetPasswordRequestController = async (req, res, next) => {
+const resetPasswordRequestController = async (req, res) => {
   const { email } = req.body;
   // console.log("email " + JSON.stringify(req.body));
   try {
@@ -172,7 +173,7 @@ const resetPasswordRequestController = async (req, res, next) => {
   }
 };
 
-const resetPasswordController = async (req, res, next) => {
+const resetPasswordController = async (req, res) => {
   console.log(`
   userId: ${req.body.userId},
   token: ${req.body.token},
@@ -238,7 +239,7 @@ const loginCustomerController = async (req, res) => {
     await req.session.save;
     // console.log(" role ! " + JSON.stringify(req.session));
 
-    if (CUSTOMER.active) {
+    if (CUSTOMER.valid_account) {
       const { _id } = CUSTOMER;
       let options = {
         maxAge: 86400, // would expire after 1 day
@@ -275,7 +276,7 @@ const loginCustomerController = async (req, res) => {
     } else {
       res.status(402).json({
         // accessToken,
-        message: "ERROR account is not active",
+        message: "ERROR account is not active !  , you should check your EMAIL",
       });
     }
   } catch (error) {

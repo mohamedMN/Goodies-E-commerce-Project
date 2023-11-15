@@ -10,6 +10,7 @@ const {
   Delete_Customer_Controller,
   get_Customer_Profile_Controller,
   Update_Customer_Profile_Controller,
+  Activate_Customer_Controller,
 } = require("../controllers/customerController");
 const router = express.Router();
 
@@ -18,10 +19,13 @@ const router = express.Router();
 router.post("/login", loginCustomerController);
 
 // Add Customer
-router.post("/Customers", Add_Customer_Controller);
+router.post("/customers", Add_Customer_Controller);
+
+// activate account by email
+router.post("/confirm/:token", Activate_Customer_Controller);
 
 // Get All Customers
-router.get("/Customers", Get_All_Customer_Controller);
+router.get("/customers", Get_All_Customer_Controller);
 
 // Get Customer by Username
 router.get("/username", Get_Customer_UserName_Controller);

@@ -33,7 +33,7 @@ const profileController = async (req, res) => {
     const user = await User.findById(id);
     const encodedImage = user.image.data.toString("base64");
 
-    const USER =  {
+    const USER = {
       id: user._id,
       user_name: user.user_name,
       first_name: user.first_name,
@@ -92,8 +92,12 @@ const DeleteUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "invalid user id" });
     }
-    await User.deleteOne({ _id: user._id });
-    res.status(200).json({ message: "User deleted successfully" });
+    if (user.role === "Admin") {
+      res.status(503).json({ message: "Error deleting a ADMIN role" });
+    } else {
+      await User.deleteOne({ _id: user._id });
+      res.status(200).json({ message: "User deleted successfully" });
+    }
   } catch (error) {
     console.error(error);
     res

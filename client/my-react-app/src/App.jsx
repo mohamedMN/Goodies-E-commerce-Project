@@ -10,13 +10,14 @@ import "./index.css";
 import { FiUser, FiUsers } from "react-icons/fi";
 import RequireAuth from "./components/requireAuth";
 import LoginPage from "./pages/LoginPage";
-import Analytics from "./pages/Analytics";
-import Order from "./pages/Order";
 import Product from "./pages/Product";
 import Users from "./pages/Users";
 import Profile from "./pages/Profile";
 import RequestForgetPassword from "./pages/ForgetPassword";
-import PasswordResetPage from "./pages/NewPassword";
+// import PasswordResetPage from "./pages/NewPassword";
+import { OrderCompo } from "./pages/OrderCompo";
+import NewPassword from "./pages/NewPassword";
+import Order from "./components/Order";
 
 function App() {
   const [navVisible, showNavbar] = useState(false);
@@ -66,10 +67,14 @@ function App() {
         />
         <Route
           path="/NewPassword"
-          element={<PasswordResetPage navVisible={navVisible} />}
+          element={<NewPassword navVisible={navVisible} />}
         />
         <Route path="/login" element={<LoginPage navVisible={navVisible} />} />
 
+        <Route
+          path="/analytics"
+          element={<OrderCompo navVisible={navVisible} />}
+        />
         <Route element={<RequireAuth />}>
           <Route path="/" element={<Users navVisible={navVisible} />} />
 
@@ -79,11 +84,6 @@ function App() {
           <Route
             path="/profile"
             element={<Profile navVisible={navVisible} />}
-          />
-
-          <Route
-            path="/analytics"
-            element={<Analytics navVisible={navVisible} />}
           />
 
           <Route path="/orders" element={<Order navVisible={navVisible} />} />

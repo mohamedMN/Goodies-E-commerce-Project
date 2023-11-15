@@ -31,10 +31,19 @@ const customers = new Schema(
     },
     valid_account: {
       type: Boolean,
+      default: false,
     },
     refreshToken: {
       type: String,
       default: "",
+    },
+    token: {
+      type: String,
+      default: "",
+    },
+    expires: {
+      type: Number,
+      default: Date.now(),
     },
   },
   {
