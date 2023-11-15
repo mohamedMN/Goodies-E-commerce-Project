@@ -13,7 +13,7 @@ export default {
     themes: [
       {
         mytheme: {
-          primary: "#5C8374",
+          primary: "#183D3D",
 
           secondary: "#040D12",
 
@@ -29,7 +29,7 @@ export default {
 
           warning: "#fbbd23",
 
-          error: "#f87272",
+          error: "#b34",
         },
       },
     ],

@@ -24,6 +24,9 @@ const RequestForgetPassword = (Props) => {
         })
         .catch(() => {
           setMessage("Password reset request failed. Please try again.");
+          setTimeout(()=>{
+            setMessage(false)
+          },2000)
         });
     } catch (error) {
       setMessage("An error occurred. Please try again.");
@@ -32,39 +35,58 @@ const RequestForgetPassword = (Props) => {
 
   return (
     <div className={navVisible ? "page page-with-navbar" : "page"}>
-      <div className="Background-Login">
+    {message && 
+          <div className="alert alert-error w-fit absolute z-50 top-2 right-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="stroke-current shrink-0 h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              color="#fff"
+              d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
+          </svg>
+          <span className="AlertMsg">{message}.</span>
+        </div>
+        }
+      <div className="bg-primary w-1/3 absolute h-full right-0 z-0">
         <LeftSideLog
-          message={"Forgot Password?"}
-          className="LeftSideLoginPage"
-        />
+          message={"Forgot Password?"}        />
       </div>
-      <div className="Login-Content">
-        <div className="w-3/4 h-full">
+      <div className="w-7/12 sm:w-6/12 md:w-6/12 lg:w-5/12 xl:w-4/12 2xl:w-1/3 h-3/5 flex shadow-md p-4 shadow-primary bg-secondary rounded-2xl relative right-[14%]">
+        <div className="w-full h-full flex justify-center" >
           <form
-            className="items-center text-center flex flex-col h-full justify-evenly "
+            className="items-center text-center flex flex-col h-full justify-evenly w-4/5 "
             method="get"
             onSubmit={handleSubmit}
           >
             <h2 className="font-roboto text-lg">Forgot Password?</h2>
-            <p className="font-roboto">
+            <span className="font-roboto w-fit text-base text-primary">
               Enter your email to reset your password:
-            </p>
-            <div className="flex flex-col w-full h-1/2 justify-around  ">
+            </span>
+            <div className="flex flex-col w-full h-1/2 justify-around">
+            <div className="form-control">
+
               <input
-                className="input input-ghost input-sm w-full"
+                className="input input-ghost input-sm w-4/5 self-center"
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <button className="btn btn-outline font-semibold btn-primary">
+            </div>
+              <button className="btn btn-outline font-semibold btn-primary w-2/5 self-center">
                 Reset Password
               </button>
-              <Link className="Link" to={"/login"}>
+              <Link className="Link underline" to={"/login"}>
                 Back To Login
               </Link>
             </div>
-            <p style={{ color: "white" }}>{message}</p>
           </form>
         </div>
       </div>

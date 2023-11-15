@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { UpdateUser } from "../redux/actions/AuthAction";
 // import { useSelector } from "react-redux";
 const UserComponent = (Props) => {
-  const { managersInfo } = Props;
+  const { managersInfo , isAdmin } = Props;
   // const user = useSelector((state) => state.authReducer?.authData);
   // const [showManagerAlert, setShowManagerAlert] = useState(false);
 
@@ -92,17 +92,20 @@ const UserComponent = (Props) => {
         <td className="Table-Data" scope="row">
           <label>{managersInfo.email}</label>
         </td>
+        {
+          isAdmin &&
         <td className="Table-Data-functions" scope="col">
           <button
             onClick={() =>
               showDeleteSwal(managersInfo._id, managersInfo.user_name)
             }
           >
+          { managersInfo.role !== "Admin" ?
             <AiOutlineDelete />
+            :
+            null
+          }
           </button>
-          <button onClick={() => {}}>
-            <AiOutlineUserAdd />
-          </button>{" "}
           <button
             onClick={() => {
               handleUserUpdate(managersInfo._id);
@@ -111,6 +114,8 @@ const UserComponent = (Props) => {
             <AiOutlineEllipsis />
           </button>
         </td>
+
+        }
       </tr>
     </>
   );

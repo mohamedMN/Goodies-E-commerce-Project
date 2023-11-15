@@ -6,9 +6,9 @@ nav{
 	align-items: center;
 	flex-direction:column;
 	justify-content: space-between;
-	width: 5%;
+	width: 6%;
 	min-height: 100vh;
-	background-color: #183D3D;
+	background-color: var(--quinary);
 	padding:2rem 1rem 1rem 1rem;
 	transition: transform 0.5s;
 }
@@ -36,7 +36,7 @@ nav{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #183D3D;
+	background-color: var(--quinary);
 	outline: none;
 	border: none;
 	font-size: 1rem;
@@ -98,8 +98,7 @@ nav{
 
 @media only screen and (max-width: 768px){
 	nav{
-		width: 40%;
-		padding: 10px;
+		width: 9%;
 	}
 }
 
@@ -111,7 +110,7 @@ nav{
 	nav{
 		width: 100%;
 		top: 25px;
-		min-height: calc(100vh - 38px);
+		min-height:100vh ;
 		z-index: 999;
 	}
 

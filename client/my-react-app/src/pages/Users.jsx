@@ -10,12 +10,15 @@ import UpdateUser from "../components/UpdateUser";
 import { getUsers } from "../redux/actions/AuthAction";
 const Users = ({ navVisible }) => {
   const [searchValue, setSearchValue] = useState("");
+  const date = new Date();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const Todaysdate = date.toLocaleDateString('en-us', options)
+
 
   const [showAddUserForm, setShowAddUserForm] = useState(false);
   const [showUpdateUserForm, setShowUpdateUserForm] = useState(false);
   // Update user if he click on it or not
   const id_user = useSelector((state) => state.UpdateUserReducer?.id);
-  // console.log("id_user " + id_user);
   const dispatch = useDispatch();
 
   const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users);
@@ -32,38 +35,43 @@ const Users = ({ navVisible }) => {
   return (
     <>
       <div className={navVisible ? "page page-with-navbar" : "page"}>
-        <form className="flex form-search-user">
+      <div className="w-full flex justify-around">
+      <label className="label">
+        <span className="text-xs sm:text-sm md:text-md xl:text-xl 2xl:text-xl text-primary font-roboto">{Todaysdate}</span>
+      </label>
+
+        <form className="flex flex-row-reverse items-center form-control">
           <input
-            className="searchUserInput bg-transparent"
+            className="bg-transparent outline-none input-xs sm:input-sm md:input-sm lg:input-md xl:input-md 2xl:input-lg "
             placeholder="  Search By Username"
             type="text"
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          <AiOutlineSearch className="search-icon" />
+          <AiOutlineSearch className="" />
         </form>
-        <div className="dashboard">
-          <div className="Header-Container">
-            <h1 className="headerTitle">USERS</h1>
-
+      </div>
+        <div className="w-5/6 h-3/4 bg-secondary rounded-2xl px-2 py-10 flex flex-col items-center justify-around">
+          <div className="flex justify-around w-full">
             <button
-              className="btn"
+              className="btn btn-primary btn-outline normal-case text-xs btn-xs sm:text-xs sm:btn-xs md:text-sm md:btn-sm lg:text-sm lg:btn-md xl:text-sm xl:btn-md "
               onClick={() => {
                 setShowAddUserForm(!showAddUserForm);
               }}
             >
               Add User
             </button>
+            <h1 className="font-roboto text-center z-50 text-md 2xl:text-3xl xl:text-2xl lg:text-xl md:text-xl sm:text-lg">Users:</h1>
             <label className="flex flex-col">
-              <h1 className="text-center">Total Users :</h1>
-              <span className="self-end text-lg text-primary">
+              <h1 className="font-roboto text-center z-50 text-md 2xl:text-2xl xl:text-xl lg:text-xl md:text-xl sm:text-lg">Total Users :</h1>
+              <span className="self-end font-roboto text-center 2xl:text-2xl xl:text-xl lg:text-lg md:text-md sm:text-sm text-accent font-semibold">
                 {testingInfo ? testingInfo.length : 0}
               </span>
             </label>
             <motion.div
               whileTap={{ scale: 0.98 }}
-              dragConstraints={{ left: 500, right: 500, bottom: 20, top: 0 }}
-              className="Create-User-Form"
+              dragElastic = {{top: 0, bottom: 0.3}}
+              className="bg-primary absolute z-50 w-fit p-3 justify-center items rounded-xl flex"
               drag
             >
               {showAddUserForm && (
@@ -81,7 +89,7 @@ const Users = ({ navVisible }) => {
               )}
             </motion.div>
           </div>
-          <div className="Table-Container h-3/5 overflow-x-auto">
+          <div className="w-full self-center justify-self-start h-4/5 overflow-x-auto">
             <TableContainer searchValue={searchValue} />
           </div>
         </div>
