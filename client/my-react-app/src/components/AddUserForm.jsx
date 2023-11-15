@@ -62,7 +62,7 @@ const AddUserForm = (Props) => {
           <span className="AlertMsg">{alertMessage}.</span>
         </div>
       )}
-        <form className=" flex flex-col items-center h-full w-full" onSubmit={handleSubmit}>
+        <form className=" flex flex-col items-center h-full w-full justify-around" onSubmit={handleSubmit}>
           <div className="flex flex-col w-full">
             <div className="w-fit flex gap-2">
               <div className="form-control w-fit max-w-xs">

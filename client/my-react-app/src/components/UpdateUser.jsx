@@ -80,7 +80,7 @@ const UpdateUser = (Props) => {
         </div>
       )}
       <motion.div className="h-full" >
-        <form drag className="flex flex-col items-center h-full w-full" onSubmit={handleSubmit}>
+        <form drag className="flex flex-col items-center h-full w-full justify-around" onSubmit={handleSubmit}>
         <div className="Inputs-n-Labels">
             <div className="w-fit flex gap-2">
             <div className="form-control w-full max-w-xs">
