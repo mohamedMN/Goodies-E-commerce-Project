@@ -11,10 +11,10 @@ passport.use(
   "google",
   new GoogleStrategy(
     {
-      clientID: "YOUR_GOOGLE_CLIENT_ID",
-      clientSecret: "YOUR_GOOGLE_CLIENT_SECRET",
-    //   callbackURL:
-    //     "http://localhost:3125/customers/api/account/google/callback",
+      clientID: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+      //   callbackURL:
+      //     "http://localhost:3125/customers/api/account/google/callback",
     },
     function (accessToken, refreshToken, profile, done) {
       console.log("_json ", profile);

@@ -29,7 +29,6 @@ const register = async (
       // role: role,
       user_name: userName,
       password: hashedPassword,
-      active: true,
       image: {
         data: data,
       },

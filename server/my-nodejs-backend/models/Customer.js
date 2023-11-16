@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const findOrCreate = require("mongoose-findorcreate");
+
 const Schema = mongoose.Schema;
 const customers = new Schema(
   {
@@ -20,7 +22,7 @@ const customers = new Schema(
     },
     password: {
       type: String,
-      required: true,
+      // required: true,
     },
     last_login: {
       type: Date,
@@ -28,6 +30,7 @@ const customers = new Schema(
     },
     active: {
       type: Boolean,
+      default: true,
     },
     valid_account: {
       type: Boolean,
@@ -52,5 +55,7 @@ const customers = new Schema(
     updatedAt: "last_update", // and `last_update` to store the last updated date
   }
 );
+customers.plugin(findOrCreate);
+
 const Customer = mongoose.model("Customer", customers);
 module.exports = Customer;

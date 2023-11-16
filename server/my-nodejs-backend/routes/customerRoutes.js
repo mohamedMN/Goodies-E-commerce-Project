@@ -14,6 +14,8 @@ const {
 } = require("../controllers/customerController");
 const { googleAuth, CallBackGoogle } = require("../controllers/Oauth");
 const router = express.Router();
+const Customer = require("../models/Customer");
+const { v4 } = require("uuid"); // Import the uuid package and generate a v4 UUID
 
 //-----------------------------Customer API------------------------------
 // Authentication of Customer
@@ -24,14 +26,42 @@ var GoogleStrategy = require("passport-google-oauth20").Strategy;
 GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
 passport.use(
+  "google",
   new GoogleStrategy(
     {
       clientID: GOOGLE_CLIENT_ID,
       clientSecret: GOOGLE_CLIENT_SECRET,
       callbackURL: "http://localhost:3125/customers/api/account/google",
     },
-    function (accessToken, refreshToken, profile, done) {
-      return done(null, profile);
+    async function (accessToken, refreshToken, profile, done) {
+      const uniqueId = v4();
+
+      const email = profile._json.email;
+      const name = profile;
+      const firstName = profile._json.given_name;
+      const lastName = profile._json.family_name;
+      console.log("email ", email);
+      console.log("name", name);
+      console.log("firstName", firstName);
+      console.log("lastName", lastName);
+      // Assuming `profile` contains the user's email
+      try {
+        const customer = await Customer.findOne({ email: email });
+        if (!customer) {
+          const newCustomer = await Customer.create({
+            _id: uniqueId,
+            email: email,
+            first_name: firstName,
+            last_name: lastName,
+            password: "",
+          });
+          await newCustomer.save();
+          return done(null, newCustomer);
+        }
+        return done(null, customer);
+      } catch (err) {
+        return done(err, null);
+      }
     }
   )
 );
@@ -40,12 +70,14 @@ router.get(
   "/auth",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
-router.get("/auth/error", (req, res) => res.send("Unknown Error"));
+router.get("/auth/error", (req, res) =>
+  res.status(504).json({ status: "failed", message: "Login failed!" })
+);
 router.get(
   "/api/account/google",
   passport.authenticate("google", { failureRedirect: "/auth/error" }),
   function (req, res) {
-    res.redirect("/");
+    res.status(200).json({ status: "success", message: "Login successful!" });
   }
 );
 router.get("/", (req, res) => res.send(`Welcome !`));
