@@ -236,6 +236,7 @@ const loginCustomerController = async (req, res) => {
       )(req, res);
     });
     req.session.customer = CUSTOMER;
+    // req.customer = CUSTOMER;
     await req.session.save;
     // console.log(" role ! " + JSON.stringify(req.session));
 

@@ -52,7 +52,9 @@ const authUser = async (username, password, done) => {
     const checkPassword = await bcrypt.compare(password, data.password);
     if (!checkPassword)
       return done(null, false, { message: "Incorrect password" });
-    if (data) done(null, data);
+    if (data) {
+      done(null, data);
+    }
   } catch (err) {
     return done(err);
   }
@@ -91,12 +93,15 @@ const logOut = async (req, res, next) => {
 };
 
 passport.serializeUser((user, done) => {
-  console.log(user);
-  done(null, user);
+  // console.log("user ", user);
+  console.log("serializeUser called");
+  done(null, user.id);
 });
 passport.deserializeUser((userObj, done) => {
-  console.log("---------> Deserialize Id");
-  console.log(userObj);
+  // console.log("---------> Deserialize Id");
+  // console.log("userObj ", userObj);
+  console.log("deserializeUser---- called");
+
   done(null, userObj);
 });
 const Access_Public_Secret_Key = process.env.Access_Public_Secret_Key;
