@@ -16,55 +16,17 @@ const { googleAuth, CallBackGoogle } = require("../controllers/Oauth");
 const router = express.Router();
 const Customer = require("../models/Customer");
 const { v4 } = require("uuid"); // Import the uuid package and generate a v4 UUID
+const passport = require("passport");
+const {
+  CustomerResetPasswordController,
+  CustomeResetPasswordRequestController,
+} = require("../controllers/CustomerForgetPass");
 
 //-----------------------------Customer API------------------------------
 // Authentication of Customer
+// Login with google
+
 router.post("/login", loginCustomerController);
-const passport = require("passport");
-var GoogleStrategy = require("passport-google-oauth20").Strategy;
-
-GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
-GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-passport.use(
-  "google",
-  new GoogleStrategy(
-    {
-      clientID: GOOGLE_CLIENT_ID,
-      clientSecret: GOOGLE_CLIENT_SECRET,
-      callbackURL: "http://localhost:3125/customers/api/account/google",
-    },
-    async function (accessToken, refreshToken, profile, done) {
-      const uniqueId = v4();
-
-      const email = profile._json.email;
-      const name = profile;
-      const firstName = profile._json.given_name;
-      const lastName = profile._json.family_name;
-      console.log("email ", email);
-      console.log("name", name);
-      console.log("firstName", firstName);
-      console.log("lastName", lastName);
-      // Assuming `profile` contains the user's email
-      try {
-        const customer = await Customer.findOne({ email: email });
-        if (!customer) {
-          const newCustomer = await Customer.create({
-            _id: uniqueId,
-            email: email,
-            first_name: firstName,
-            last_name: lastName,
-            password: "",
-          });
-          await newCustomer.save();
-          return done(null, newCustomer);
-        }
-        return done(null, customer);
-      } catch (err) {
-        return done(err, null);
-      }
-    }
-  )
-);
 
 router.get(
   "/auth",
@@ -77,14 +39,20 @@ router.get(
   "/api/account/google",
   passport.authenticate("google", { failureRedirect: "/auth/error" }),
   function (req, res) {
-    res.status(200).json({ status: "success", message: "Login successful!" });
+    // fih kolchi email,_id,first_name....
+    // console.log("req.session ", req.session.passport.user);
+    res
+      .status(200)
+      .json({
+        status: "success",
+        message: "Login successful!",
+        email: req.session.passport.user.email,
+      });
   }
 );
-router.get("/", (req, res) => res.send(`Welcome !`));
-
-// Login with google
-// router.get("/auth/google", googleAuth);
-// router.get("/auth/google/callback", CallBackGoogle);
+// reset password
+router.post("/PasswordRequest", CustomeResetPasswordRequestController);
+router.post("/resetPassword", CustomerResetPasswordController);
 
 // Add Customer
 router.post("/customers", Add_Customer_Controller);

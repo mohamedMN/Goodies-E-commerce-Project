@@ -94,7 +94,7 @@ const logOut = async (req, res, next) => {
 passport.serializeUser((user, done) => {
   // console.log("user ", user);
   console.log("serializeUser called");
-  done(null, user.id);
+  done(null, user);
 });
 passport.deserializeUser((userObj, done) => {
   // console.log("---------> Deserialize Id");

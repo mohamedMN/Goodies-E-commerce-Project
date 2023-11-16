@@ -5,7 +5,7 @@ const tokenSchema = new Schema({
   userId: {
     type: String,
     required: true,
-    ref: "User",
+    ref: "Customer",
   },
   token: {
     type: String,
@@ -17,4 +17,4 @@ const tokenSchema = new Schema({
     expires: 3600, // this is the expiry time in seconds
   },
 });
-module.exports = mongoose.model("Token", tokenSchema);
+module.exports = mongoose.model("TokenCustomer", tokenSchema);
