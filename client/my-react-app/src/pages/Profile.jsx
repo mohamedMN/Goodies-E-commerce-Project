@@ -21,9 +21,9 @@ const Profile = (Props) => {
       try {
         const response = await axiosPrivateUser.get("/profile");
         setUser(response.data);
-        console.log(
-          "response.data.image.image  " + JSON.stringify(response.data)
-        );
+        // console.log(
+        //   "response.data.image.image  " + JSON.stringify(response.data)
+        // );
         // const imageBlob = await response.image.image.blob();
         // const imageUrl = URL.createObjectURL(imageBlob);
 
@@ -38,7 +38,13 @@ const Profile = (Props) => {
 
   return (
     <>
-      <div className={navVisible ? "page page-with-navbar justify-center" : "page justify-center"}>
+      <div
+        className={
+          navVisible
+            ? "page page-with-navbar justify-center"
+            : "page justify-center"
+        }
+      >
         <div className="flex flex-col h-3/5 w-4/6 bg-secondary rounded-3xl text-accent">
           <div className="h-full flex flex-col justify-around">
             <div className="flex flex-row-reverse items-center justify-around w-full">
@@ -52,9 +58,14 @@ const Profile = (Props) => {
                 ) : (
                   <p>No image available</p>
                 )}
-                <h1 className="text-base-100 font-roboto ">{user?.user_name}</h1>
+                <h1 className="text-base-100 font-roboto ">
+                  {user?.user_name}
+                </h1>
               </div>
-              <button onClick={handleEditMode} className="btn w-1/6 btn-accent btn-outline">
+              <button
+                onClick={handleEditMode}
+                className="btn w-1/6 btn-accent btn-outline"
+              >
                 edit
               </button>
             </div>
@@ -71,7 +82,6 @@ const Profile = (Props) => {
                 <h2 className="UserData">{user.email}</h2>
                 <p className="UserData">{user.role}</p>
                 <p className="UserData">{user.last_logi}</p>
-
               </div>
             </div>
 

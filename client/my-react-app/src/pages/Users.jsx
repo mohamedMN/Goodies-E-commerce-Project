@@ -1,24 +1,16 @@
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "../styles/DashboardPage.css";
-import { AiOutlineSearch } from "react-icons/ai";
 import AddUserForm from "../components/AddUserForm";
 import TableContainer from "../containers/TableContainer";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import UpdateUser from "../components/UpdateUser";
 import { getUsers } from "../redux/actions/AuthAction";
+import Header from "../components/Header";
 const Users = ({ navVisible }) => {
-  const [searchValue, setSearchValue] = useState("");
-  const date = new Date();
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
   const auth = useSelector((state) => state.authReducer?.authData); // user
-  const Todaysdate = date.toLocaleDateString("en-us", options);
+  const searchValue = useSelector((state) => state.searchReducer?.search); // user
 
   const [showAddUserForm, setShowAddUserForm] = useState(false);
   const [showUpdateUserForm, setShowUpdateUserForm] = useState(false);
@@ -46,24 +38,7 @@ const Users = ({ navVisible }) => {
             : "page flex flex-col justify-around"
         }
       >
-        <div className="w-full flex justify-around h-auto">
-          <label className="label">
-            <span className="text-xs sm:text-sm md:text-md xl:text-xl 2xl:text-xl text-primary font-roboto">
-              {Todaysdate}
-            </span>
-          </label>
-
-          <form className="flex flex-row-reverse items-center form-control">
-            <input
-              className="bg-transparent outline-none input-xs sm:input-sm md:input-sm lg:input-md xl:input-md 2xl:input-lg "
-              placeholder="  Search By Username"
-              type="text"
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-            />
-            <AiOutlineSearch className="" />
-          </form>
-        </div>
+        <Header />
         <div className="w-5/6 h-3/4 bg-secondary rounded-2xl px-2 py-10 flex flex-col items-center">
           <div className="flex justify-around w-full">
             <h1 className="font-roboto text-center z-50 text-md 2xl:text-3xl xl:text-2xl lg:text-xl md:text-xl sm:text-lg">
