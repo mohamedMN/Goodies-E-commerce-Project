@@ -12,10 +12,10 @@ export default function LeftSideLog({message}) {
         alt="Logo"     
         />
         </div>
-        <div className="font-roboto font-bold text-center z-50 text-md 2xl:text-6xl xl:text-5xl lg:text-4xl md:text-2xl sm:text-xl ">
+        <div className="font-roboto font-bold text-center text-base-100 z-50 text-md 2xl:text-6xl xl:text-5xl lg:text-4xl md:text-2xl sm:text-xl ">
 {message}
         </div>
-        <div className="sm:text-xs xl:text-sm 2xl:text-base text-xs text-center font-roboto">
+        <div className="text-base-100 sm:text-xs xl:text-sm 2xl:text-base text-xs text-center font-roboto">
         if you’re encountering issures with logging in please contact your administrator.
         </div>
     </div>

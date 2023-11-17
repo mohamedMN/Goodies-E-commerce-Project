@@ -17,6 +17,7 @@ const Users = ({ navVisible }) => {
     month: "long",
     day: "numeric",
   };
+  const auth = useSelector((state) => state.authReducer?.authData); // user
   const Todaysdate = date.toLocaleDateString("en-us", options);
 
   const [showAddUserForm, setShowAddUserForm] = useState(false);
@@ -38,8 +39,14 @@ const Users = ({ navVisible }) => {
 
   return (
     <>
-      <div className={navVisible ? "page page-with-navbar" : "page"}>
-        <div className="w-full flex justify-around">
+      <div
+        className={
+          navVisible
+            ? "page page-with-navbar flex flex-col justify-around"
+            : "page flex flex-col justify-around"
+        }
+      >
+        <div className="w-full flex justify-around h-auto">
           <label className="label">
             <span className="text-xs sm:text-sm md:text-md xl:text-xl 2xl:text-xl text-primary font-roboto">
               {Todaysdate}
@@ -57,19 +64,22 @@ const Users = ({ navVisible }) => {
             <AiOutlineSearch className="" />
           </form>
         </div>
-        <div className="w-5/6 h-3/4 bg-secondary rounded-2xl px-2 py-10 flex flex-col items-center justify-around">
+        <div className="w-5/6 h-3/4 bg-secondary rounded-2xl px-2 py-10 flex flex-col items-center">
           <div className="flex justify-around w-full">
-            <button
-              className="btn btn-primary btn-outline normal-case text-xs btn-xs sm:text-xs sm:btn-xs md:text-sm md:btn-sm lg:text-sm lg:btn-md xl:text-sm xl:btn-md "
-              onClick={() => {
-                setShowAddUserForm(!showAddUserForm);
-              }}
-            >
-              Add User
-            </button>
             <h1 className="font-roboto text-center z-50 text-md 2xl:text-3xl xl:text-2xl lg:text-xl md:text-xl sm:text-lg">
               Users:
             </h1>
+            {auth.user.role === "Admin" ? (
+              <button
+                className="btn btn-primary btn-outline normal-case text-xs btn-xs sm:text-xs sm:btn-xs md:text-sm md:btn-sm lg:text-sm lg:btn-md xl:text-sm xl:btn-md "
+                onClick={() => {
+                  setShowAddUserForm(!showAddUserForm);
+                }}
+              >
+                Add User
+              </button>
+            ) : null}
+
             <label className="flex flex-col">
               <h1 className="font-roboto text-center z-50 text-md 2xl:text-2xl xl:text-xl lg:text-xl md:text-xl sm:text-lg">
                 Total Users :
@@ -81,12 +91,27 @@ const Users = ({ navVisible }) => {
             <motion.div
               whileTap={{ scale: 0.98 }}
               dragElastic={{ top: 0, bottom: 0.3 }}
-              className="bg-primary absolute z-50 w-fit p-3 justify-center items rounded-xl flex"
+              className={
+                showAddUserForm
+                  ? "bg-primary absolute z-50 w-fit h-2/3 p-3 justify-center items rounded-xl flex"
+                  : "hidden"
+              }
               drag
             >
               {showAddUserForm && (
                 <AddUserForm onClose={() => setShowAddUserForm(false)} />
               )}
+            </motion.div>
+            <motion.div
+              whileTap={{ scale: 0.98 }}
+              dragElastic={{ top: 0, bottom: 0.3 }}
+              className={
+                showUpdateUserForm
+                  ? "bg-primary absolute z-50 w-fit h-2/3 p-3 justify-center items rounded-xl flex"
+                  : "hidden"
+              }
+              drag
+            >
               {showUpdateUserForm && (
                 <UpdateUser
                   id={id_user}
@@ -99,7 +124,7 @@ const Users = ({ navVisible }) => {
               )}
             </motion.div>
           </div>
-          <div className="w-full self-center justify-self-start h-4/5 overflow-x-auto">
+          <div className="w-full self-center justify-self-start  overflow-x-auto">
             <TableContainer searchValue={searchValue} />
           </div>
         </div>

@@ -2,10 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import { cleanUpdateId } from "../redux/actions/AuthAction";
 import { useDispatch, useSelector } from "react-redux";
 import { axiosPrivateUser } from "../services/api";
+import TextField from "@mui/material/TextField";
+import {
+  MdVisibility as Visibility,
+  MdVisibilityOff as VisibilityOff,
+} from "react-icons/md";
 import { motion } from "framer-motion";
+import { InputAdornment } from "@mui/material";
 
 const UpdateUser = (Props) => {
   const { onClose, id } = Props;
+  const [showPassword, setShowPassword] = useState(false);
   const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users); // aLL users
   const user = testingInfo.filter((e) => e._id.toLowerCase().includes(id));
   const [firstName, setFirstName] = useState(user[0].first_name);
@@ -21,6 +28,7 @@ const UpdateUser = (Props) => {
 
   const inputRef = useRef(null);
 
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -79,78 +87,79 @@ const UpdateUser = (Props) => {
           <span className="AlertMsg">{alertMessage}.</span>
         </div>
       )}
-      <motion.div className="h-full" >
-        <form drag className="flex flex-col items-center h-full w-full justify-around" onSubmit={handleSubmit}>
-        <div className="Inputs-n-Labels">
-            <div className="w-fit flex gap-2">
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">First Name:</span>
-              </label>
-              <input
-                className="input input-sm input-bordered w-full max-w-xs"
-                type="text"
+      <motion.div className="h-full ">
+        <form
+          drag
+          className="flex flex-col items-center h-full max-w-xs justify-around"
+          onSubmit={handleSubmit}
+        >
+          <div className="Inputs-n-Labels h-4/6 flex flex-col justify-around">
+            <div className="w-full flex gap-2">
+              <TextField
+                color="secondary"
+                required
+                id="outlined-required"
+                label="First Name"
                 defaultValue={user[0].first_name}
                 ref={inputRef}
                 onChange={(e) => setFirstName(e.target.value)}
               />
-            </div>
-            <div className="form-control w-full max-w-xs">
-              <label className="label">
-                <span className="label-text">Last Name:</span>
-              </label>
-              <input
-                className="input input-sm input-bordered w-full max-w-xs"
-                type="text"
+              <TextField
+                required
+                color="secondary"
+                id="outlined-required"
+                label="Last Name"
                 value={user.lastName}
                 defaultValue={user[0].last_name}
                 onChange={(e) => setLastName(e.target.value)}
                 ref={inputRef}
               />
             </div>
-            </div>
-            <div className="form-control w-full self-center">
-              <label className="label">
-                <span className="label-text">Email:</span>
-                <span className="Label-text-alt text-red-700 font-semibold ">
-                  *
-                </span>
-              </label>
-              <input
-                className="input input-sm input-bordered w-full "
-                type="text"
-                defaultValue={user[0].email}
-                onChange={(e) => setEmail(e.target.value)}
-                ref={inputRef}
-                required
-              />
-            </div>
-            <div className=" self-center form-control w-full ">
-              <label className="label">
-                <span className="label-text">Username:</span>
-                <span className="Label-text-alt text-red-700 font-semibold ">
-                  *
-                </span>
-              </label>
-              <input
-                className="input w-full input-sm input-bordered "
-                type="text"
-                defaultValue={user[0].user_name}
-                onChange={(e) => setUserName(e.target.value)}
-                ref={inputRef}
-                required
-              />
-            </div>
-            <div className="form-control self-center w-full ">
-              <label className="label">
-                <span className="label-text">Password:</span>
-              </label>
-              <input
-                className="input input-sm input-bordered w-full "
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+            <TextField
+              required
+              id="outlined-required"
+              color="secondary"
+              label="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              ref={inputRef}
+              defaultValue={user[0].email}
+            />
+            <TextField
+              required
+              color="secondary"
+              id="outlined-required"
+              label="Username"
+              defaultValue={user[0].user_name}
+              onChange={(e) => setUserName(e.target.value)}
+              ref={inputRef}
+            />
+            <TextField
+              defaultValue={user[0].password}
+              id="outlined-password-input"
+              label="Password"
+              type={showPassword ? "password" : "text"}
+              autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+              InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {showPassword ? (
+                  <Visibility
+                    size={22}
+                    className="cursor-pointer"
+                    onClick={handleClickShowPassword}
+                  />
+                ) : (
+                  <VisibilityOff
+                    className="cursor-pointer"
+                    size={22}
+                    onClick={handleClickShowPassword}
+                  />
+                )}
+              </InputAdornment>
+            ),
+          }}
+            />
           </div>
           {/* <div className="Image-input">
             <input
@@ -161,18 +170,21 @@ const UpdateUser = (Props) => {
               onChange={handleFileChange}
             />
           </div> */}
-            <button className="btn btn-md btn-outline btn-base max-w-xs w-full self-center" type="submit">
-              Submit
-            </button>
-            <button
-              className="btn btn-outline btn-md max-w-xs self-center w-2/3 btn-error"
-              onClick={() => {
-                onClose();
-                dispatch(cleanUpdateId());
-              }}
-            >
-              Cancel
-            </button>
+          <button
+            className="btn btn-md btn-outline btn-secondary max-w-xs w-full self-center"
+            type="submit"
+          >
+            Submit
+          </button>
+          <button
+            className="btn btn-outline btn-md max-w-xs self-center w-2/3 btn-error"
+            onClick={() => {
+              onClose();
+              dispatch(cleanUpdateId());
+            }}
+          >
+            Cancel
+          </button>
         </form>
       </motion.div>
     </>

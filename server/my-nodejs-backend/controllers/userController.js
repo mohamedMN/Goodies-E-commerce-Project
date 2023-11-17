@@ -4,7 +4,7 @@ const ListUserController = async (req, res) => {
   try {
     // console.log("req.session.passport " + req.session.user);
     const users = await User.find().select(
-      "_id user_name last_name first_name role email"
+      "_id user_name last_name  first_name role email"
     );
     // console.log("userss " + users);
     // res.status(200).json({ users, username });

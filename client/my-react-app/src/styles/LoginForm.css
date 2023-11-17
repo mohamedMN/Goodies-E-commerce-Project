@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Roboto:wght@500&display=swap');
 .Link{
-    color: #183D3D;
+    color: #FAF3E6;
     transition: all 0.5s ease-in-out;
 }
 .Link:hover{
     cursor: pointer;
-    color: #5C8374;
+    color: #B9B4C7;
 }

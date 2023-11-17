@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "../services/api";
+import { TextField } from "@mui/material";
 
 const AddUserForm = (Props) => {
   const { onClose } = Props;
@@ -62,95 +63,73 @@ const AddUserForm = (Props) => {
           <span className="AlertMsg">{alertMessage}.</span>
         </div>
       )}
-        <form className=" flex flex-col items-center h-full w-full justify-around" onSubmit={handleSubmit}>
-          <div className="flex flex-col w-full">
-            <div className="w-fit flex gap-2">
-              <div className="form-control w-fit max-w-xs">
-                <label className="label">
-                  <span className="label-text">First Name:</span>
-                </label>
-                <input
-                  className="input input-sm input-bordered w-full max-w-xs"
-                  type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </div>
-              <div className="form-control w-fit max-w-xs">
-                <label className="label">
-                  <span className="label-text">Last Name:</span>
-                </label>
-                <input
-                  className="input input-sm input-bordered w-full max-w-xs"
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="form-control w-full self-center">
-              <label className="label">
-                <span className="label-text">Email:</span>
-                <span className="Label-text-alt text-red-700 font-semibold ">
-                  *
-                </span>
-              </label>
-              <input
-                className="input input-sm input-bordered w-full "
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className=" self-center form-control w-full ">
-              <label className="label">
-                <span className="label-text">Username:</span>
-                <span className="Label-text-alt text-red-700 font-semibold ">
-                  *
-                </span>
-              </label>
-              <input
-                className="input w-full input-sm input-bordered "
-                type="text"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-                required
-              />
-            </div>
-            <div className="form-control self-center w-full ">
-              <label className="label">
-                <span className="label-text">Password:</span>
-              </label>
-              <input
-                className="input input-sm input-bordered w-full "
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="Image-input">
-            <input
-              className="file-input input-sm w-full max-w-xs self-center"
-              type="file"
-              name="image"
-              accept="image/*"
-              onChange={handleFileChange}
+      <form
+        className=" flex flex-col items-center h-full w-full max-w-xs justify-around"
+        onSubmit={handleSubmit}
+      >
+        <div className="flex flex-col w-full h-2/3 justify-around">
+          <div className="w-fit flex gap-2">
+            <TextField
+              color="secondary"
+              id="outlined-basic"
+              label="First Name"
+              onChange={(e) => setFirstName(e.target.value)}
+              value={firstName}
+            />
+            <TextField
+              color="secondary"
+              id="outlined-basic"
+              label="Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
             />
           </div>
-          <button
-            className="btn btn-md btn-outline btn-base max-w-xs self-center w-full"
-            type="submit"
-          >
-            Submit
-          </button>
-          <button
-            className="btn  btn-md btn-base w-full self-center max-w-xs"
-            onClick={onClose}
-          >
-            Cancel
-          </button>
-        </form>
+          <TextField
+            color="secondary"
+            required
+            id="outlined-required"
+            label="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <TextField
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            color="secondary"
+            required
+            id="outlined-required"
+            label="Username"
+          />
+          <TextField
+            value={password}
+            color="secondary"
+            id="outlined-basic"
+            label="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="Image-input">
+          <input
+            className="file-input input-sm w-full max-w-xs self-center"
+            type="file"
+            name="image"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+        </div>
+        <button
+          className="btn btn-md btn-secondary btn-outline max-w-xs self-center w-full"
+          type="submit"
+        >
+          Submit
+        </button>
+        <button
+          className="btn btn-error btn-outline btn-md  w-3/5 self-center max-w-xs"
+          onClick={onClose}
+        >
+          Cancel
+        </button>
+      </form>
     </>
   );
 };

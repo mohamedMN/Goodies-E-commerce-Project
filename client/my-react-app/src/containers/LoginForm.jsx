@@ -3,9 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { LogIn } from "../redux/actions/AuthAction";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./../styles/LoginForm.css";
+import TextField from "@mui/material/TextField";
+import {
+  MdVisibility as Visibility,
+  MdVisibilityOff as VisibilityOff,
+} from "react-icons/md";
+import { InputAdornment } from "@mui/material";
 // import { loading } from "../redux/actions/AuthAction";
 
 function LoginForm() {
+  const [showPassword, setShowPassword] = useState(false);
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [message, errorMessage] = useState(false);
@@ -20,6 +27,10 @@ function LoginForm() {
   // const isloading = useSelector((state) => state.authReducer?.loading);
 
   // to show Error Message each time user did mistake informations
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   useEffect(() => {
     userRef.current.focus();
   }, []);
@@ -55,49 +66,60 @@ function LoginForm() {
       method="post"
       onSubmit={handleSubmit}
     >
-      <h1 className="font-roboto font-bold text-center text-primary z-50 text-xl  xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl">
+      <h1 className="font-roboto font-bold text-center text-base-100 z-50 text-xl  xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl">
         Log in
       </h1>
-      <div className="flex flex-col justify-around">
-        <div className="form-control w-full max-w-xs self-center">
-          <label className="label">
-            <span className="label-text text-xs sm:text-xs md:text-sm xl:text-sm 2xl:text-base">
-              Username:
-            </span>
-          </label>
-          <input
-            className="input w-full sm:input-sm md:input-sm input-bordered max-w-xs"
-            onChange={(e) => setUserName(e.target.value)}
-            name="username"
-            type="text"
-            placeholder="Username"
-            required
-            ref={userRef}
-          />
-        </div>
-        <div className="form-control w-full self-center max-w-xs">
-          <label className="label">
-            <span className="label-text text-xs sm:text-xs md:text-sm xl:text-sm 2xl:text-base">
-              Password:
-            </span>
-          </label>
-          <input
-            className="input w-full sm:input-sm md:input-sm input-bordered max-w-xs"
-            onChange={(e) => setPassword(e.target.value)}
-            name="password"
-            type="password"
-            placeholder="Password"
-            required
-          ></input>
-        </div>
+      <div className="h-1/3 w-3/4 self-center justify-self-center flex flex-col justify-around">
+        <TextField
+          id="outlined"
+          label="Username"
+          name="username"
+          type="text"
+          placeholder="Username"
+          required
+          fullWidth
+          ref={userRef}
+          onChange={(e) => setUserName(e.target.value)}
+        />
+        <TextField
+          id="outlined-password-input"
+          label="Password"
+          type={showPassword ? "password" : "text"}
+          autoComplete="current-password"
+          name="password"
+          placeholder="Password"
+          required
+          fullWidth
+          onChange={(e) => setPassword(e.target.value)}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                {" "}
+                {showPassword ? (
+                  <Visibility
+                    size={22}
+                    className="cursor-pointer"
+                    onClick={handleClickShowPassword}
+                  />
+                ) : (
+                  <VisibilityOff
+                    className="cursor-pointer"
+                    size={22}
+                    onClick={handleClickShowPassword}
+                  />
+                )}
+              </InputAdornment>
+            ),
+          }}
+        />
       </div>
       <button
-        className="btn btn-outline max-w-xs self-center w-3/5"
+        className="btn btn-outline text-base-100 btn-secondary max-w-xs self-center w-3/5"
         type="submit"
       >
         Login
       </button>
-      <div className=" justify-around items-center flex">
+      <div className=" justify-between w-full self-center items-center flex">
         <Link
           to={"/RequestForgetPassword"}
           className="Link  sm:text-xs md:text-sm xl:text-sm 2xl:text-base text-center font-roboto text-xs underline"
@@ -105,14 +127,14 @@ function LoginForm() {
           Forgot Password?
         </Link>
         {loading && (
-          <span className="loading loading-spinner text-primary text-sm sm:text-sm md:text-sm xl:text-md 2xl:text-xl"></span>
+          <span className="loading loading-spinner text-secondary text-sm sm:text-sm md:text-sm xl:text-md 2xl:text-xl"></span>
         )}
         <Link className="sm:text-xs md:text-sm xl:text-sm 2xl:text-base text-center font-roboto underline text-xs Link">
           Contact Admin?
         </Link>
       </div>
       {message && (
-        <div className="alert w-fit alert-error LoginErrorMessage">
+        <div className="flex alert w-fit alert-error LoginErrorMessage z-50">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="stroke-current shrink-0 h-6 w-6"
@@ -127,7 +149,7 @@ function LoginForm() {
               d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
             />
           </svg>
-          <span className="text-white">{message}.</span>
+          <span className="text-white text-xs sm:text-xs md:text-sm lg:text-md xl:text-base 2xl:text-lg">{message}.</span>
         </div>
       )}
     </form>

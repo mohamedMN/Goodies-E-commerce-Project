@@ -30,8 +30,8 @@ const UserComponent = (Props) => {
     Swal.fire({
       title: `Are you sure ?`,
       text: `${username}'s account will be deleted permanently`,
-      icon: "warning",
-      background: "#183D3D",
+      icon: "question",
+      background: "#232527",
       backdrop: "#040D1280",
       color: "#B9B4C7",
       showCancelButton: true,

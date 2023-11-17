@@ -15,17 +15,17 @@
   
   /* Track */
   ::-webkit-scrollbar-track {
-    background: #040D12;
+    background: #FAF0E6;
   }
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    background: #183D3D;
+    background: #232527;
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #275252;
+    background: #373838;
   }
 .Table-Data{
     text-align: center;
@@ -79,22 +79,11 @@
     padding: 0px 25px;
     border-radius: 25px;
     background-color: transparent;
-    color: var(--secondary);
+    color: #232527;
     font-size: 30px;
     font-weight: 500;
 }
 
-.Header-Container{
-    display: flex;
-    justify-content: space-around;
-    width: 90%;
-}
-
-.UpdateFormForm{
-    display: flex;
-    flex-direction: column;
-    background-color: var(--primary);
-}
 .Update-user-form{
     position: absolute;
     left: 25%;
