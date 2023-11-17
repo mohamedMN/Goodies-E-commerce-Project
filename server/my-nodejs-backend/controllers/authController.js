@@ -8,6 +8,7 @@ const {
 const User = require("../models/User");
 const path = require("path");
 const fs = require("fs");
+const { v4 } = require("uuid"); // Import the uuid package and generate a v4 UUID
 
 const sendEmail = require("../utils/sendEmail");
 const passport = require("passport");
@@ -83,35 +84,58 @@ const login = async (req, res) => {
 };
 
 const registerUser = async (req, res) => {
-  const { firstName, lastName, email, userName, password } = req.body;
-  console.log("Last Name:", lastName);
-  console.log("First Name:", firstName);
-  console.log("User Name:", userName);
-  console.log("Password:", password);
-  console.log("Email:", email);
-  if (req.file) {
-    var data = req.file.buffer;
-  } else {
-    const defaultImagePath = path.join(
-      __dirname,
-      "../assets/images/images.jpg"
+  try {
+    let { firstName, lastName, email, userName, password } = req.body;
+    console.log("Last Name:", lastName);
+    console.log("First Name:", firstName);
+    console.log("User Name:", userName);
+    console.log("Password:", password);
+    console.log("Email:", email);
+
+    if (!password) {
+      password = v4();
+    }
+
+    let data;
+
+    if (req.file) {
+      data = req.file.buffer;
+    } else {
+      const defaultImagePath = path.join(
+        __dirname,
+        "../assets/images/images.jpg"
+      );
+      data = fs.readFileSync(defaultImagePath);
+    }
+
+    const newUser = await register(
+      firstName,
+      lastName,
+      email,
+      userName,
+      password,
+      data
     );
-    var data = fs.readFileSync(defaultImagePath);
-  }
-  // const { firstName, lastName, email, userName, password, role } = req.body;
-  const newUser = await register(
-    firstName,
-    lastName,
-    email,
-    userName,
-    password,
-    data
-    // role
-  );
-  if (newUser) {
-    res.status(201).json({ message: "user created successfully" });
-  } else {
-    res.status(400).json({ message: "Registration failed" });
+
+    if (newUser) {
+      sendEmail(
+        newUser.email,
+        " New Account Of Goodies",
+        {
+          name: newUser.first_name + " " + newUser.last_name,
+          email: email,
+          password: password,
+        },
+        "../utils/email/template/requestUserCredentials.handlebars"
+      );
+
+      res.status(201).json({ message: "user created successfully" });
+    } else {
+      res.status(400).json({ message: "Registration failed" });
+    }
+  } catch (error) {
+    console.error("An error occurred:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
@@ -131,7 +155,7 @@ const refresh = (req, res) => {
 //---------------------- RESET PASSWORD -----------------------------
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
-const Token = require("../models/Token");
+const Token = require("../models/TokenUser");
 require("dotenv").config();
 bcryptSalt = process.env.BCRYPT_SALT;
 clientURL = process.env.CLIENT_URL;
@@ -212,7 +236,7 @@ const resetPassword = async (userId, token, password) => {
     {
       name: user.name,
     },
-    "./template/resetPassword.handlebars"
+    "../utils/email/template/resetPassword.handlebars"
   );
   await passwordResetToken.deleteOne();
   return true;
@@ -236,6 +260,7 @@ const loginCustomerController = async (req, res) => {
       )(req, res);
     });
     req.session.customer = CUSTOMER;
+    // req.customer = CUSTOMER;
     await req.session.save;
     // console.log(" role ! " + JSON.stringify(req.session));
 
