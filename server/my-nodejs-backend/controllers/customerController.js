@@ -75,7 +75,9 @@ const Activate_Customer_Controller = async (req, res) => {
 const Get_All_Customer_Controller = async (req, res) => {
   try {
     // Retrieve all customers from the database
-    const customers = await Customer.find();
+    const customers = await Customer.find().select(
+      "_id last_name first_name  email last_login createdAt valid_account active"
+    );
 
     res.status(200).json({ data: customers });
   } catch (error) {
@@ -88,10 +90,11 @@ const Get_All_Customer_Controller = async (req, res) => {
 // Get Customer by Username
 const Get_Customer_UserName_Controller = async (req, res) => {
   try {
-    const { username } = req.params;
+    const { firstName, lastName } = req.body;
 
-    // Find a customer by username in the database
-    const customer = await Customer.findOne({ username });
+    const customer = await Customer.find({
+      $or: [{ first_name: firstName }, { last_name: lastName }],
+    });
 
     if (customer) {
       res.status(200).json({ data: customer });
@@ -108,15 +111,16 @@ const Get_Customer_UserName_Controller = async (req, res) => {
 // Get Customer by ID
 const Get_Customer_id_Controller = async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = req.params["id"];
+    // console.log("id ", id);
 
     // Find a customer by ID in the database
-    const customer = await Customer.findById(id);
-
+    const customer = await Customer.findOne({ _id: id });
+    console.log("customer ", customer);
     if (customer) {
       res.status(200).json({ data: customer });
     } else {
-      res.status(404).json({ message: "Customer not found" });
+      res.status(404).json({ message: "Customer not found with that ID" });
     }
   } catch (error) {
     res
@@ -126,57 +130,72 @@ const Get_Customer_id_Controller = async (req, res) => {
 };
 
 // Validate Customer
-const Validate_Customer_Controller = async (req, res) => {
-  try {
-    const { id } = req.params;
+// const Validate_Customer_Controller = async (req, res) => {
+//   try {
+//     const { id } = req.params;
 
-    // Find a customer by ID in the database
-    const customer = await Customer.findById(id);
+//     // Find a customer by ID in the database
+//     const customer = await Customer.findById(id);
 
-    if (customer) {
-      // Assuming there's a 'validated' property in the customer schema
-      customer.validated = true;
+//     if (customer) {
+//       // Assuming there's a 'validated' property in the customer schema
+//       customer.validated = true;
 
-      // Save the updated customer to the database
-      await customer.save();
+//       // Save the updated customer to the database
+//       await customer.save();
 
-      res
-        .status(200)
-        .json({ message: "Customer validated successfully", data: customer });
-    } else {
-      res.status(404).json({ message: "Customer not found" });
-    }
-  } catch (error) {
-    res
-      .status(500)
-      .json({ message: "Error validating customer", error: error.message });
-  }
-};
+//       res
+//         .status(200)
+//         .json({ message: "Customer validated successfully", data: customer });
+//     } else {
+//       res.status(404).json({ message: "Customer not found" });
+//     }
+//   } catch (error) {
+//     res
+//       .status(500)
+//       .json({ message: "Error validating customer", error: error.message });
+//   }
+// };
 
 // Update Customer Data
 const Update_Customer_data_Controller = async (req, res) => {
   try {
-    const { id } = req.params;
-    const {
-      /* updated properties */
-    } = req.body;
-
+    const id = req.params["id"];
+    const { firstName, lastName, email, active } = req.body;
+    console.log("id:", id);
+    console.log("Last Name:", lastName);
+    console.log("First Name:", firstName);
+    console.log("active:", active);
+    console.log("Email:", email);
     // Find a customer by ID in the database
-    const customer = await Customer.findById(id);
+    const customer = await Customer.findOne({ _id: id });
 
-    if (customer) {
+    if (!customer) {
+      return res.status(404).json({ message: "Customer not found" });
+    }
+    const updatedUserData = {};
+
+    if (firstName !== undefined) {
+      updatedUserData.first_name = firstName;
+    }
+
+    if (lastName !== undefined) {
+      updatedUserData.last_name = lastName;
+    }
+
+    if (email !== undefined) {
+      updatedUserData.email = email;
+    }
+
+    if (active !== undefined) {
+      updatedUserData.active = active;
+    }
+    if (Object.keys(updatedUserData).length > 0) {
       // Update properties based on req.body
-      // Example: customer.name = req.body.name;
-
-      // Save the updated customer to the database
-      await customer.save();
-
-      res.status(200).json({
-        message: "Customer data updated successfully",
-        data: customer,
-      });
+      await Customer.updateOne({ _id: id }, { $set: updatedUserData });
+      res.status(200).json({ message: "Customer updated successfully" });
     } else {
-      res.status(404).json({ message: "Customer not found" });
+      res.status(400).json({ message: "No data to update" });
     }
   } catch (error) {
     res
@@ -188,7 +207,7 @@ const Update_Customer_data_Controller = async (req, res) => {
 // Delete Customer
 const Delete_Customer_Controller = async (req, res) => {
   try {
-    const { id } = req.params;
+    const id = req.params["id"];
 
     // Find and remove the customer by ID from the database
     const deletedCustomer = await Customer.findByIdAndRemove(id);
@@ -211,14 +230,17 @@ const Delete_Customer_Controller = async (req, res) => {
 // Get Customer Profile by ID
 const get_Customer_Profile_Controller = async (req, res) => {
   try {
-    const { id } = req.params;
-
+    const id = req.params["id"];
+    // console.log("id ", id);
     // Find a customer by ID in the database and return profile information
-    const customer = await Customer.findById(id);
+    const customer = await Customer.find({ _id: id }).select(
+      "_id last_name first_name  email last_login createdAt valid_account active"
+    );
 
+    // console.log("customer ",customer)
     if (customer) {
       // Assuming there's a 'profile' property in the customer schema
-      res.status(200).json({ data: customer.profile });
+      res.status(200).json({ data: customer });
     } else {
       res.status(404).json({ message: "Customer not found" });
     }
@@ -231,27 +253,39 @@ const get_Customer_Profile_Controller = async (req, res) => {
 };
 const Update_Customer_Profile_Controller = async (req, res) => {
   try {
-    const { id } = req.params;
-    const {
-      /* updated profile properties */
-    } = req.body;
+    const id = req.params["id"];
+    const { firstName, lastName, email } = req.body;
 
+    console.log("id:", id);
+    console.log("Last Name:", lastName);
+    console.log("First Name:", firstName);
+    console.log("Email:", email);
     // Find a customer by ID in the database
-    const customer = await Customer.findById(id);
+    const customer = await Customer.findOne({ _id: id });
 
-    if (customer) {
-      // Update profile properties based on req.body
-      // Example: customer.profile = req.body.profile;
+    if (!customer) {
+      return res.status(404).json({ message: "Customer not found" });
+    }
+    const updatedUserData = {};
 
-      // Save the updated customer to the database
-      await customer.save();
+    if (firstName !== undefined) {
+      updatedUserData.first_name = firstName;
+    }
 
-      res.status(200).json({
-        message: "Customer profile updated successfully",
-        data: customer,
-      });
+    if (lastName !== undefined) {
+      updatedUserData.last_name = lastName;
+    }
+
+    if (email !== undefined) {
+      updatedUserData.email = email;
+    }
+
+    if (Object.keys(updatedUserData).length > 0) {
+      // Update properties based on req.body
+      await Customer.updateOne({ _id: id }, { $set: updatedUserData });
+      res.status(200).json({ message: "Customer updated successfully" });
     } else {
-      res.status(404).json({ message: "Customer not found" });
+      res.status(403).json({ message: "No data to update" });
     }
   } catch (error) {
     res.status(500).json({
@@ -266,7 +300,7 @@ module.exports = {
   Get_All_Customer_Controller,
   Get_Customer_UserName_Controller,
   Get_Customer_id_Controller,
-  Validate_Customer_Controller,
+  // Validate_Customer_Controller,
   Update_Customer_data_Controller,
   Delete_Customer_Controller,
   get_Customer_Profile_Controller,

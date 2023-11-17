@@ -41,13 +41,11 @@ router.get(
   function (req, res) {
     // fih kolchi email,_id,first_name....
     // console.log("req.session ", req.session.passport.user);
-    res
-      .status(200)
-      .json({
-        status: "success",
-        message: "Login successful!",
-        email: req.session.passport.user.email,
-      });
+    res.status(200).json({
+      status: "success",
+      message: "Login successful!",
+      email: req.session.passport.user.email,
+    });
   }
 );
 // reset password
@@ -60,25 +58,25 @@ router.post("/customers", Add_Customer_Controller);
 // activate account by email
 router.post("/confirm/:token", Activate_Customer_Controller);
 
-// Get All Customers
+// Get All Customers good  ----------Only Admin and Manager
 router.get("/customers", Get_All_Customer_Controller);
 
-// Get Customer by Username
+// Get Customer by Username Good  ----------Only Admin and Manager
 router.get("/username", Get_Customer_UserName_Controller);
 
-// Get Customer by ID
+// Get Customer by ID      ----------Only Admin and Manager
 router.get("/:id", Get_Customer_id_Controller);
 
-// Validate Customer
-router.put("/:id", Validate_Customer_Controller);
+// // Validate Customer
+// router.put("/:id", Validate_Customer_Controller);
 
-// Update Customer Data
+// Update Customer Data   ----------Only Admin and Manager
 router.put("/data/:id", Update_Customer_data_Controller);
 
 // Delete Customer
 router.delete("/:id", Delete_Customer_Controller);
 
-// Get Customer Profile by ID
+// Get Customer Profile by ID  
 router.get("/profile/:id", get_Customer_Profile_Controller);
 
 // Update Customer Profile by ID
