@@ -63,8 +63,9 @@ function Navbar(Props) {
           {navOptions.map((option, index) => {
             return (
               <NavLink
-                className="nav-link"
-                tooltipData={option.name}
+                className="nav-link tooltip tooltip-right"
+                color="#232527"
+                data-tip={option.name}
                 key={index}
                 to={`${option.link}`}
               >

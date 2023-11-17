@@ -58,7 +58,7 @@ function App() {
   ];
 
   return (
-    <div className="App">
+    <div className="App bg-secondary">
       <Navbar navOptions={navOptions} visible={navVisible} show={showNavbar} />
       <Routes>
         <Route

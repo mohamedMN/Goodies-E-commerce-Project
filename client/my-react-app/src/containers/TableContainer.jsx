@@ -8,15 +8,15 @@ export default function TableContainer(Props) {
   const { searchValue } = Props;
   const auth = useSelector((state) => state.authReducer?.authData); // user
 
-  const [isAdmin, setIsAdmin] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const testingInfo = useSelector((state) => state.getAllUsers?.Data?.users);
 
   useEffect(() => {
     if (auth?.user.role === "Admin") {
-      setIsAdmin(true)
+      setIsAdmin(true);
     }
-  },[auth])
+  }, [auth]);
   // filter function for search Button
   if (testingInfo) {
     var results = testingInfo.filter(
@@ -30,27 +30,61 @@ export default function TableContainer(Props) {
     <table className="table-xs sm:table-xs md:table-sm lg:table-md xl:table-lg table table-zebra w-full table-pin-rows">
       <thead className="table-header-group">
         <tr>
-          <th className="bg-primary text-base-100 text-center justify-center items-center table-cell" scope="col">
+          {isAdmin && (
+            <th className="bg-primary text-base-100 text-center justify-center items-center table-cell">
+              <label className="flex items-center w-full justify-around">
+                <input
+                  type="checkbox"
+                  className="checkbox checkbox-secondary font-roboto checkbox-sm"
+                />
+              <spam>Select All</spam>  
+              </label>
+            </th>
+          )}
+          <th
+            className="bg-primary text-base-100 text-center justify-center items-center table-cell"
+            scope="col"
+          >
             <label>Username</label>
-            <button><AiOutlineSortAscending size={20} /></button>
+            <button>
+              <AiOutlineSortAscending size={20} />
+            </button>
           </th>
-          <th className="bg-primary text-center text-base-100 justify-center items-center table-cell" scope="col">
+          <th
+            className="bg-primary text-center text-base-100 justify-center items-center table-cell"
+            scope="col"
+          >
             <label>Id</label>
-            <button><AiOutlineSortAscending size={20}/></button>
+            <button>
+              <AiOutlineSortAscending size={20} />
+            </button>
           </th>
-          <th className="bg-primary text-center justify-center text-base-100 items-center table-cell" scope="col">
+          <th
+            className="bg-primary text-center justify-center text-base-100 items-center table-cell"
+            scope="col"
+          >
             <label>Role</label>
-            <button><AiOutlineSortAscending size={20}/></button>
+            <button>
+              <AiOutlineSortAscending size={20} />
+            </button>
           </th>
-          <th className="bg-primary text-center justify-center items-center text-base-100 table-cell" scope="col">
+          <th
+            className="bg-primary text-center justify-center items-center text-base-100 table-cell"
+            scope="col"
+          >
             <label>Email</label>
-            <button><AiOutlineSortAscending size={20}/></button>
+            <button>
+              <AiOutlineSortAscending size={20} />
+            </button>
           </th>
-          {
-            isAdmin ? <th className="bg-primary text-center justify-center items-center text-base-100 table-cell  " scope="col">
-            <label>Actions</label>
-            </th> : null
-          }
+          {isAdmin ? (
+            <th
+              className="bg-primary text-center justify-center items-center text-base-100 table-cell  "
+              scope="col"
+            >
+              <label>Actions</label>
+            </th>
+          ) : null}
         </tr>
       </thead>
 
@@ -58,7 +92,13 @@ export default function TableContainer(Props) {
         {testingInfo && testingInfo.length > 0 ? (
           results.length > 0 ? (
             results.map((user, index) => (
-              <UserComponent key={index} index={index} isAdmin={isAdmin} managersInfo={user} />
+              <UserComponent
+                key={index}
+    
+                index={index}
+                isAdmin={isAdmin}
+                managersInfo={user}
+              />
             ))
           ) : (
             <ErrorComponent />

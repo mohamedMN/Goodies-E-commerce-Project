@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { UpdateUser } from "../redux/actions/AuthAction";
 // import { useSelector } from "react-redux";
 const UserComponent = (Props) => {
-  const { managersInfo , isAdmin } = Props;
+  const { managersInfo, isAdmin } = Props;
   // const user = useSelector((state) => state.authReducer?.authData);
   // const [showManagerAlert, setShowManagerAlert] = useState(false);
 
@@ -80,42 +80,41 @@ const UserComponent = (Props) => {
         <UpdateUser onClose={() => setShowAddUserForm(false)} id={id} />
       )} */}
       <tr className="Table-Row">
-        <td className="Table-Data" scope="row">
-          <label>{managersInfo.user_name}</label>
+        <th className="text-center justify-center items-center table-cell">
+          <label>
+            <input type="checkbox"  className="checkbox border-secondary checkbox-secondary checkbox-sm" />
+          </label>
+        </th>
+        <td className="text-neutral text-center" scope="row">
+          <label className="text-neutral text-center">{managersInfo.user_name}</label>
         </td>
-        <td className="Table-Data">
+        <td className="text-neutral text-center">
           <label>{managersInfo._id}</label>
         </td>
-        <td className="Table-Data" scope="row">
+        <td className="text-neutral text-center" scope="row">
           <label>{managersInfo.role}</label>
         </td>
-        <td className="Table-Data" scope="row">
+        <td className="text-neutral text-center" scope="row">
           <label>{managersInfo.email}</label>
         </td>
-        {
-          isAdmin &&
-        <td className="Table-Data-functions" scope="col">
-          <button
-            onClick={() =>
-              showDeleteSwal(managersInfo._id, managersInfo.user_name)
-            }
-          >
-          { managersInfo.role !== "Admin" ?
-            <AiOutlineDelete />
-            :
-            null
-          }
-          </button>
-          <button
-            onClick={() => {
-              handleUserUpdate(managersInfo._id);
-            }}
-          >
-            <AiOutlineEllipsis />
-          </button>
-        </td>
-
-        }
+        {isAdmin && (
+          <td className="text-neutral flex items-center justify-between" scope="col">
+            <button
+              onClick={() =>
+                showDeleteSwal(managersInfo._id, managersInfo.user_name)
+              }
+            >
+              {managersInfo.role !== "Admin" ? <AiOutlineDelete size={18} /> : null}
+            </button>
+            <button
+              onClick={() => {
+                handleUserUpdate(managersInfo._id);
+              }}
+            >
+              <AiOutlineEllipsis size={18} />
+            </button>
+          </td>
+        )}
       </tr>
     </>
   );
