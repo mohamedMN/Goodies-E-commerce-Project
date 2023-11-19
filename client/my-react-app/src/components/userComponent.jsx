@@ -1,8 +1,8 @@
 import {
   AiOutlineDelete,
   AiOutlineEllipsis,
-  AiOutlineUserAdd,
 } from "react-icons/ai";
+import { FaRegCopy } from "react-icons/fa6";
 import { axiosPrivateUser } from "../services/api";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
@@ -68,6 +68,13 @@ const UserComponent = (Props) => {
       // }
     });
   };
+  const truncatedId =(id)=> id.substring(0, 5) + '...';
+  const handleCopyClick =async (textToCopy) => {
+    await navigator.clipboard.writeText(textToCopy);
+    alert('Text copied to clipboard!');
+    console.log(textToCopy)
+  };
+
 
   // const [id, setId] = useState("");
   const handleUserUpdate = (id) => {
@@ -89,7 +96,8 @@ const UserComponent = (Props) => {
           <label className="text-neutral text-center">{managersInfo.user_name}</label>
         </td>
         <td className="text-neutral text-center">
-          <label>{managersInfo._id}</label>
+          <label>{truncatedId(managersInfo._id)}</label>
+          <button onClick={()=> handleCopyClick(managersInfo._id)}><FaRegCopy size={15} /></button>
         </td>
         <td className="text-neutral text-center" scope="row">
           <label>{managersInfo.role}</label>

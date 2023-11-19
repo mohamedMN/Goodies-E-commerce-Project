@@ -54,7 +54,7 @@ const Users = ({ navVisible }) => {
           </label>
 
           <form className="flex items-center bg-primary/30 rounded-2xl h-1/2">
-            <AiOutlineSearch size={30}  className="" />
+            <AiOutlineSearch   className="w-5 h-auto sm:w-6 lg:w-7 xl:w-8 2xl:w-9" />
             <input
               className="bg-transparent outline-none input-xs sm:input-sm md:input-sm lg:input-md xl:input-md 2xl:input-lg "
               placeholder="Search By Username"
@@ -66,7 +66,7 @@ const Users = ({ navVisible }) => {
         </div>
         <div className="w-5/6 h-3/4 bg-primary rounded-2xl px-2 py-10 flex flex-col items-center text-secondary">
           <div className="flex justify-around w-full">
-            <h1 className="font-roboto text-center z-50 text-md 2xl:text-3xl xl:text-2xl lg:text-xl md:text-xl sm:text-lg">
+            <h1 className="font-roboto text-center z-10 text-md 2xl:text-3xl xl:text-2xl lg:text-xl md:text-xl sm:text-lg">
               Users:
             </h1>
             {auth.user.role === "Admin" ? (
@@ -81,7 +81,7 @@ const Users = ({ navVisible }) => {
             ) : null}
 
             <label className="flex flex-col">
-              <h1 className="font-roboto text-center z-50 text-md 2xl:text-2xl xl:text-xl lg:text-xl md:text-xl sm:text-lg">
+              <h1 className="font-roboto text-center z-10 text-md 2xl:text-2xl xl:text-xl lg:text-xl md:text-xl sm:text-lg">
                 Total Users :
               </h1>
               <span className="self-end font-roboto text-center 2xl:text-2xl xl:text-xl lg:text-lg md:text-md sm:text-sm text-neutral font-semibold">

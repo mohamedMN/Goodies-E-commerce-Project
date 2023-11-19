@@ -18,14 +18,33 @@ export default function TableContainer(Props) {
     }
   }, [auth]);
   // filter function for search Button
-  if (testingInfo) {
-    var results = testingInfo.filter(
-      (user) =>
+  const [resaults, setResaults] = useState(testingInfo);
+  useEffect(()=>{
+
+    if (testingInfo) {
+      var filteredResaults = testingInfo.filter(
+        (user) =>
         user.user_name.includes(searchValue.toLowerCase()) ||
         user.email.includes(searchValue.toLowerCase())
-    );
-  }
+        );
+      }
+      setResaults(filteredResaults)
+  },[searchValue])
+    
+  const sortByName = () => {
+    const sortedData = [...resaults].sort((a, b) => {
+      // Convert names to lowercase for case-insensitive sorting
+      const nameA = a.user_name.toLowerCase();
+      const nameB = b.user_name.toLowerCase();
 
+      if (nameA < nameB) return -1;
+      if (nameA > nameB) return 1;
+      return 0;
+    });
+
+    setResaults(sortedData)
+  };
+  
   return (
     <table className="table-xs sm:table-xs md:table-sm lg:table-md xl:table-lg table table-zebra w-full table-pin-rows">
       <thead className="table-header-group">
@@ -37,7 +56,7 @@ export default function TableContainer(Props) {
                   type="checkbox"
                   className="checkbox checkbox-secondary font-roboto checkbox-sm"
                 />
-              <spam>Select All</spam>  
+              <span>Select All</span>  
               </label>
             </th>
           )}
@@ -46,7 +65,7 @@ export default function TableContainer(Props) {
             scope="col"
           >
             <label>Username</label>
-            <button>
+            <button onClick={sortByName}>
               <AiOutlineSortAscending size={20} />
             </button>
           </th>
@@ -90,8 +109,8 @@ export default function TableContainer(Props) {
 
       <tbody className="Table-Body">
         {testingInfo && testingInfo.length > 0 ? (
-          results.length > 0 ? (
-            results.map((user, index) => (
+          resaults.length > 0 ? (
+            resaults.map((user, index) => (
               <UserComponent
                 key={index}
     
