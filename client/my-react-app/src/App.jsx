@@ -11,13 +11,13 @@ import { FiUser, FiUsers } from "react-icons/fi";
 import RequireAuth from "./components/requireAuth";
 import LoginPage from "./pages/LoginPage";
 import Product from "./pages/Product";
-import Users from "./pages/Users";
 import Profile from "./pages/Profile";
 import RequestForgetPassword from "./pages/ForgetPassword";
 // import PasswordResetPage from "./pages/NewPassword";
 import { OrderCompo } from "./pages/OrderCompo";
 import NewPassword from "./pages/NewPassword";
 import Order from "./components/Order";
+import UsersPage from "./pages/UsersPage";
 
 function App() {
   const [navVisible, showNavbar] = useState(false);
@@ -76,9 +76,9 @@ function App() {
           element={<OrderCompo navVisible={navVisible} />}
         />
         <Route element={<RequireAuth />}>
-          <Route path="/" element={<Users navVisible={navVisible} />} />
+          <Route path="/" element={<UsersPage navVisible={navVisible} />} />
 
-          <Route path="/Users" element={<Users navVisible={navVisible} />} />
+          <Route path="/Users" element={<UsersPage navVisible={navVisible} />} />
           {/* <Route path="/users" element={<Users navVisible={navVisible} />} /> */}
 
           <Route

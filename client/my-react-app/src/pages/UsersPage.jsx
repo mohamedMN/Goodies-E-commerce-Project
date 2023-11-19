@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import "../styles/DashboardPage.css";
 import { AiOutlineSearch } from "react-icons/ai";
 import AddUserForm from "../components/AddUserForm";
-import TableContainer from "../containers/TableContainer";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import UpdateUser from "../components/UpdateUser";
 import { getUsers } from "../redux/actions/AuthAction";
-const Users = ({ navVisible }) => {
+import UsersTableContainer from "../containers/UsersTableContainer";
+const UsersPage = ({ navVisible }) => {
   const [searchValue, setSearchValue] = useState("");
   const date = new Date();
   const options = {
@@ -125,7 +125,7 @@ const Users = ({ navVisible }) => {
             </motion.div>
           </div>
           <div className="w-full self-center justify-self-start  overflow-x-auto">
-            <TableContainer searchValue={searchValue} />
+            <UsersTableContainer searchValue={searchValue} />
           </div>
         </div>
       </div>
@@ -133,8 +133,8 @@ const Users = ({ navVisible }) => {
   );
 };
 
-Users.propTypes = {
+UsersPage.propTypes = {
   navVisible: PropTypes.bool.isRequired,
 };
 
-export default Users;
+export default UsersPage;

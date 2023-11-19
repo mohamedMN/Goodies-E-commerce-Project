@@ -92,17 +92,17 @@ const UserComponent = (Props) => {
             <input type="checkbox"  className="checkbox border-secondary checkbox-secondary checkbox-sm" />
           </label>
         </th>
-        <td className="text-neutral text-center" scope="row">
-          <label className="text-neutral text-center">{managersInfo.user_name}</label>
+        <td className="text-neutral justify-start items-center" scope="row">
+          <label className="text-neutral">{managersInfo.user_name}</label>
         </td>
-        <td className="text-neutral text-center">
+        <td className="text-neutral justify-around items-center">
           <label>{truncatedId(managersInfo._id)}</label>
           <button onClick={()=> handleCopyClick(managersInfo._id)}><FaRegCopy size={15} /></button>
         </td>
-        <td className="text-neutral text-center" scope="row">
+        <td className="text-neutral justify-start items-center" scope="row">
           <label>{managersInfo.role}</label>
         </td>
-        <td className="text-neutral text-center" scope="row">
+        <td className="text-neutral  justify-start items-center" scope="row">
           <label>{managersInfo.email}</label>
         </td>
         {isAdmin && (
