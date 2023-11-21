@@ -21,7 +21,12 @@ const {
   profileController,
 } = require("../controllers/userController");
 const multer = require("multer");
-const { logOut, isLogin } = require("../controllers/passport-config");
+const {
+  logOut,
+  isLogin,
+  verifyRefreshToken,
+  verifyAccessToken,
+} = require("../controllers/passport-config");
 const storage = multer.memoryStorage(); // Store the image data in memory as a buffer
 const upload = multer({ storage });
 
@@ -38,9 +43,9 @@ router.post(
 router.post("/authentication", login);
 
 router.post("/logout", isLogin, logOut);
-//to get new access Token
-router.post("/refresh", refresh);
-//Only the users with admin and manager role can get the users data.  checkUserRole
+//to get new access Token  --- verifyRefreshToken
+router.post("/refresh", verifyRefreshToken, refresh);
+//Only the users with admin and manager role can get the users data.  checkUserRole  verifyAccessToken
 router.get("/users", isLogin, ListUserController);
 // get profile informations
 router.get("/profile", isLogin, profileController);

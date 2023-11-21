@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "../styles/DashboardPage.css";
 import AddUserForm from "../components/AddUserForm";
-import TableContainer from "../containers/TableContainer";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import UpdateUser from "../components/UpdateUser";
 import { getUsers } from "../redux/actions/AuthAction";
 import Header from "../components/Header";
-const Users = ({ navVisible }) => {
+import UsersTableContainer from "../containers/UsersTableContainer";
+const UsersPage = ({ navVisible }) => {
+  // const [searchValue, setSearchValue] = useState("");
+
   const auth = useSelector((state) => state.authReducer?.authData); // user
   const searchValue = useSelector((state) => state.searchReducer?.search); // user
 
@@ -39,9 +41,10 @@ const Users = ({ navVisible }) => {
         }
       >
         <Header />
-        <div className="w-5/6 h-3/4 bg-secondary rounded-2xl px-2 py-10 flex flex-col items-center">
+
+        <div className="w-5/6 h-3/4 bg-primary rounded-2xl px-2 py-10 flex flex-col items-center text-secondary">
           <div className="flex justify-around w-full">
-            <h1 className="font-roboto text-center z-50 text-md 2xl:text-3xl xl:text-2xl lg:text-xl md:text-xl sm:text-lg">
+            <h1 className="font-roboto text-center z-10 text-md 2xl:text-3xl xl:text-2xl lg:text-xl md:text-xl sm:text-lg">
               Users:
             </h1>
             {auth.user.role === "Admin" ? (
@@ -56,10 +59,10 @@ const Users = ({ navVisible }) => {
             ) : null}
 
             <label className="flex flex-col">
-              <h1 className="font-roboto text-center z-50 text-md 2xl:text-2xl xl:text-xl lg:text-xl md:text-xl sm:text-lg">
+              <h1 className="font-roboto text-center z-10 text-md 2xl:text-2xl xl:text-xl lg:text-xl md:text-xl sm:text-lg">
                 Total Users :
               </h1>
-              <span className="self-end font-roboto text-center 2xl:text-2xl xl:text-xl lg:text-lg md:text-md sm:text-sm text-accent font-semibold">
+              <span className="self-end font-roboto text-center 2xl:text-2xl xl:text-xl lg:text-lg md:text-md sm:text-sm text-neutral font-semibold">
                 {testingInfo ? testingInfo.length : 0}
               </span>
             </label>
@@ -100,7 +103,7 @@ const Users = ({ navVisible }) => {
             </motion.div>
           </div>
           <div className="w-full self-center justify-self-start  overflow-x-auto">
-            <TableContainer searchValue={searchValue} />
+            <UsersTableContainer searchValue={searchValue} />
           </div>
         </div>
       </div>
@@ -108,8 +111,8 @@ const Users = ({ navVisible }) => {
   );
 };
 
-Users.propTypes = {
+UsersPage.propTypes = {
   navVisible: PropTypes.bool.isRequired,
 };
 
-export default Users;
+export default UsersPage;

@@ -1,15 +1,15 @@
 import {
   AiOutlineDelete,
   AiOutlineEllipsis,
-  AiOutlineUserAdd,
 } from "react-icons/ai";
+import { FaRegCopy } from "react-icons/fa6";
 import { axiosPrivateUser } from "../services/api";
 import Swal from "sweetalert2";
 import { useDispatch } from "react-redux";
 import { UpdateUser } from "../redux/actions/AuthAction";
 // import { useSelector } from "react-redux";
 const UserComponent = (Props) => {
-  const { managersInfo , isAdmin } = Props;
+  const { managersInfo, isAdmin } = Props;
   // const user = useSelector((state) => state.authReducer?.authData);
   // const [showManagerAlert, setShowManagerAlert] = useState(false);
 
@@ -68,6 +68,13 @@ const UserComponent = (Props) => {
       // }
     });
   };
+  const truncatedId =(id)=> id.substring(0, 5) + '...';
+  const handleCopyClick =async (textToCopy) => {
+    await navigator.clipboard.writeText(textToCopy);
+    alert('Text copied to clipboard!');
+    console.log(textToCopy)
+  };
+
 
   // const [id, setId] = useState("");
   const handleUserUpdate = (id) => {
@@ -80,42 +87,42 @@ const UserComponent = (Props) => {
         <UpdateUser onClose={() => setShowAddUserForm(false)} id={id} />
       )} */}
       <tr className="Table-Row">
-        <td className="Table-Data" scope="row">
-          <label>{managersInfo.user_name}</label>
+        <th className="text-center justify-center items-center table-cell">
+          <label>
+            <input type="checkbox"  className="checkbox border-secondary checkbox-secondary checkbox-sm" />
+          </label>
+        </th>
+        <td className="text-neutral justify-start items-center" scope="row">
+          <label className="text-neutral">{managersInfo.user_name}</label>
         </td>
-        <td className="Table-Data">
-          <label>{managersInfo._id}</label>
+        <td className="text-neutral justify-around items-center">
+          <label>{truncatedId(managersInfo._id)}</label>
+          <button onClick={()=> handleCopyClick(managersInfo._id)}><FaRegCopy size={15} /></button>
         </td>
-        <td className="Table-Data" scope="row">
+        <td className="text-neutral justify-start items-center" scope="row">
           <label>{managersInfo.role}</label>
         </td>
-        <td className="Table-Data" scope="row">
+        <td className="text-neutral  justify-start items-center" scope="row">
           <label>{managersInfo.email}</label>
         </td>
-        {
-          isAdmin &&
-        <td className="Table-Data-functions" scope="col">
-          <button
-            onClick={() =>
-              showDeleteSwal(managersInfo._id, managersInfo.user_name)
-            }
-          >
-          { managersInfo.role !== "Admin" ?
-            <AiOutlineDelete />
-            :
-            null
-          }
-          </button>
-          <button
-            onClick={() => {
-              handleUserUpdate(managersInfo._id);
-            }}
-          >
-            <AiOutlineEllipsis />
-          </button>
-        </td>
-
-        }
+        {isAdmin && (
+          <td className="text-neutral flex items-center justify-between" scope="col">
+            <button
+              onClick={() =>
+                showDeleteSwal(managersInfo._id, managersInfo.user_name)
+              }
+            >
+              {managersInfo.role !== "Admin" ? <AiOutlineDelete size={18} /> : null}
+            </button>
+            <button
+              onClick={() => {
+                handleUserUpdate(managersInfo._id);
+              }}
+            >
+              <AiOutlineEllipsis size={18} />
+            </button>
+          </td>
+        )}
       </tr>
     </>
   );

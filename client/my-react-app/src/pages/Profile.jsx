@@ -45,7 +45,7 @@ const Profile = (Props) => {
             : "page justify-center"
         }
       >
-        <div className="flex flex-col h-3/5 w-4/6 bg-secondary rounded-3xl text-accent">
+        <div className="flex flex-col h-3/5 w-4/6 bg-primary rounded-3xl text-base-100">
           <div className="h-full flex flex-col justify-around">
             <div className="flex flex-row-reverse items-center justify-around w-full">
               <div className="w-1/12 h-auto flex flex-col items-center justify-between">
@@ -71,17 +71,26 @@ const Profile = (Props) => {
             </div>
             <div className="flex  w-full h-2/5 p-3">
               <div className="flex items-end flex-col justify-around ">
-                <h2 className="UserData">Id: </h2>
-                <h2 className="UserData"> First name : </h2>
-                <h2 className="UserData">Email :</h2>
-                <p className="UserData">Role :</p>
+                <h2 className="text-roboto text-base-100 text-xl">Id: </h2>
+                <h2 className="text-roboto text-base-100 text-xl">
+                  {" "}
+                  First name :{" "}
+                </h2>
+                <h2 className="text-roboto text-base-100 text-xl">Email :</h2>
+                <p className="text-roboto text-base-100 text-xl">Role :</p>
               </div>
               <div className="text-primary flex flex-col justify-around">
-                <h2 className="UserData">{user.id}</h2>
-                <h2 className="UserData">{user.first_name}</h2>
-                <h2 className="UserData">{user.email}</h2>
-                <p className="UserData">{user.role}</p>
-                <p className="UserData">{user.last_logi}</p>
+                <h2 className="text-roboto text-xl text-neutral">{user.id}</h2>
+                <h2 className="text-roboto text-xl text-neutral">
+                  {user.first_name}
+                </h2>
+                <h2 className="text-roboto text-xl text-neutral">
+                  {user.email}
+                </h2>
+                <p className="text-roboto text-xl text-neutral">{user.role}</p>
+                <p className="text-roboto text-xl text-neutral">
+                  {user.last_login}
+                </p>
               </div>
             </div>
 

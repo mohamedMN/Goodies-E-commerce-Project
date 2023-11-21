@@ -7,7 +7,7 @@ const subcategories = new Schema({
   subcategory_name: {
     type: String,
   },
-  category_id: [{ type: Schema.Types.ObjectId, ref: "Categorie" }],
+  category_id: [{ type: String, ref: "Category" }],
   active: {
     type: Boolean,
   },

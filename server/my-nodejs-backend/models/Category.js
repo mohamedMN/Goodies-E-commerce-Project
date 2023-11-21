@@ -6,10 +6,11 @@ const categories = new Schema({
   },
   category_name: {
     type: String,
+    require: true,
   },
   active: {
     type: Boolean,
   },
 });
-const Categorie = mongoose.model("Categorie", categories);
-module.exports = Categorie;
+const Category = mongoose.model("Category", categories);
+module.exports = Category;

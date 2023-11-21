@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const users = new Schema({
+const products = new Schema({
   _id: {
-    type: String,
-  },
-  sku: {
     type: String,
   },
   product_image: {
@@ -13,7 +10,7 @@ const users = new Schema({
   product_name: {
     type: String,
   },
-  subcategory_id: [{ type: Schema.Types.ObjectId, ref: "Subcategory" }],
+  subcategory_id: [{ type: String, ref: "Subcategory" }],
   short_description: {
     type: String,
   },
@@ -26,16 +23,10 @@ const users = new Schema({
   discount_price: {
     type: Number,
   },
-  options: [
-    {
-      name: "Option 1",
-      price: 10.99,
-      description: "This is option 1.",
-    },
-  ],
   active: {
     type: Boolean,
+    default: false,
   },
 });
-const User = mongoose.model("User", users);
-module.exports = User;
+const Products = mongoose.model("Products", products);
+module.exports = Products;

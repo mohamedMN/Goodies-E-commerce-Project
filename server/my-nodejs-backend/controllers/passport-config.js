@@ -41,13 +41,13 @@ const register = async (
   }
 };
 const authUser = async (username, password, done) => {
-  console.log("username " + username + " passwotrd " + password);
-  const data = await User.findOne({ user_name: username });
-  if (!data)
-    return done(null, false, {
-      message: "Cannot find user with that username",
-    });
   try {
+    console.log("username " + username + " passwotrd " + password);
+    const data = await User.findOne({ user_name: username });
+    if (!data)
+      return done(null, false, {
+        message: "Cannot find user with that username",
+      });
     const checkPassword = await bcrypt.compare(password, data.password);
     if (!checkPassword)
       return done(null, false, { message: "Incorrect password" });
@@ -116,13 +116,14 @@ function generate_Private_Token(user, temp) {
 async function verifyRefreshToken(req, res, next) {
   try {
     const refreshToken = req.signedCookies.refreshToken;
+    console.log("refreshToken ", refreshToken);
     if (!refreshToken) {
       return res.status(401).json({ message: "No refresh token provided" });
     }
     // const id = req.session.user._id;
-    const username = req.session.user.username;
-    console.log("verifyRefreshToken has been called !!!! : ");
-    const refreshTokenDoc = await User.findOne({ username: username });
+    const username = req.session.user.user_name;
+    console.log("verifyRefreshToken has been called !!!! : ", username);
+    const refreshTokenDoc = await User.findOne({ user_name: username });
     if (!refreshTokenDoc || refreshTokenDoc.refreshToken !== refreshToken) {
       return res
         .status(403)

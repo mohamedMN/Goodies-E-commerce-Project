@@ -66,7 +66,7 @@ function LoginForm() {
       method="post"
       onSubmit={handleSubmit}
     >
-      <h1 className="font-roboto font-bold text-center text-base-100 z-50 text-xl  xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl">
+      <h1 className="font-roboto font-bold text-center text-base-100 z-10 text-xl  xl:text-4xl lg:text-3xl md:text-2xl sm:text-xl">
         Log in
       </h1>
       <div className="h-1/3 w-3/4 self-center justify-self-center flex flex-col justify-around">

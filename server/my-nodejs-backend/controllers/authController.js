@@ -50,7 +50,7 @@ const login = async (req, res) => {
       const lastLogin = now.toISOString();
       const lastUpdate = now.toISOString();
       res.status(200).json({
-        // accessToken,
+        accessToken,
         message: "login success",
         user: {
           _id: _id,

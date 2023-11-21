@@ -1,4 +1,6 @@
 const express = require("express");
+const router = express.Router();
+const Customer = require("../models/Customer");
 const { loginCustomerController } = require("../controllers/authController");
 const {
   Add_Customer_Controller,
@@ -13,8 +15,6 @@ const {
   Activate_Customer_Controller,
 } = require("../controllers/customerController");
 const { googleAuth, CallBackGoogle } = require("../controllers/Oauth");
-const router = express.Router();
-const Customer = require("../models/Customer");
 const { v4 } = require("uuid"); // Import the uuid package and generate a v4 UUID
 const passport = require("passport");
 const {
@@ -58,7 +58,7 @@ router.post("/customers", Add_Customer_Controller);
 // activate account by email
 router.post("/confirm/:token", Activate_Customer_Controller);
 
-// Get All Customers good  ----------Only Admin and Manager
+// Get All Customers good  ----------Only Admin and Manager---(checkUserRole)
 router.get("/customers", Get_All_Customer_Controller);
 
 // Get Customer by Username Good  ----------Only Admin and Manager
@@ -76,7 +76,7 @@ router.put("/data/:id", Update_Customer_data_Controller);
 // Delete Customer
 router.delete("/:id", Delete_Customer_Controller);
 
-// Get Customer Profile by ID  
+// Get Customer Profile by ID
 router.get("/profile/:id", get_Customer_Profile_Controller);
 
 // Update Customer Profile by ID
